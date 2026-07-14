@@ -1,26 +1,94 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+  HackHonest design system — Tailwind 4, CSS-based config.
+
+  Direction: light-first, editorial, trustworthy. One blue accent (#1d4ed8).
+  Generous whitespace, 1px borders, minimal shadows, AAA contrast for body text.
+  All semantic tokens live here; components only ever reference the token names
+  (bg-surface, text-muted, border-border, ...) so re-theming is a one-file change.
+*/
+
+@theme {
+  /* Typography — Be Vietnam Pro (wired in app/layout.tsx via next/font). */
+  --font-sans:
+    var(--font-be-vietnam-pro), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Core neutrals — a calm off-white page under pure-white cards. */
+  --color-background: #f8fafc; /* page canvas (slate-50) */
+  --color-surface: #ffffff; /* cards, nav, elevated blocks */
+  --color-surface-muted: #f1f5f9; /* subtle fills, tracks (slate-100) */
+  --color-border: #e2e8f0; /* default 1px hairline (slate-200) */
+  --color-border-strong: #cbd5e1; /* hover / emphasis border (slate-300) */
+
+  /* Text — tuned for AAA (>=7:1) on white and on surface-muted. */
+  --color-foreground: #0f172a; /* primary text ~16:1 (slate-900) */
+  --color-muted: #475569; /* secondary text ~7.5:1 AAA (slate-600) */
+  --color-faint: #64748b; /* meta / placeholders ~5.9:1 (slate-500) */
+
+  /* Accent — the single blue. Fills use `accent`; text-on-light uses
+     `accent-strong` (blue-800, ~8:1) so inline links stay AAA. */
+  --color-accent: #1d4ed8; /* blue-700 — buttons, focus, active */
+  --color-accent-strong: #1e40af; /* blue-800 — AAA link text on light */
+  --color-accent-foreground: #ffffff; /* text/icons on an accent fill */
+  --color-accent-subtle: #eff6ff; /* tinted accent background (blue-50) */
+  --color-accent-border: #bfdbfe; /* accent chip border (blue-200) */
+
+  /* Semantic status — solid values for icons/borders. Chips pair a 50-tint
+     background with an 800-tone text from Tailwind's default palette (AAA). */
+  --color-success: #15803d; /* green-700 */
+  --color-warning: #b45309; /* amber-700 */
+  --color-danger: #b91c1c; /* red-700 */
+
+  /* Rating gold — the universal star convention, kept distinct from the UI
+     accent so a rating never reads as an interactive control. */
+  --color-rating: #f59e0b; /* amber-500 */
+
+  /* Radius — softly rounded, editorial. */
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1.25rem;
+
+  /* Shadows — barely-there elevation; the border does most of the work. */
+  --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.04);
+  --shadow-md:
+    0 4px 12px -2px rgb(15 23 42 / 0.06), 0 2px 6px -2px rgb(15 23 42 / 0.04);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base — apply canvas + text + font once, globally. */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Editorial niceties: balanced headings, pretty body wrapping. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Respect reduced-motion users everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
