@@ -3,24 +3,28 @@ import type { Review } from "@/lib/types";
 // ─────────────────────────────────────────────────────────────────────────────
 // DEMO SEED DATA.
 //
-// In production, HackHonest hosts ONLY real, first-hand, verified reviews — no
-// fabricated content (that would break both the trust model and the law). The set
-// below is illustrative sample data for the PRIVATE PREVIEW / live demo: it shows
-// the full range the platform captures (well-run events and badly-run ones alike),
-// how verification and right-of-reply render, and how the neutral aggregate reads.
+// In production, HackHonest hosts ONLY real, first-hand, verified reviews — no fabricated
+// content (that would break both the trust model and the law). The set below is illustrative
+// sample data for the PRIVATE PREVIEW / live demo: it shows the full range the platform
+// captures (well-run events and badly-run ones alike), how verification and right-of-reply
+// render, and how the neutral aggregate reads.
 //
-// The one exception is `abs-2026-attested-1`, which is a real first-hand attendee
-// account (the flagship case), with the organizer's name changed for the demo.
+// The flagship "on the record" case is shown as a FICTIONAL, clearly-labelled example
+// (organizer Zenith AI Ventures / event Zenith Agent Grand Prix 2026, every entry example: true).
+// A real, named, first-hand attendee account is preserved OUT of the rendered site in
+// `reviews-pending-counsel.ts` (never imported); it is held until a public named launch is
+// approved by the owner and a Vietnam / Southeast Asia counsel read clears it.
 //
-// Before any public launch: clear the demo entries below and keep only genuine,
-// verified submissions.
+// Before any public launch: clear the demo entries below and keep only genuine, verified
+// submissions.
 // ─────────────────────────────────────────────────────────────────────────────
 export const reviews: Review[] = [
-  // ══ Flagship case — REAL first-hand account (organizer name changed for demo) ══
+  // ══ Flagship EXAMPLE — three FICTIONAL, illustrative reviews of the make-believe Zenith
+  //    Agent Grand Prix 2026 (organizer Zenith AI Ventures). Not real accounts. ══════════════
   {
-    id: "abs-2026-attested-1",
-    actorSlug: "catalyst-ai",
-    eventSlug: "abs-2026",
+    id: "zenith-grand-prix-2026-example-1",
+    actorSlug: "zenith-ai",
+    eventSlug: "zenith-grand-prix-2026",
     overall: 2,
     dimensions: [
       { key: "prizes", label: "Prizes delivered as promised", rating: 1 },
@@ -31,32 +35,53 @@ export const reviews: Review[] = [
       { key: "respect", label: "Respected participants' work", rating: 2 },
     ],
     headline: "Advertised credits never arrived, and most 'perks' were other companies' free programs",
-    body:
-      "I attended Agent Builders Summit 2026 (ABS) in person. Here is what happened to me, with receipts.\n\n" +
-      "The perks page advertised NeuralForge credits ($150 plus 3 months of NeuralForge Pro) and $1,000 in StratusCloud " +
-      "credits. I applied through the official portal, which showed my status as 'Applied' and later " +
-      "'Claimed'. I received nothing. The StratusCloud 'perk' was a link that redirected to StratusCloud's standard Activate " +
-      "program, which anyone can apply to and which has nothing to do with the event. Several of the big " +
-      "headline perks (Hyperion for Startups '$1.5M', PixelByte '$15,000', Noteflow 'over $6,000') are the " +
-      "providers' own public startup programs, presented as if the organizer was granting them.\n\n" +
-      "The '$1M+ in perks and credits' headline is built from those third-party programs plus free tiers " +
-      "and out-of-stock items. The perks page itself states, in fine print, that 'submitting an application " +
-      "does not guarantee receipt.'\n\n" +
-      "The track structure is what bothered me most. Every one of the 67 problem statements is a named " +
-      "enterprise's real production problem, and the rules require you to build a working solution to a " +
-      "sponsor's problem and submit your source code, with the stated goal of solutions 'deploying within " +
-      "90 days.' Prizes were not disclosed until the kickoff mid-event, so we committed our weekend before " +
-      "knowing what, if anything, we were competing for.\n\n" +
-      "This is my own experience as a participant. I'm posting it so the next person can decide for themselves.",
+    body: `This is an illustrative example, not a real review. It is written to show the kind of first-hand account HackHonest is built to host.
+
+In the example, a builder attends the Zenith Agent Grand Prix 2026 in person. The perks page advertises CircuitAI credits ($150 per participant) and $1,000 in CloudNova credits. They apply through the official portal, which shows their status as 'Claimed'. They receive nothing. The CloudNova 'perk' is a link that redirects to CloudNova's standard startup-credits program, which anyone can apply to and which has nothing to do with the event. Several of the big headline perks (a 'Hyperion for Startups $1.5M prize pool', a 'Noteflow $6,000 estimated value') are the providers' own public startup programs, presented as if the organizer were granting them.
+
+The '$1,000,000+ in perks and credits' headline is built from those third-party programs plus free tiers and out-of-stock items. The perks page itself states, in fine print, that 'submitting an application does not guarantee receipt.'
+
+The track structure is the part that bothers the builder most. Every problem statement is a named sponsor's real production problem, the rules require a working solution plus source code, and prizes are not disclosed until a mid-event kickoff. The whole weekend is committed before anyone knows what, if anything, they are competing for.`,
     verified: true,
-    verifyMethod: "founder-attested",
-    author: "Verified ABS 2026 participant",
-    date: "2026-07-14",
-    evidence: [
-      { label: "Perks & Credits page (30 partner perks)", kind: "screenshot", note: "NeuralForge $150 and StratusCloud $1,000 shown as 'Applied'." },
-      { label: "Builder dashboard showing perks 'Claimed'", kind: "screenshot", note: "Marked Claimed; $0 received." },
-      { label: "StratusCloud perk link redirects to StratusCloud Activate", kind: "link", note: "The organizer's link goes to StratusCloud's own standard program." },
+    verifyMethod: "evidence",
+    author: "Illustrative example",
+    date: "2026-08-25",
+  },
+  {
+    id: "zenith-grand-prix-2026-example-2",
+    actorSlug: "zenith-ai",
+    eventSlug: "zenith-grand-prix-2026",
+    overall: 2,
+    dimensions: [
+      { key: "prizes", label: "Prizes delivered as promised", rating: 2 },
+      { key: "judging", label: "Judging was fair & transparent", rating: 2 },
+      { key: "organization", label: "Well organized", rating: 3 },
+      { key: "honesty", label: "Honest marketing", rating: 1 },
+      { key: "respect", label: "Respected participants' work", rating: 1 },
     ],
+    headline: "The sponsors left with free prototypes; we left with nothing",
+    body: `This is an illustrative example, not a real review. It shows a pattern builders commonly report.
+
+In the example, every track is a company's real production problem, and the 'winning' teams' work goes straight to those companies. The promised investment conversation never happens for anyone the builder speaks to. The only public leaderboard ranks who referred the most sign-ups, not who built the best solution. It reads less like a hackathon and more like unpaid contract work with a leaderboard on top.`,
+    verified: true,
+    verifyMethod: "evidence",
+    author: "Illustrative example",
+    date: "2026-08-26",
+  },
+  {
+    id: "zenith-grand-prix-2026-example-3",
+    actorSlug: "zenith-ai",
+    eventSlug: "zenith-grand-prix-2026",
+    overall: 1,
+    dimensions: [
+      { key: "prizes", label: "Prizes delivered as promised", rating: 1 },
+      { key: "honesty", label: "Honest marketing", rating: 1 },
+    ],
+    headline: "Prize announced on stage, then silence",
+    body: `This is an illustrative example, not a real review. In it, a team is named on stage for a track prize and then hears nothing: no transfer, no timeline, and no reply to follow-up emails.`,
+    verified: false,
+    author: "Illustrative example",
+    date: "2026-08-27",
   },
 
   // ══ OpenBuild Hack 2026 — a well-run event (the counter-example) ══════════════
