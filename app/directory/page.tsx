@@ -1,22 +1,25 @@
 import type { Metadata } from "next";
 import { actors, events, aggregateForActor } from "@/lib/data";
-import { brand } from "@/lib/brand";
+import { getT } from "@/lib/i18n/server";
 import {
   DirectoryBrowser,
   type DirectoryItem,
 } from "@/components/directory-browser";
 
-export const metadata: Metadata = {
-  title: `Directory — ${brand.name}`,
-  description:
-    "Browse and search hackathon organizers, companies, and sponsors, and see what verified participants reported.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getT();
+  return {
+    title: t.directory.metaTitle,
+    description: t.directory.metaDescription,
+  };
+}
 
 export default async function DirectoryPage({
   searchParams,
 }: {
   searchParams: Promise<{ q?: string }>;
 }) {
+  const t = await getT();
   const { q } = await searchParams;
   const query = (q ?? "").trim();
 
@@ -54,10 +57,8 @@ export default async function DirectoryPage({
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-10">
-      <h1 className="text-3xl font-bold tracking-tight text-foreground">Directory</h1>
-      <p className="mt-2 text-[15px] text-muted">
-        Search the companies, organizers, and sponsors behind hackathon events.
-      </p>
+      <h1 className="text-3xl font-bold tracking-tight text-foreground">{t.directory.title}</h1>
+      <p className="mt-2 text-[15px] text-muted">{t.directory.subtitle}</p>
 
       <DirectoryBrowser items={items} initialQuery={query} />
     </div>

@@ -1,33 +1,32 @@
+"use client";
+
 import * as React from "react";
 import Link from "next/link";
 import { ShieldCheck, MapPin } from "lucide-react";
 import { brand } from "@/lib/brand";
-
-interface FooterLink {
-  label: string;
-  href: string;
-}
-
-const FOOTER_SECTIONS: { heading: string; links: FooterLink[] }[] = [
-  {
-    heading: "Explore",
-    links: [
-      { label: "Directory", href: "/directory" },
-      { label: "Write a review", href: "/review/new" },
-    ],
-  },
-  {
-    heading: "Trust",
-    links: [
-      { label: "How it works", href: "/how-it-works" },
-      { label: "Trust & safety", href: "/trust" },
-    ],
-  },
-];
+import { useT } from "@/lib/i18n/locale-provider";
 
 /** Site footer: neutral-host posture, region, links, and the "not official" disclaimer. */
 export function SiteFooter() {
+  const t = useT();
   const year = new Date().getFullYear();
+
+  const sections = [
+    {
+      heading: t.footer.explore,
+      links: [
+        { label: t.nav.directory, href: "/directory" },
+        { label: t.common.writeReview, href: "/review/new" },
+      ],
+    },
+    {
+      heading: t.footer.trust,
+      links: [
+        { label: t.nav.howItWorks, href: "/how-it-works" },
+        { label: t.nav.trust, href: "/trust" },
+      ],
+    },
+  ];
 
   return (
     <footer className="mt-16 border-t border-border bg-surface">
@@ -39,16 +38,16 @@ export function SiteFooter() {
               <ShieldCheck aria-hidden="true" className="size-6 text-accent" />
               <span>{brand.name}</span>
             </div>
-            <p className="text-sm leading-relaxed text-muted">{brand.posture}</p>
+            <p className="text-sm leading-relaxed text-muted">{t.brand.posture}</p>
             <p className="mt-4 inline-flex items-center gap-1.5 text-sm text-faint">
               <MapPin aria-hidden="true" className="size-4" />
-              {brand.region}
+              {t.brand.region}
             </p>
           </div>
 
           {/* Link columns */}
           <div className="grid grid-cols-2 gap-8 sm:gap-16">
-            {FOOTER_SECTIONS.map((section) => (
+            {sections.map((section) => (
               <nav key={section.heading} aria-label={section.heading}>
                 <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-faint">
                   {section.heading}
@@ -72,14 +71,8 @@ export function SiteFooter() {
 
         {/* Disclaimer + copyright */}
         <div className="mt-10 flex flex-col gap-3 border-t border-border pt-6 text-xs leading-relaxed text-faint sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-2xl">
-            This is not the organizer&apos;s official page. {brand.name} hosts
-            independent, first-hand reviews from verified participants. Every
-            number on this site is a count of what real attendees reported.
-          </p>
-          <p className="shrink-0">
-            © {year} {brand.name}
-          </p>
+          <p className="max-w-2xl">{t.footer.disclaimer(brand.name)}</p>
+          <p className="shrink-0">{t.footer.copyright(year, brand.name)}</p>
         </div>
       </div>
     </footer>

@@ -50,10 +50,11 @@ export function computeAggregate(rs: Review[]): Aggregate {
   });
 
   // "N of M verified reviewers rated '<dimension>' 2 stars or lower" — a neutral count.
+  // `key` lets the UI localize the phrase; `label` is the English fallback.
   const signals = REVIEW_DIMENSIONS.map((d) => {
     const of = verified.length;
     const n = verified.filter((r) => (r.dimensions.find((x) => x.key === d.key)?.rating ?? 5) <= 2).length;
-    return { label: `rated "${d.label}" 2 stars or lower`, n, of };
+    return { key: d.key, label: `rated "${d.label}" 2 stars or lower`, n, of };
   }).filter((s) => s.of > 0 && s.n > 0);
 
   return { count, verifiedCount, avgOverall, dimensionAverages, signals };
