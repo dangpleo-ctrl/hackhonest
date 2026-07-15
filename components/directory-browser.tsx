@@ -280,11 +280,11 @@ export function DirectoryBrowser({
               <div className="flex items-center justify-between gap-3 px-4 py-3">
                 <span className="text-sm text-muted">{t.directory.noMatches(query.trim())}</span>
                 <Link
-                  href="/review/new"
+                  href="/suggest"
                   onClick={() => setOpen(false)}
                   className="shrink-0 text-sm font-semibold text-accent-strong hover:underline"
                 >
-                  {t.directory.addFirstReviewArrow}
+                  {t.directory.addToDirectoryArrow}
                 </Link>
               </div>
             )}

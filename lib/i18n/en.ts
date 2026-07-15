@@ -10,6 +10,7 @@ export const en = {
   nav: {
     ariaPrimary: "Primary",
     directory: "Directory",
+    addEntry: "Add an entry",
     howItWorks: "How it works",
     trust: "Trust & safety",
     writeReview: "Write a review",
@@ -220,6 +221,7 @@ export const en = {
     tabSponsors: "Sponsors",
     noMatches: (q: string) => `No matches for "${q}".`,
     addFirstReviewArrow: "Add the first review →",
+    addToDirectoryArrow: "Add it to the directory →",
     nothingHereYet: "Nothing here yet.",
     addFirstReview: "Add the first review",
     alsoKnownAs: (list: string) => `Also known as ${list}`,
