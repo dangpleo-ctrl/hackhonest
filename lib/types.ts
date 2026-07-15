@@ -137,3 +137,42 @@ export interface Aggregate {
   // `label` is the pre-composed English fallback.
   signals: { key?: string; label: string; n: number; of: number }[];
 }
+
+// ── Community forum ───────────────────────────────────────────────────────────
+// Pure shapes shared between the server query layer (lib/forum.ts) and the
+// pages. Reputation attaches to the author profile in a later iteration.
+
+export interface ForumCategory {
+  id: string;
+  name: string;
+  description: string | null;
+  position: number;
+}
+
+/** A category plus derived activity, for the forum index cards. */
+export interface ForumCategoryStat {
+  category: ForumCategory;
+  threadCount: number;
+  lastActivityAt: string | null;
+}
+
+export interface ForumThread {
+  id: string;
+  categoryId: string;
+  title: string;
+  body: string;
+  actorSlug: string | null;
+  createdAt: string;
+  lastActivityAt: string;
+  replyCount: number;
+  locked: boolean;
+  /** Public handle of the author, or null if the profile was removed. */
+  authorHandle: string | null;
+}
+
+export interface ForumPost {
+  id: string;
+  body: string;
+  createdAt: string;
+  authorHandle: string | null;
+}
