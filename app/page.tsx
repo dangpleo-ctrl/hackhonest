@@ -7,7 +7,7 @@ import {
   MapPin,
   ArrowRight,
 } from "lucide-react";
-import { brand } from "@/lib/brand";
+import { getT } from "@/lib/i18n/server";
 import {
   getEvent,
   getActor,
@@ -19,7 +19,7 @@ import {
 import { ActorCard } from "@/components/actor-card";
 import { StarRating } from "@/components/star-rating";
 import { Badge, type BadgeTone } from "@/components/ui/badge";
-import { scoreTone, scoreBandLabel, type ScoreTone } from "@/components/rating-score";
+import { scoreTone, type ScoreTone } from "@/components/rating-tone";
 
 const TONE_TEXT: Record<ScoreTone, string> = {
   good: "text-success",
@@ -32,7 +32,8 @@ const TONE_BADGE: Record<ScoreTone, BadgeTone> = {
   poor: "danger",
 };
 
-export default function Home() {
+export default async function Home() {
+  const t = await getT();
   const featured = getEvent("zenith-grand-prix-2026");
   const featuredAgg = featured ? aggregateForEvent(featured.slug) : null;
   const featuredOrg = featured ? getActor(featured.organizerSlug) : null;
@@ -43,7 +44,7 @@ export default function Home() {
   const eventCount = events.length;
 
   const featuredTone = featuredAgg ? scoreTone(featuredAgg.avgOverall) : null;
-  const featuredBand = featuredAgg ? scoreBandLabel(featuredAgg.avgOverall) : null;
+  const featuredBand = featuredTone ? t.ratingBand[featuredTone] : null;
 
   return (
     <div>
@@ -57,14 +58,15 @@ export default function Home() {
         <div className="relative mx-auto max-w-5xl px-5 py-20 sm:py-28">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-accent-border bg-accent-subtle px-3 py-1 text-xs font-semibold text-accent-strong">
             <ShieldCheck aria-hidden="true" className="size-3.5" />
-            {brand.region}
+            {t.home.heroBadge}
           </span>
 
           <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-6xl">
-            Hold hackathons <span className="text-accent-strong">accountable.</span>
+            {t.home.heroTitleLead}
+            <span className="text-accent-strong">{t.home.heroTitleAccent}</span>
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
-            {brand.pitch}
+            {t.brand.pitch}
           </p>
 
           {/* Primary CTA — search the directory */}
@@ -81,8 +83,8 @@ export default function Home() {
               <input
                 type="search"
                 name="q"
-                aria-label="Search an organizer, sponsor, or event"
-                placeholder="Search an organizer, sponsor, or event…"
+                aria-label={t.home.searchAria}
+                placeholder={t.home.searchPlaceholder}
                 className="h-14 w-full rounded-xl border border-border bg-surface pl-12 pr-4 text-base text-foreground shadow-sm outline-none placeholder:text-faint focus:border-accent focus:ring-4 focus:ring-accent/15"
               />
             </div>
@@ -90,26 +92,26 @@ export default function Home() {
               type="submit"
               className="inline-flex h-14 shrink-0 items-center justify-center rounded-xl bg-accent px-8 text-base font-semibold text-accent-foreground shadow-sm transition-colors hover:bg-accent-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              Search
+              {t.home.searchButton}
             </button>
           </form>
 
           <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             <Link href="/directory" className="inline-flex items-center gap-1 font-semibold text-accent-strong hover:underline">
-              Browse the full directory
+              {t.common.browseDirectory}
               <ArrowRight aria-hidden="true" className="size-4" />
             </Link>
             <span className="text-border-strong" aria-hidden="true">|</span>
             <Link href="/review/new" className="font-semibold text-accent-strong hover:underline">
-              Write a review
+              {t.home.writeReview}
             </Link>
           </div>
 
           {/* Trust stats — real counts from the seed */}
           <dl className="mt-12 flex flex-wrap gap-x-10 gap-y-6">
-            <HeroStat value={organizerCount} label="organizers on record" />
-            <HeroStat value={verifiedReviews} label="verified reviews" />
-            <HeroStat value={eventCount} label="events tracked" />
+            <HeroStat value={organizerCount} label={t.home.statOrganizers} />
+            <HeroStat value={verifiedReviews} label={t.home.statVerifiedReviews} />
+            <HeroStat value={eventCount} label={t.home.statEvents} />
           </dl>
         </div>
       </section>
@@ -120,7 +122,7 @@ export default function Home() {
           <section className="mt-16">
             <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-faint">
               <FileText aria-hidden="true" className="size-4" />
-              On the record
+              {t.home.onTheRecord}
             </div>
 
             <Link
@@ -152,13 +154,13 @@ export default function Home() {
                   </p>
 
                   <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                    <Stat label="Problem statements" value={`${(featured.problems ?? []).length}`} sub="each a sponsor's real production problem" />
-                    <Stat label="Advertised" value="$1M+ perks" sub="mostly third-party programs & free tiers" />
-                    <Stat label="Reported" value="Credits not delivered" sub="applied via the portal, received $0" />
+                    <Stat label={t.home.featuredProblemsLabel} value={`${(featured.problems ?? []).length}`} sub={t.home.featuredProblemsSub} />
+                    <Stat label={t.home.featuredAdvertisedLabel} value={t.home.featuredAdvertisedValue} sub={t.home.featuredAdvertisedSub} />
+                    <Stat label={t.home.featuredReportedLabel} value={t.home.featuredReportedValue} sub={t.home.featuredReportedSub} />
                   </div>
 
                   <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-strong">
-                    See the full record
+                    {t.home.seeFullRecord}
                     <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-0.5" />
                   </span>
                 </div>
@@ -167,7 +169,7 @@ export default function Home() {
                 {featuredAgg.avgOverall !== null && (
                   <div className="flex flex-col justify-center gap-3 border-t border-border bg-surface-sunken p-6 sm:p-8 lg:border-l lg:border-t-0">
                     <span className="text-xs font-semibold uppercase tracking-wide text-faint">
-                      Community record
+                      {t.home.communityRecord}
                     </span>
                     <div className="flex items-end gap-2">
                       <span className={`text-6xl font-bold leading-none tabular-nums ${featuredTone ? TONE_TEXT[featuredTone] : "text-foreground"}`}>
@@ -182,8 +184,8 @@ export default function Home() {
                       </Badge>
                     )}
                     <p className="text-sm text-muted">
-                      <span className="font-semibold text-foreground">{featuredAgg.count}</span> reviews ·{" "}
-                      <span className="font-semibold text-foreground">{featuredAgg.verifiedCount}</span> verified
+                      <span className="font-semibold text-foreground">{featuredAgg.count}</span> {t.common.reviews} ·{" "}
+                      <span className="font-semibold text-foreground">{featuredAgg.verifiedCount}</span> {t.aggregate.verifiedSuffix}
                     </p>
                   </div>
                 )}
@@ -194,15 +196,15 @@ export default function Home() {
 
         {/* ── How it works ───────────────────────────────────────────────── */}
         <section className="mt-16">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground">How it works</h2>
+          <h2 className="text-xl font-semibold tracking-tight text-foreground">{t.home.howItWorksTitle}</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
-            <HowStep n="1" title="Search the organizer" body="Reputation follows the actor across events, not just one weekend." />
-            <HowStep n="2" title="Read the record" body="A neutral count of what verified attendees actually reported." />
-            <HowStep n="3" title="Add yours" body="Took part? Post a verified review. You stay anonymous." />
+            <HowStep n="1" title={t.home.step1Title} body={t.home.step1Body} />
+            <HowStep n="2" title={t.home.step2Title} body={t.home.step2Body} />
+            <HowStep n="3" title={t.home.step3Title} body={t.home.step3Body} />
           </div>
           <div className="mt-4">
             <Link href="/how-it-works" className="inline-flex items-center gap-1 text-sm font-semibold text-accent-strong hover:underline">
-              How it works
+              {t.home.howItWorksLink}
               <ArrowRight aria-hidden="true" className="size-4" />
             </Link>
           </div>
@@ -211,7 +213,7 @@ export default function Home() {
         {/* ── Organizers on record ───────────────────────────────────────── */}
         {notable.length > 0 && (
           <section className="mt-16">
-            <h2 className="text-xl font-semibold tracking-tight text-foreground">Organizers on record</h2>
+            <h2 className="text-xl font-semibold tracking-tight text-foreground">{t.home.organizersOnRecord}</h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {notable.map((a) => (
                 <ActorCard key={a.slug} actor={a} />
@@ -219,7 +221,7 @@ export default function Home() {
             </div>
             <div className="mt-4">
               <Link href="/directory" className="inline-flex items-center gap-1 text-sm font-semibold text-accent-strong hover:underline">
-                Browse the full directory
+                {t.common.browseDirectory}
                 <ArrowRight aria-hidden="true" className="size-4" />
               </Link>
             </div>
@@ -233,10 +235,10 @@ export default function Home() {
               <ShieldCheck aria-hidden="true" className="size-5" />
             </span>
             <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-              {brand.posture}
+              {t.brand.posture}
             </p>
             <Link href="/trust" className="inline-flex items-center gap-1 text-sm font-semibold text-accent-strong hover:underline">
-              How we keep it honest
+              {t.home.howWeKeepItHonest}
               <ArrowRight aria-hidden="true" className="size-4" />
             </Link>
           </div>

@@ -1,15 +1,18 @@
+"use client";
+
 import * as React from "react";
 import Link from "next/link";
 import { MapPin, Globe, History } from "lucide-react";
 import type { Actor, ActorKind, Aggregate } from "@/lib/types";
+import { useT } from "@/lib/i18n/locale-provider";
 import { RatingScore } from "./rating-score";
 import { Badge, type BadgeTone } from "./ui/badge";
 import { cn } from "./ui/cn";
 
-const KIND_META: Record<ActorKind, { label: string; tone: BadgeTone }> = {
-  organizer: { label: "Organizer", tone: "accent" },
-  company: { label: "Company", tone: "neutral" },
-  sponsor: { label: "Sponsor", tone: "neutral" },
+const KIND_TONE: Record<ActorKind, BadgeTone> = {
+  organizer: "accent",
+  company: "neutral",
+  sponsor: "neutral",
 };
 
 export interface ActorCardProps {
@@ -27,6 +30,7 @@ export interface ActorCardProps {
  * signal — shown, never asserted.
  */
 export function ActorCard({ actor, aggregate, href, className }: ActorCardProps) {
+  const t = useT();
   const { slug, name, kinds, aka, website, location, blurb, claimed } = actor;
   const target = href ?? `/o/${slug}`;
   const websiteHost = website
@@ -59,7 +63,7 @@ export function ActorCard({ actor, aggregate, href, className }: ActorCardProps)
           </div>
           {claimed && (
             <Badge tone="success" size="sm" className="shrink-0">
-              Claimed
+              {t.directory.claimed}
             </Badge>
           )}
         </div>
@@ -69,8 +73,8 @@ export function ActorCard({ actor, aggregate, href, className }: ActorCardProps)
           <ul className="flex flex-wrap gap-1.5">
             {kinds.map((k) => (
               <li key={k}>
-                <Badge tone={KIND_META[k].tone} size="sm">
-                  {KIND_META[k].label}
+                <Badge tone={KIND_TONE[k]} size="sm">
+                  {t.actorKinds[k]}
                 </Badge>
               </li>
             ))}
@@ -95,7 +99,7 @@ export function ActorCard({ actor, aggregate, href, className }: ActorCardProps)
         {aka && aka.length > 0 && (
           <p className="inline-flex items-start gap-1.5 text-xs leading-relaxed text-faint">
             <History aria-hidden="true" className="mt-0.5 size-3.5 shrink-0" />
-            <span>Also known as {aka.join(", ")}</span>
+            <span>{t.directory.alsoKnownAs(aka.join(", "))}</span>
           </p>
         )}
 

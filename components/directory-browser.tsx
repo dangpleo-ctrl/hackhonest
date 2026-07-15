@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MapPin, Globe, History, Search, X, Calendar } from "lucide-react";
 import type { ActorKind } from "@/lib/types";
+import { useT } from "@/lib/i18n/locale-provider";
+import type { Messages } from "@/lib/i18n";
 import { RatingScore } from "./rating-score";
 import { Badge, type BadgeTone } from "./ui/badge";
 import { cn } from "./ui/cn";
@@ -43,10 +45,10 @@ export type DirectoryItem = DirectoryActorItem | DirectoryEventItem;
 
 type Category = "all" | "organizers" | "events" | "companies" | "sponsors";
 
-const KIND_META: Record<ActorKind, { label: string; tone: BadgeTone }> = {
-  organizer: { label: "Organizer", tone: "accent" },
-  company: { label: "Company", tone: "neutral" },
-  sponsor: { label: "Sponsor", tone: "neutral" },
+const KIND_TONE: Record<ActorKind, BadgeTone> = {
+  organizer: "accent",
+  company: "neutral",
+  sponsor: "neutral",
 };
 
 // How many cards each category shows in the compact "All" overview before the
@@ -65,9 +67,10 @@ function primaryKind(a: DirectoryActorItem): ActorKind {
   return "sponsor";
 }
 
-function badgeFor(it: DirectoryItem): { label: string; tone: BadgeTone } {
-  if (it.type === "event") return { label: "Event", tone: "outline" };
-  return KIND_META[primaryKind(it)];
+function badgeFor(it: DirectoryItem, t: Messages): { label: string; tone: BadgeTone } {
+  if (it.type === "event") return { label: t.actorKinds.event, tone: "outline" };
+  const kind = primaryKind(it);
+  return { label: t.actorKinds[kind], tone: KIND_TONE[kind] };
 }
 
 function locatorFor(it: DirectoryItem): string {
@@ -92,6 +95,7 @@ export function DirectoryBrowser({
   initialQuery?: string;
 }) {
   const router = useRouter();
+  const t = useT();
 
   // ── Category slices + counts (static; the search box navigates, it doesn't
   //    filter this grid, so the counts reflect the full dataset) ──────────────
@@ -108,11 +112,11 @@ export function DirectoryBrowser({
   }, [items]);
 
   const tabs: { key: Category; label: string; count: number }[] = [
-    { key: "all", label: "All", count: actorItems.length + eventItems.length },
-    { key: "organizers", label: "Organizers", count: organizers.length },
-    { key: "events", label: "Events", count: eventItems.length },
-    { key: "companies", label: "Companies", count: companies.length },
-    { key: "sponsors", label: "Sponsors", count: sponsors.length },
+    { key: "all", label: t.directory.tabAll, count: actorItems.length + eventItems.length },
+    { key: "organizers", label: t.directory.tabOrganizers, count: organizers.length },
+    { key: "events", label: t.directory.tabEvents, count: eventItems.length },
+    { key: "companies", label: t.directory.tabCompanies, count: companies.length },
+    { key: "sponsors", label: t.directory.tabSponsors, count: sponsors.length },
   ];
 
   const [active, setActive] = React.useState<Category>("all");
@@ -207,7 +211,7 @@ export function DirectoryBrowser({
           aria-controls={listboxId}
           aria-autocomplete="list"
           aria-activedescendant={showDropdown && highlight >= 0 ? optionId(highlight) : undefined}
-          aria-label="Search organizers, sponsors, companies, and events"
+          aria-label={t.directory.searchAria}
           autoComplete="off"
           value={query}
           onChange={(e) => {
@@ -219,13 +223,13 @@ export function DirectoryBrowser({
             if (query.trim()) setOpen(true);
           }}
           onKeyDown={onKeyDown}
-          placeholder="Search organizers, sponsors, events…"
+          placeholder={t.directory.searchPlaceholder}
           className="h-11 w-full rounded-lg border border-border bg-surface pl-10 pr-10 text-[15px] text-foreground outline-none placeholder:text-faint focus:border-accent"
         />
         {query && (
           <button
             type="button"
-            aria-label="Clear search"
+            aria-label={t.directory.clearSearch}
             onClick={() => {
               setQuery("");
               setHighlight(-1);
@@ -243,7 +247,7 @@ export function DirectoryBrowser({
             {matches.length > 0 ? (
               <ul id={listboxId} role="listbox" className="max-h-[26rem] overflow-auto py-1">
                 {matches.map((it, i) => {
-                  const badge = badgeFor(it);
+                  const badge = badgeFor(it, t);
                   const locator = locatorFor(it);
                   return (
                     <li key={hrefFor(it)} id={optionId(i)} role="option" aria-selected={i === highlight}>
@@ -274,15 +278,13 @@ export function DirectoryBrowser({
               </ul>
             ) : (
               <div className="flex items-center justify-between gap-3 px-4 py-3">
-                <span className="text-sm text-muted">
-                  No matches for &ldquo;{query.trim()}&rdquo;.
-                </span>
+                <span className="text-sm text-muted">{t.directory.noMatches(query.trim())}</span>
                 <Link
                   href="/review/new"
                   onClick={() => setOpen(false)}
                   className="shrink-0 text-sm font-semibold text-accent-strong hover:underline"
                 >
-                  Add the first review →
+                  {t.directory.addFirstReviewArrow}
                 </Link>
               </div>
             )}
@@ -291,7 +293,7 @@ export function DirectoryBrowser({
       </div>
 
       {/* ── Category filter pills ─────────────────────────────────────────── */}
-      <div role="group" aria-label="Filter directory by category" className="mt-5 flex flex-wrap gap-2">
+      <div role="group" aria-label={t.directory.filterGroupAria} className="mt-5 flex flex-wrap gap-2">
         {tabs.map((t) => {
           const isActive = active === t.key;
           return (
@@ -324,10 +326,10 @@ export function DirectoryBrowser({
       {/* ── Content ───────────────────────────────────────────────────────── */}
       {active === "all" ? (
         <div>
-          <CategoryBlock title="Organizers" items={organizers} onSeeAll={() => setActive("organizers")} />
-          <CategoryBlock title="Events" items={eventItems} onSeeAll={() => setActive("events")} />
-          <CategoryBlock title="Companies" items={companies} onSeeAll={() => setActive("companies")} />
-          <CategoryBlock title="Sponsors" items={sponsors} onSeeAll={() => setActive("sponsors")} />
+          <CategoryBlock title={t.directory.tabOrganizers} items={organizers} onSeeAll={() => setActive("organizers")} />
+          <CategoryBlock title={t.directory.tabEvents} items={eventItems} onSeeAll={() => setActive("events")} />
+          <CategoryBlock title={t.directory.tabCompanies} items={companies} onSeeAll={() => setActive("companies")} />
+          <CategoryBlock title={t.directory.tabSponsors} items={sponsors} onSeeAll={() => setActive("sponsors")} />
         </div>
       ) : (
         <section className="mt-6">
@@ -353,6 +355,7 @@ function CategoryBlock({
   items: DirectoryItem[];
   onSeeAll: () => void;
 }) {
+  const t = useT();
   if (items.length === 0) return null;
   const shown = items.slice(0, OVERVIEW_CAP);
   const more = items.length - shown.length;
@@ -368,7 +371,7 @@ function CategoryBlock({
             onClick={onSeeAll}
             className="shrink-0 rounded-md text-sm font-medium text-accent-strong hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
-            See all {items.length} →
+            {t.common.seeAllN(items.length)}
           </button>
         )}
       </div>
@@ -394,6 +397,7 @@ function ItemGrid({ items }: { items: DirectoryItem[] }) {
 // Inline equivalent of <ActorCard> — same tokens/classes — because this is a
 // client component and the card needs the serialized aggregate we passed down.
 function ActorItemCard({ item }: { item: DirectoryActorItem }) {
+  const t = useT();
   const websiteHost = item.website
     ? item.website.replace(/^https?:\/\//, "").replace(/\/$/, "")
     : null;
@@ -422,7 +426,7 @@ function ActorItemCard({ item }: { item: DirectoryActorItem }) {
           </div>
           {item.claimed && (
             <Badge tone="success" size="sm" className="shrink-0">
-              Claimed
+              {t.directory.claimed}
             </Badge>
           )}
         </div>
@@ -431,8 +435,8 @@ function ActorItemCard({ item }: { item: DirectoryActorItem }) {
           <ul className="flex flex-wrap gap-1.5">
             {item.kinds.map((k) => (
               <li key={k}>
-                <Badge tone={KIND_META[k].tone} size="sm">
-                  {KIND_META[k].label}
+                <Badge tone={KIND_TONE[k]} size="sm">
+                  {t.actorKinds[k]}
                 </Badge>
               </li>
             ))}
@@ -448,7 +452,7 @@ function ActorItemCard({ item }: { item: DirectoryActorItem }) {
         {item.aka && item.aka.length > 0 && (
           <p className="inline-flex items-start gap-1.5 text-xs leading-relaxed text-faint">
             <History aria-hidden="true" className="mt-0.5 size-3.5 shrink-0" />
-            <span>Also known as {item.aka.join(", ")}</span>
+            <span>{t.directory.alsoKnownAs(item.aka.join(", "))}</span>
           </p>
         )}
 
@@ -465,6 +469,7 @@ function ActorItemCard({ item }: { item: DirectoryActorItem }) {
 
 // Matches the simple event card the directory already used.
 function EventItemCard({ item }: { item: DirectoryEventItem }) {
+  const t = useT();
   return (
     <Link
       href={`/e/${item.slug}`}
@@ -475,7 +480,7 @@ function EventItemCard({ item }: { item: DirectoryEventItem }) {
           {item.name}
         </div>
         <Badge tone="outline" size="sm" className="shrink-0">
-          Event
+          {t.actorKinds.event}
         </Badge>
       </div>
       <div className="mt-2 inline-flex items-center gap-1.5 text-sm text-muted">
@@ -487,14 +492,15 @@ function EventItemCard({ item }: { item: DirectoryEventItem }) {
 }
 
 function EmptyState() {
+  const t = useT();
   return (
     <div className="mt-4 rounded-xl border border-dashed border-border bg-surface p-8 text-center">
-      <p className="text-muted">Nothing here yet.</p>
+      <p className="text-muted">{t.directory.nothingHereYet}</p>
       <Link
         href="/review/new"
         className="mt-3 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:opacity-90"
       >
-        Add the first review
+        {t.directory.addFirstReview}
       </Link>
     </div>
   );

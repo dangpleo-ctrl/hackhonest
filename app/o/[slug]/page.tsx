@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { actors, getActor, eventsForActor, reviewsForActor, aggregateForActor } from "@/lib/data";
 import type { ActorKind } from "@/lib/types";
-import { brand } from "@/lib/brand";
+import { getT } from "@/lib/i18n/server";
 import { AggregateBar } from "@/components/aggregate-bar";
 import { ReviewCard } from "@/components/review-card";
 import { Badge, type BadgeTone } from "@/components/ui/badge";
@@ -14,19 +14,20 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
+  const t = await getT();
   const a = getActor(slug);
-  if (!a) return { title: `Organizer — ${brand.name}` };
+  if (!a) return { title: t.organizerPage.metaTitleFallback };
   return {
-    title: `${a.name} — hackathon reviews & record — ${brand.name}`,
-    description: `Is ${a.name} a good hackathon organizer/sponsor? What verified participants reported: ${a.blurb}`,
+    title: t.organizerPage.metaTitle(a.name),
+    description: t.organizerPage.metaDescription(a.name, a.blurb),
   };
 }
 
 const kindTone: Record<ActorKind, BadgeTone> = { organizer: "accent", sponsor: "neutral", company: "outline" };
-const kindLabel: Record<ActorKind, string> = { organizer: "Organizer", sponsor: "Sponsor", company: "Company" };
 
 export default async function ActorPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  const t = await getT();
   const actor = getActor(slug);
   if (!actor) notFound();
 
@@ -37,16 +38,16 @@ export default async function ActorPage({ params }: { params: Promise<{ slug: st
   return (
     <div className="mx-auto max-w-3xl px-5 py-10">
       <div className="flex flex-wrap items-center gap-2 text-sm text-faint">
-        <Link href="/directory" className="hover:text-foreground">Directory</Link>
+        <Link href="/directory" className="hover:text-foreground">{t.nav.directory}</Link>
         <span>/</span>
-        <span>{actor.kinds.includes("organizer") ? "Organizer" : "Sponsor"}</span>
+        <span>{actor.kinds.includes("organizer") ? t.organizerPage.crumbOrganizer : t.organizerPage.crumbSponsor}</span>
       </div>
 
       <div className="mt-2 flex flex-wrap items-center gap-3">
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">{actor.name}</h1>
         <div className="flex gap-1.5">
           {actor.kinds.map((k) => (
-            <Badge key={k} tone={kindTone[k]}>{kindLabel[k]}</Badge>
+            <Badge key={k} tone={kindTone[k]}>{t.actorKinds[k]}</Badge>
           ))}
         </div>
       </div>
@@ -61,28 +62,28 @@ export default async function ActorPage({ params }: { params: Promise<{ slug: st
         )}
       </div>
       {actor.aka && actor.aka.length > 1 && (
-        <p className="mt-2 text-xs text-faint">Also seen as: {actor.aka.join(", ")}</p>
+        <p className="mt-2 text-xs text-faint">{t.organizerPage.alsoSeenAs(actor.aka.join(", "))}</p>
       )}
 
       <div className="mt-5 flex flex-wrap gap-3">
         <Link href="/review/new" className="rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground shadow-sm transition-colors hover:bg-accent-strong">
-          Write a review
+          {t.organizerPage.writeReview}
         </Link>
-        <button className="cursor-not-allowed rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-faint" title="Right of reply — coming with public launch" disabled>
-          Claim this page
+        <button className="cursor-not-allowed rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-faint" title={t.organizerPage.claimTooltip} disabled>
+          {t.organizerPage.claimPage}
         </button>
       </div>
 
       <div className="mt-10">
-        <AggregateBar aggregate={agg} title="What verified reviewers reported" />
+        <AggregateBar aggregate={agg} title={t.organizerPage.aggregateTitle} />
       </div>
 
       {events.length > 0 && (
         <section className="mt-10">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground">Events</h2>
+          <h2 className="text-xl font-semibold tracking-tight text-foreground">{t.organizerPage.eventsHeading}</h2>
           <div className="mt-4 grid gap-3">
             {events.map((e) => {
-              const role = e.organizerSlug === slug ? "Organized" : "Sponsored";
+              const role = e.organizerSlug === slug ? t.organizerPage.roleOrganized : t.organizerPage.roleSponsored;
               return (
                 <Link key={e.slug} href={`/e/${e.slug}`} className="group block rounded-2xl border border-border bg-surface p-4 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md">
                   <div className="flex items-center justify-between gap-2">
@@ -98,13 +99,13 @@ export default async function ActorPage({ params }: { params: Promise<{ slug: st
       )}
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground">Reviews ({reviews.length})</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">{t.common.reviewsWithCount(reviews.length)}</h2>
         <div className="mt-4">
           {reviews.length === 0 ? (
             <div className="rounded-xl border border-dashed border-border bg-surface p-6 text-center">
-              <p className="text-sm text-muted">No reviews yet.</p>
+              <p className="text-sm text-muted">{t.organizerPage.noReviews}</p>
               <Link href="/review/new" className="mt-3 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm transition-colors hover:bg-accent-strong">
-                Be the first to review
+                {t.organizerPage.beFirst}
               </Link>
             </div>
           ) : (

@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import {
   Star,
@@ -8,16 +10,17 @@ import {
   CornerDownRight,
 } from "lucide-react";
 import type { Review, Evidence } from "@/lib/types";
+import { useT, useLocale } from "@/lib/i18n/locale-provider";
 import { RatingScore } from "./rating-score";
 import { VerifiedBadge } from "./verified-badge";
 import { Badge } from "./ui/badge";
 import { cn } from "./ui/cn";
 
-/** Deterministic date formatting (safe across server/client render). */
-function formatDate(raw: string): string {
+/** Deterministic, locale-aware date formatting (safe across server/client render). */
+function formatDate(raw: string, locale: string): string {
   const d = new Date(raw);
   if (Number.isNaN(d.getTime())) return raw;
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat(locale === "vi" ? "vi-VN" : "en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -31,12 +34,6 @@ const EVIDENCE_ICON: Record<Evidence["kind"], React.ComponentType<{ className?: 
   link: Link2,
 };
 
-const EVIDENCE_KIND_LABEL: Record<Evidence["kind"], string> = {
-  screenshot: "Screenshot",
-  email: "Email",
-  link: "Link",
-};
-
 export interface ReviewCardProps {
   review: Review;
   className?: string;
@@ -48,6 +45,10 @@ export interface ReviewCardProps {
  * pseudonymous byline, and the organizer's right-of-reply if they responded.
  */
 export function ReviewCard({ review, className }: ReviewCardProps) {
+  const t = useT();
+  const locale = useLocale();
+  const dimLabels = t.reviewDimensions as Record<string, { label: string; help: string }>;
+  const evidenceKindLabel = t.reviewCard.evidenceKinds as Record<string, string>;
   const {
     overall,
     dimensions,
@@ -79,7 +80,7 @@ export function ReviewCard({ review, className }: ReviewCardProps) {
             dateTime={date}
             className="text-sm text-faint"
           >
-            {formatDate(date)}
+            {formatDate(date, locale)}
           </time>
         </div>
 
@@ -103,7 +104,7 @@ export function ReviewCard({ review, className }: ReviewCardProps) {
                     aria-hidden="true"
                     className="fill-rating text-rating"
                   />
-                  <span>{d.label}</span>
+                  <span>{dimLabels[d.key]?.label ?? d.label}</span>
                   <span className="font-semibold tabular-nums text-foreground">
                     {d.rating}/5
                   </span>
@@ -117,7 +118,7 @@ export function ReviewCard({ review, className }: ReviewCardProps) {
         {evidence && evidence.length > 0 && (
           <div className="flex flex-col gap-2">
             <span className="text-xs font-semibold uppercase tracking-wide text-faint">
-              Evidence provided
+              {t.reviewCard.evidenceProvided}
             </span>
             <ul className="flex flex-wrap gap-2">
               {evidence.map((e, i) => {
@@ -127,7 +128,7 @@ export function ReviewCard({ review, className }: ReviewCardProps) {
                     <Badge
                       tone="outline"
                       size="sm"
-                      title={e.note ?? `${EVIDENCE_KIND_LABEL[e.kind]} evidence`}
+                      title={e.note ?? t.reviewCard.evidenceTitle(evidenceKindLabel[e.kind])}
                     >
                       <Icon aria-hidden={true} />
                       <span>{e.label}</span>
@@ -143,7 +144,7 @@ export function ReviewCard({ review, className }: ReviewCardProps) {
         <div className="flex items-center gap-2 border-t border-border pt-4 text-sm text-muted">
           <User aria-hidden="true" className="size-4 text-faint" />
           <span className="font-medium text-foreground">{author}</span>
-          <span className="text-faint">· pseudonymous, identity kept private</span>
+          <span className="text-faint">{t.reviewCard.byline}</span>
         </div>
 
         {/* Organizer right-of-reply */}
@@ -155,16 +156,16 @@ export function ReviewCard({ review, className }: ReviewCardProps) {
                 className="size-4 text-accent-strong"
               />
               <span className="text-sm font-semibold text-accent-strong">
-                Response from {reply.author}
+                {t.reviewCard.responseFrom(reply.author)}
               </span>
               <Badge tone="accent" size="sm">
-                Organizer reply
+                {t.reviewCard.organizerReply}
               </Badge>
               <time
                 dateTime={reply.date}
                 className="ml-auto text-xs text-muted"
               >
-                {formatDate(reply.date)}
+                {formatDate(reply.date, locale)}
               </time>
             </div>
             <p className="whitespace-pre-line text-sm leading-relaxed text-foreground">

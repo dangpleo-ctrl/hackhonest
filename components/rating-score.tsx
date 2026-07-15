@@ -1,31 +1,13 @@
+"use client";
+
 import * as React from "react";
 import { StarRating, type StarSize } from "./star-rating";
+import { scoreTone, type ScoreTone } from "./rating-tone";
+import { useT } from "@/lib/i18n/locale-provider";
 import { cn } from "./ui/cn";
 
-/**
- * The rating language, in one place. The average is the reviewers' aggregate —
- * a COUNT of what verified attendees reported, not a HackHonest verdict — so we
- * only ever color-code it for legibility (the Trustpilot/Glassdoor convention),
- * exactly like a temperature reading. Stars stay gold; the NUMBER carries the
- * band color so a good / caution / bad record reads in a single glance.
- */
-export type ScoreTone = "good" | "mixed" | "poor";
-
-export function scoreTone(avg: number | null): ScoreTone | null {
-  if (avg === null) return null;
-  if (avg >= 4.0) return "good";
-  if (avg >= 2.5) return "mixed";
-  return "poor";
-}
-
-/** Neutral, describes the REVIEWS (not the organizer's character). */
-export function scoreBandLabel(avg: number | null): string | null {
-  const tone = scoreTone(avg);
-  if (tone === "good") return "Well reviewed";
-  if (tone === "mixed") return "Mixed reviews";
-  if (tone === "poor") return "Poorly reviewed";
-  return null;
-}
+// Re-exported so existing imports of the tone helpers from this module keep working.
+export { scoreTone, type ScoreTone } from "./rating-tone";
 
 const TONE_TEXT: Record<ScoreTone, string> = {
   good: "text-success",
@@ -67,12 +49,13 @@ export function RatingScore({
   showCount = true,
   className,
 }: RatingScoreProps) {
+  const t = useT();
   const tone = scoreTone(avg);
 
   if (avg === null || tone === null) {
     return (
       <span className={cn("text-sm font-medium text-faint", className)}>
-        No reviews yet
+        {t.common.noReviewsYet}
       </span>
     );
   }
@@ -91,7 +74,7 @@ export function RatingScore({
       <StarRating value={avg} size={STAR_SIZE[size]} />
       {showCount && (
         <span className={cn("text-faint tabular-nums", COUNT_TEXT[size])}>
-          · {count} {count === 1 ? "review" : "reviews"}
+          · {t.common.reviewCount(count)}
         </span>
       )}
     </span>
