@@ -59,6 +59,14 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <span>/</span>
         <span>Event</span>
       </div>
+
+      {event.example && (
+        <div role="note" className="mt-4 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900">
+          <span className="font-semibold">⚠ Illustrative example.</span>{" "}
+          This is a fictional event created only to show the patterns {brand.name} helps you spot. It is not real.
+        </div>
+      )}
+
       <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground">{event.name}</h1>
       <p className="mt-2 text-[15px] text-muted">
         {event.dates} · {event.location}

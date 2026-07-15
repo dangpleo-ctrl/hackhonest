@@ -42,6 +42,13 @@ export default async function ActorPage({ params }: { params: Promise<{ slug: st
         <span>{actor.kinds.includes("organizer") ? "Organizer" : "Sponsor"}</span>
       </div>
 
+      {actor.example && (
+        <div role="note" className="mt-4 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900">
+          <span className="font-semibold">⚠ Illustrative example.</span>{" "}
+          This is a fictional organization created only to show the patterns {brand.name} helps you spot. It is not real.
+        </div>
+      )}
+
       <div className="mt-2 flex flex-wrap items-center gap-3">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">{actor.name}</h1>
         <div className="flex gap-1.5">
