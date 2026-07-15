@@ -5,7 +5,7 @@ import { ActorCard } from "@/components/actor-card";
 import { StarRating } from "@/components/star-rating";
 
 export default function Home() {
-  const featured = getEvent("aabw-2026");
+  const featured = getEvent("abs-2026");
   const featuredAgg = featured ? aggregateForEvent(featured.slug) : null;
   const featuredOrg = featured ? getActor(featured.organizerSlug) : null;
   const notable = actors.filter((a) => a.kinds.includes("organizer")).slice(0, 4);
