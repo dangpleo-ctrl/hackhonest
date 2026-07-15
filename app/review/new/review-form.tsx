@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { REVIEW_DIMENSIONS } from "@/lib/types";
+import { useT } from "@/lib/i18n/locale-provider";
 import { StarRating } from "@/components/star-rating";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +15,8 @@ export type TargetOption = { value: string; label: string; group: "Organizers" |
 type Status = "idle" | "submitting" | "success" | "error";
 
 export function ReviewForm({ options }: { options: TargetOption[] }) {
+  const t = useT();
+  const dimCopy = t.reviewDimensions as Record<string, { label: string; help: string }>;
   const [target, setTarget] = useState("");
   const [overall, setOverall] = useState(0);
   const [dims, setDims] = useState<Record<string, number>>({});
@@ -31,10 +34,10 @@ export function ReviewForm({ options }: { options: TargetOption[] }) {
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!target) return setError("Please choose what you're reviewing.");
-    if (overall < 1) return setError("Please give an overall rating.");
-    if (headline.trim().length < 6) return setError("Please write a short headline (at least 6 characters).");
-    if (body.trim().length < 40) return setError("Please describe what happened (at least 40 characters).");
+    if (!target) return setError(t.reviewForm.errChooseTarget);
+    if (overall < 1) return setError(t.reviewForm.errOverall);
+    if (headline.trim().length < 6) return setError(t.reviewForm.errHeadline);
+    if (body.trim().length < 40) return setError(t.reviewForm.errBody);
     setStatus("submitting");
     setMessage("");
     const [kind, slug] = target.split(":");
@@ -56,15 +59,15 @@ export function ReviewForm({ options }: { options: TargetOption[] }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = (await res.json()) as { ok: boolean; message?: string; error?: string };
+      const data = (await res.json()) as { ok: boolean };
       if (res.ok && data.ok) {
         setStatus("success");
-        setMessage(data.message ?? "Received. Thank you.");
+        setMessage("");
       } else {
-        setError(data.error ?? "Something went wrong. Please try again.");
+        setError(t.reviewForm.errGeneric);
       }
     } catch {
-      setError("Network error. Please try again.");
+      setError(t.reviewForm.errNetwork);
     }
   }
 
@@ -76,12 +79,9 @@ export function ReviewForm({ options }: { options: TargetOption[] }) {
   if (status === "success") {
     return (
       <div className="rounded-xl border border-success/30 bg-success/5 p-6">
-        <h2 className="text-lg font-semibold text-foreground">Thank you</h2>
-        <p className="mt-2 text-[15px] leading-relaxed text-muted">{message}</p>
-        <p className="mt-4 text-sm text-faint">
-          We verify that reviewers actually attended before anything is published. Your identity is stored
-          separately from your review and is never shown.
-        </p>
+        <h2 className="text-lg font-semibold text-foreground">{t.reviewForm.successHeading}</h2>
+        <p className="mt-2 text-[15px] leading-relaxed text-muted">{t.reviewForm.successBody}</p>
+        <p className="mt-4 text-sm text-faint">{t.reviewForm.successNote}</p>
       </div>
     );
   }
@@ -100,18 +100,18 @@ export function ReviewForm({ options }: { options: TargetOption[] }) {
         className="absolute left-[-9999px] h-0 w-0 opacity-0"
       />
 
-      <Field label="What are you reviewing?" required>
+      <Field label={t.reviewForm.targetLabel} required>
         <Select value={target} onChange={(e) => setTarget(e.target.value)} required>
-          <option value="">Choose an organizer or event…</option>
+          <option value="">{t.reviewForm.targetPlaceholder}</option>
           {events.length > 0 && (
-            <optgroup label="Events">
+            <optgroup label={t.reviewForm.optgroupEvents}>
               {events.map((o) => (
                 <option key={o.value} value={o.value}>{o.label}</option>
               ))}
             </optgroup>
           )}
           {organizers.length > 0 && (
-            <optgroup label="Organizers">
+            <optgroup label={t.reviewForm.optgroupOrganizers}>
               {organizers.map((o) => (
                 <option key={o.value} value={o.value}>{o.label}</option>
               ))}
@@ -120,17 +120,17 @@ export function ReviewForm({ options }: { options: TargetOption[] }) {
         </Select>
       </Field>
 
-      <Field label="Overall rating" required>
+      <Field label={t.reviewForm.overallLabel} required>
         <StarRating value={overall} onChange={setOverall} size="lg" />
       </Field>
 
-      <Field label="Score what actually happened" help="Skip any that don't apply.">
+      <Field label={t.reviewForm.dimensionsLabel} help={t.reviewForm.dimensionsHelp}>
         <div className="space-y-3">
           {REVIEW_DIMENSIONS.map((d) => (
             <div key={d.key} className="flex flex-col gap-1 border-b border-border pb-3 last:border-0 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <div className="text-sm font-medium text-foreground">{d.label}</div>
-                <div className="text-xs text-faint">{d.help}</div>
+                <div className="text-sm font-medium text-foreground">{dimCopy[d.key]?.label ?? d.label}</div>
+                <div className="text-xs text-faint">{dimCopy[d.key]?.help ?? d.help}</div>
               </div>
               <StarRating value={dims[d.key] ?? 0} onChange={(v) => setDims((prev) => ({ ...prev, [d.key]: v }))} size="sm" />
             </div>
@@ -138,24 +138,24 @@ export function ReviewForm({ options }: { options: TargetOption[] }) {
         </div>
       </Field>
 
-      <Field label="Headline" required>
-        <Input value={headline} onChange={(e) => setHeadline(e.target.value)} maxLength={160} placeholder="One line: what should the next builder know?" />
+      <Field label={t.reviewForm.headlineLabel} required>
+        <Input value={headline} onChange={(e) => setHeadline(e.target.value)} maxLength={160} placeholder={t.reviewForm.headlinePlaceholder} />
       </Field>
 
-      <Field label="What happened?" required help="State the facts first, then your view. Attach evidence for any hard claim (a promised prize, an undelivered credit).">
-        <Textarea value={body} onChange={(e) => setBody(e.target.value)} rows={8} maxLength={6000} placeholder="I attended [event]. They promised… I received… Here is what I can show…" />
+      <Field label={t.reviewForm.bodyLabel} required help={t.reviewForm.bodyHelp}>
+        <Textarea value={body} onChange={(e) => setBody(e.target.value)} rows={8} maxLength={6000} placeholder={t.reviewForm.bodyPlaceholder} />
       </Field>
 
-      <Field label="How can you prove you attended?" help="For our verification only — never published. e.g. a Devpost project link, a confirmation email, a Discord handle, or a photo.">
-        <Textarea value={proof} onChange={(e) => setProof(e.target.value)} rows={3} maxLength={2000} placeholder="Link or description of your proof of participation" />
+      <Field label={t.reviewForm.proofLabel} help={t.reviewForm.proofHelp}>
+        <Textarea value={proof} onChange={(e) => setProof(e.target.value)} rows={3} maxLength={2000} placeholder={t.reviewForm.proofPlaceholder} />
       </Field>
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <Field label="Display name (optional)" help="A pseudonym shown with your review. Leave blank to post as anonymous.">
-          <Input value={author} onChange={(e) => setAuthor(e.target.value)} maxLength={60} placeholder="e.g. Verified participant" />
+        <Field label={t.reviewForm.authorLabel} help={t.reviewForm.authorHelp}>
+          <Input value={author} onChange={(e) => setAuthor(e.target.value)} maxLength={60} placeholder={t.reviewForm.authorPlaceholder} />
         </Field>
-        <Field label="Private contact (optional)" help="Only for verification. Never shown, never shared.">
-          <Input value={contact} onChange={(e) => setContact(e.target.value)} maxLength={200} placeholder="email or handle" />
+        <Field label={t.reviewForm.contactLabel} help={t.reviewForm.contactHelp}>
+          <Input value={contact} onChange={(e) => setContact(e.target.value)} maxLength={200} placeholder={t.reviewForm.contactPlaceholder} />
         </Field>
       </div>
 
@@ -165,9 +165,9 @@ export function ReviewForm({ options }: { options: TargetOption[] }) {
 
       <div className="flex items-center gap-4">
         <Button type="submit" size="lg" disabled={status === "submitting"}>
-          {status === "submitting" ? "Submitting…" : "Submit for verification"}
+          {status === "submitting" ? t.reviewForm.submitting : t.reviewForm.submit}
         </Button>
-        <p className="text-xs text-faint">Reviews are checked before they&rsquo;re published.</p>
+        <p className="text-xs text-faint">{t.reviewForm.submitNote}</p>
       </div>
     </form>
   );

@@ -1,9 +1,12 @@
+"use client";
+
 import * as React from "react";
 import { Info, ShieldCheck } from "lucide-react";
 import type { Aggregate } from "@/lib/types";
 import { brand } from "@/lib/brand";
+import { useT } from "@/lib/i18n/locale-provider";
 import { StarRating } from "./star-rating";
-import { scoreTone, scoreBandLabel, type ScoreTone } from "./rating-score";
+import { scoreTone, type ScoreTone } from "./rating-tone";
 import { Badge } from "./ui/badge";
 import { cn } from "./ui/cn";
 
@@ -25,7 +28,7 @@ const TONE_BADGE: Record<ScoreTone, "success" | "warning" | "danger"> = {
 
 export interface AggregateBarProps {
   aggregate: Aggregate;
-  /** Heading for the block, e.g. an actor or event name. */
+  /** Heading for the block, e.g. an actor or event name. Defaults to "Community record". */
   title?: string;
   subtitle?: string;
   className?: string;
@@ -46,6 +49,7 @@ function DimensionRow({
   avg: number | null;
   count: number;
 }) {
+  const t = useT();
   const tone = scoreTone(avg);
   const fill = tone ? TONE_FILL[tone] : "bg-border-strong";
   return (
@@ -54,7 +58,7 @@ function DimensionRow({
         <span className="text-sm font-medium text-foreground">{label}</span>
         <span className="shrink-0 text-sm tabular-nums text-muted">
           {avg === null ? (
-            <span className="text-faint">No ratings yet</span>
+            <span className="text-faint">{t.aggregate.noRatingsYet}</span>
           ) : (
             <>
               <span
@@ -75,8 +79,8 @@ function DimensionRow({
         role="img"
         aria-label={
           avg === null
-            ? `${label}: no ratings yet`
-            : `${label}: ${avg.toFixed(1)} out of 5 from ${count} reviewers`
+            ? t.aggregate.dimAriaNone(label)
+            : t.aggregate.dimAriaValue(label, avg.toFixed(1), count)
         }
       >
         <div
@@ -96,15 +100,18 @@ function DimensionRow({
  */
 export function AggregateBar({
   aggregate,
-  title = "Community record",
+  title,
   subtitle,
   className,
 }: AggregateBarProps) {
+  const t = useT();
   const { count, verifiedCount, avgOverall, dimensionAverages, signals } =
     aggregate;
   const hasReviews = count > 0;
   const overallTone = scoreTone(avgOverall);
-  const band = scoreBandLabel(avgOverall);
+  const band = overallTone ? t.ratingBand[overallTone] : null;
+  const resolvedTitle = title ?? t.aggregate.defaultTitle;
+  const dimLabels = t.reviewDimensions as Record<string, { label: string; help: string }>;
 
   return (
     <section
@@ -112,7 +119,7 @@ export function AggregateBar({
         "rounded-xl border border-border bg-surface shadow-sm",
         className,
       )}
-      aria-label={`${title}: community record`}
+      aria-label={t.aggregate.ariaRecord(resolvedTitle)}
     >
       <div className="flex flex-col gap-6 p-5 sm:p-6">
         {/* Header */}
@@ -120,7 +127,7 @@ export function AggregateBar({
           <div className="flex items-center gap-2">
             <ShieldCheck aria-hidden="true" className="size-4 text-accent" />
             <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">
-              {title}
+              {resolvedTitle}
             </h3>
           </div>
           {subtitle && <p className="text-sm text-muted">{subtitle}</p>}
@@ -141,13 +148,13 @@ export function AggregateBar({
               <div className="flex flex-col gap-1.5">
                 <StarRating value={avgOverall} size="md" />
                 <p className="text-sm text-muted">
-                  Based on{" "}
+                  {t.aggregate.basedOnPrefix}{" "}
                   <span className="font-semibold text-foreground">{count}</span>{" "}
-                  {count === 1 ? "review" : "reviews"} ·{" "}
+                  {count === 1 ? t.common.review : t.common.reviews} ·{" "}
                   <span className="font-semibold text-foreground">
                     {verifiedCount}
                   </span>{" "}
-                  verified
+                  {t.aggregate.verifiedSuffix}
                 </p>
               </div>
             </div>
@@ -158,10 +165,7 @@ export function AggregateBar({
             )}
           </div>
         ) : (
-          <p className="text-sm text-muted">
-            No reviews yet. Be the first verified attendee to share what
-            happened.
-          </p>
+          <p className="text-sm text-muted">{t.aggregate.noReviewsCta}</p>
         )}
 
         {/* Per-dimension averages */}
@@ -170,7 +174,7 @@ export function AggregateBar({
             {dimensionAverages.map((d) => (
               <DimensionRow
                 key={d.key}
-                label={d.label}
+                label={dimLabels[d.key]?.label ?? d.label}
                 avg={d.avg}
                 count={d.count}
               />
@@ -182,29 +186,34 @@ export function AggregateBar({
         {signals.length > 0 && (
           <div className="flex flex-col gap-3 border-t border-border pt-5">
             <h4 className="text-sm font-semibold text-foreground">
-              What verified reviewers reported
+              {t.aggregate.whatReported}
             </h4>
             <ul className="flex flex-col gap-3">
-              {signals.map((s, i) => (
-                <li key={i} className="flex flex-col gap-1.5">
-                  <p className="text-sm text-foreground">
-                    <span className="font-semibold tabular-nums">
-                      {s.n} of {s.of}
-                    </span>{" "}
-                    verified reviewers reported{" "}
-                    <span className="font-medium">{s.label}</span>
-                  </p>
-                  <div
-                    className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted"
-                    aria-hidden="true"
-                  >
+              {signals.map((s, i) => {
+                const signalLabel = s.key
+                  ? t.aggregate.ratedLow(dimLabels[s.key]?.label ?? s.label)
+                  : s.label;
+                return (
+                  <li key={i} className="flex flex-col gap-1.5">
+                    <p className="text-sm text-foreground">
+                      <span className="font-semibold tabular-nums">
+                        {s.n} {t.common.of} {s.of}
+                      </span>{" "}
+                      {t.aggregate.reviewersReported}{" "}
+                      <span className="font-medium">{signalLabel}</span>
+                    </p>
                     <div
-                      className="h-full rounded-full bg-warning"
-                      style={{ width: `${pct(s.n, s.of)}%` }}
-                    />
-                  </div>
-                </li>
-              ))}
+                      className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted"
+                      aria-hidden="true"
+                    >
+                      <div
+                        className="h-full rounded-full bg-warning"
+                        style={{ width: `${pct(s.n, s.of)}%` }}
+                      />
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         )}
@@ -212,10 +221,7 @@ export function AggregateBar({
         {/* Neutral-host posture — explicit, so counts are never mistaken for verdicts */}
         <p className="flex items-start gap-2 rounded-lg bg-surface-muted px-3 py-2.5 text-xs leading-relaxed text-muted">
           <Info aria-hidden="true" className="mt-0.5 size-3.5 shrink-0" />
-          <span>
-            These are counts of what verified attendees reported — not ratings
-            issued by {brand.name}.
-          </span>
+          <span>{t.aggregate.postureNote(brand.name)}</span>
         </p>
       </div>
     </section>
