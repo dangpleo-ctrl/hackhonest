@@ -14,7 +14,7 @@ export const vi = {
     directory: "Danh bạ",
     addEntry: "Thêm mục",
     howItWorks: "Cách hoạt động",
-    trust: "Tin cậy & an toàn",
+    trust: "Tin cậy & An toàn",
     writeReview: "Viết đánh giá",
     openMenu: "Mở menu",
     closeMenu: "Đóng menu",
@@ -62,7 +62,7 @@ export const vi = {
     featuredAdvertisedLabel: "Quảng cáo",
     featuredAdvertisedValue: "Ưu đãi $1M+",
     featuredAdvertisedSub: "phần lớn là chương trình bên thứ ba & gói miễn phí",
-    featuredReportedLabel: "Phản ánh",
+    featuredReportedLabel: "Đã phản ánh",
     featuredReportedValue: "Không nhận được credit",
     featuredReportedSub: "đã đăng ký qua cổng, nhận về $0",
     seeFullRecord: "Xem toàn bộ hồ sơ",
@@ -215,7 +215,7 @@ export const vi = {
     searchAria: "Tìm đơn vị tổ chức, nhà tài trợ, công ty và sự kiện",
     searchPlaceholder: "Tìm đơn vị tổ chức, nhà tài trợ, sự kiện…",
     clearSearch: "Xóa tìm kiếm",
-    filterGroupAria: "Lọc danh bạ theo nhóm",
+    filterGroupAria: "Lọc danh bạ theo danh mục",
     tabAll: "Tất cả",
     tabOrganizers: "Đơn vị tổ chức",
     tabEvents: "Sự kiện",
@@ -273,12 +273,12 @@ export const vi = {
 
     proofLabel: "Bạn chứng minh mình đã tham gia bằng cách nào?",
     proofHelp:
-      "Chỉ dùng để xác minh — không bao giờ đăng công khai. Ví dụ: link dự án Devpost, email xác nhận, tài khoản Discord, hoặc một tấm ảnh.",
+      "Chỉ dùng để xác minh — không bao giờ đăng công khai. Ví dụ: link dự án trên Devpost, email xác nhận, tài khoản Discord hoặc một tấm ảnh.",
     proofPlaceholder: "Link hoặc mô tả bằng chứng tham gia của bạn",
 
     authorLabel: "Tên hiển thị (không bắt buộc)",
     authorHelp:
-      "Một biệt danh hiển thị cùng bài đánh giá. Để trống để đăng ẩn danh.",
+      "Một biệt danh hiển thị cùng bài đánh giá của bạn. Để trống để đăng ẩn danh.",
     authorPlaceholder: "ví dụ: Người tham gia đã xác minh",
 
     contactLabel: "Liên hệ riêng tư (không bắt buộc)",
@@ -301,10 +301,10 @@ export const vi = {
       "Dán liên kết tới một hackathon, đơn vị tổ chức hoặc nhà tài trợ. AI đọc trang, điền sẵn thông tin và kiểm tra danh bạ xem có bị trùng không. Bạn xem lại và chỉnh sửa mọi thứ trước khi nó vào hàng chờ kiểm duyệt — không có gì được đăng tự động.",
     urlLabel: "Liên kết sự kiện hoặc đơn vị tổ chức",
     urlPlaceholder: "https://…",
-    urlHelp: "Liên kết tới trang sự kiện, trang của đơn vị tổ chức, hoặc trang nhà tài trợ.",
+    urlHelp: "Liên kết tới trang sự kiện, trang của đơn vị tổ chức hoặc trang nhà tài trợ.",
     analyze: "Phân tích bằng AI",
     analyzing: "Đang phân tích…",
-    fillManually: "Hoặc tự điền biểu mẫu thủ công",
+    fillManually: "Hoặc tự điền biểu mẫu",
     errUrlRequired: "Vui lòng dán một liên kết trước.",
     errUrlInvalid: "Vui lòng nhập một liên kết http(s) hợp lệ.",
     aiDisabledNote:
@@ -312,7 +312,7 @@ export const vi = {
     analysisFailedNote:
       "Chúng tôi không thể tự động phân tích liên kết đó. Hãy tự điền biểu mẫu bên dưới.",
     prefilledNote:
-      "AI đã điền sẵn từ liên kết. Hãy kiểm tra từng trường và sửa những gì chưa đúng trước khi gửi.",
+      "AI đã điền sẵn thông tin từ liên kết. Hãy kiểm tra từng trường và sửa những gì chưa đúng trước khi gửi.",
   },
 
   suggestForm: {
@@ -327,35 +327,35 @@ export const vi = {
     typeCompany: "Công ty",
     typeSponsor: "Nhà tài trợ",
     nameLabel: "Tên",
-    namePlaceholder: "ví dụ: Zenith AI Ventures",
+    namePlaceholder: "Ví dụ: Zenith AI Ventures",
     websiteLabel: "Website",
     websitePlaceholder: "https://…",
     locationLabel: "Địa điểm",
-    locationPlaceholder: "ví dụ: Thành phố Hồ Chí Minh, Việt Nam",
+    locationPlaceholder: "Ví dụ: Thành phố Hồ Chí Minh, Việt Nam",
     datesLabel: "Thời gian",
     datesHelp: "Chỉ dành cho sự kiện.",
-    datesPlaceholder: "ví dụ: 20–24 tháng 8, 2026",
+    datesPlaceholder: "Ví dụ: 20–24 tháng 8, 2026",
     blurbLabel: "Mô tả",
-    blurbHelp: "Một hai câu trung lập, đúng sự thật — không quy kết, chỉ nêu đó là gì.",
-    blurbPlaceholder: "Đây là sự kiện hay đơn vị tổ chức nào? Hãy viết đúng sự thật.",
+    blurbHelp: "Một hoặc hai câu trung lập, đúng sự thật — không buộc tội, chỉ nêu rõ đây là gì.",
+    blurbPlaceholder: "Đây là sự kiện hay đơn vị tổ chức nào? Hãy trình bày đúng sự thật.",
     sponsorsLabel: "Nhà tài trợ phát hiện được",
     sponsorsHelp: "Ngăn cách bằng dấu phẩy. Chỉnh sửa hoặc xóa nếu cần.",
-    sponsorsPlaceholder: "ví dụ: Crestline Bank, SwiftCart",
+    sponsorsPlaceholder: "Ví dụ: Crestline Bank, SwiftCart",
     submittedByLabel: "Tên hoặc tài khoản của bạn (không bắt buộc)",
-    submittedByHelp: "Để chúng tôi ghi nhận hoặc liên hệ lại. Không bao giờ hiển thị công khai.",
-    submittedByPlaceholder: "ví dụ: tài khoản Devpost hoặc email",
+    submittedByHelp: "Để chúng tôi ghi nhận hoặc liên hệ lại. Thông tin này sẽ không bao giờ được hiển thị công khai.",
+    submittedByPlaceholder: "Ví dụ: tài khoản Devpost hoặc email",
     errName: "Vui lòng nhập tên (ít nhất 2 ký tự).",
     errType: "Vui lòng chọn loại mục.",
-    errWebsite: "Website phải là một liên kết http(s) hợp lệ.",
-    errGeneric: "Đã có lỗi xảy ra. Vui lòng thử lại.",
-    errNetwork: "Lỗi kết nối. Vui lòng thử lại.",
+    errWebsite: "Website phải là liên kết http(s) hợp lệ.",
+    errGeneric: "Đã xảy ra sự cố. Vui lòng thử lại.",
+    errNetwork: "Lỗi kết nối mạng. Vui lòng thử lại.",
     submit: "Gửi để duyệt",
     submitting: "Đang gửi…",
-    submitNote: "Đề xuất được một người kiểm tra trước khi bất cứ điều gì được thêm vào.",
+    submitNote: "Mọi đề xuất đều được kiểm tra thủ công trước khi được thêm vào.",
     successHeading: "Cảm ơn bạn",
     successBody: "Đề xuất của bạn đã được ghi nhận và đang chờ duyệt.",
     successNote:
-      "Chúng tôi kiểm tra mọi đề xuất trước khi thêm vào danh bạ. Không có gì được đăng tự động.",
+      "Chúng tôi kiểm tra từng đề xuất trước khi thêm vào danh bạ. Không có nội dung nào được đăng tự động.",
     startOver: "Đề xuất mục khác",
   },
 
@@ -370,11 +370,11 @@ export const vi = {
     methods: {
       "founder-attested": {
         label: "Nhà sáng lập xác nhận",
-        detail: "Một nhà sáng lập có tên đã xác nhận người đánh giá này có tham gia.",
+        detail: "Một nhà sáng lập có tên đã xác nhận người đánh giá này từng tham gia.",
       },
       github: {
         label: "Xác minh qua GitHub",
-        detail: "Liên kết với một tài khoản GitHub có bài dự thi trùng khớp.",
+        detail: "Liên kết với tài khoản GitHub có bài dự thi trùng khớp.",
       },
       evidence: {
         label: "Có bằng chứng",
@@ -382,7 +382,7 @@ export const vi = {
       },
       "email-dkim": {
         label: "Xác minh qua email",
-        detail: "Xác nhận qua một email có chữ ký (DKIM) từ sự kiện.",
+        detail: "Xác nhận qua email có chữ ký (DKIM) từ sự kiện.",
       },
     },
   },
@@ -393,16 +393,16 @@ export const vi = {
     basedOnPrefix: "Dựa trên",
     verifiedSuffix: "đã xác minh",
     noReviewsCta:
-      "Chưa có đánh giá. Hãy là người tham gia đã xác minh đầu tiên kể lại chuyện đã xảy ra.",
-    noRatingsYet: "Chưa có điểm",
-    dimAriaNone: (label: string) => `${label}: chưa có điểm`,
+      "Chưa có đánh giá. Hãy là người tham dự đã xác minh đầu tiên chia sẻ những gì đã xảy ra.",
+    noRatingsYet: "Chưa có đánh giá",
+    dimAriaNone: (label: string) => `${label}: chưa có đánh giá`,
     dimAriaValue: (label: string, avg: string, count: number) =>
       `${label}: ${avg} trên 5 từ ${count} người đánh giá`,
     whatReported: "Những gì người đánh giá đã xác minh phản ánh",
     reviewersReported: "người đánh giá đã xác minh cho biết",
-    ratedLow: (dimLabel: string) => `đã chấm "${dimLabel}" từ 2 sao trở xuống`,
+    ratedLow: (dimLabel: string) => `đã đánh giá "${dimLabel}" từ 2 sao trở xuống`,
     postureNote: (brandName: string) =>
-      `Đây là thống kê những gì người tham gia đã xác minh phản ánh — không phải điểm số do ${brandName} đưa ra.`,
+      `Đây là thống kê những gì người tham dự đã xác minh phản ánh — không phải đánh giá do ${brandName} đưa ra.`,
   },
 
   actorKinds: {
@@ -419,8 +419,8 @@ export const vi = {
       email: "Email",
       link: "Liên kết",
     },
-    evidenceTitle: (kind: string) => `Bằng chứng: ${kind}`,
-    byline: "· biệt danh, danh tính được giữ kín",
+    evidenceTitle: (kind: string) => `Bằng chứng ${kind}`,
+    byline: "· ẩn danh, danh tính được giữ kín",
     responseFrom: (author: string) => `Phản hồi từ ${author}`,
     organizerReply: "Phản hồi của đơn vị tổ chức",
   },
@@ -429,7 +429,7 @@ export const vi = {
     metaTitleFallback: "Đơn vị tổ chức",
     metaTitle: (name: string) => `${name} — đánh giá & hồ sơ hackathon`,
     metaDescription: (name: string, blurb: string) =>
-      `${name} có phải là một đơn vị tổ chức/nhà tài trợ hackathon tốt? Những gì người tham gia đã xác minh phản ánh: ${blurb}`,
+      `${name} có phải là một đơn vị tổ chức/nhà tài trợ hackathon tốt? Những gì người tham dự đã xác minh phản ánh: ${blurb}`,
     crumbOrganizer: "Đơn vị tổ chức",
     crumbSponsor: "Nhà tài trợ",
     alsoSeenAs: (list: string) => `Còn thấy dưới tên: ${list}`,
@@ -448,7 +448,7 @@ export const vi = {
     metaTitleFallback: "Sự kiện",
     metaTitle: (name: string) => `${name} — đánh giá & hồ sơ`,
     metaDescription: (name: string, dates: string, location: string) =>
-      `Những gì người tham gia đã xác minh phản ánh về ${name} (${dates}, ${location}): giải thưởng, ưu đãi, chấm giải, và cấu trúc bài toán của nhà tài trợ.`,
+      `Những gì người tham gia đã xác minh phản ánh về ${name} (${dates}, ${location}): giải thưởng, ưu đãi, chấm giải và cấu trúc bài toán của nhà tài trợ.`,
     crumbEvent: "Sự kiện",
     organizedBy: "tổ chức bởi",
     howItWorked: "Cách vận hành: ",
@@ -456,18 +456,18 @@ export const vi = {
     aggregateTitle: "Những gì người tham gia đã xác minh phản ánh",
     advertisedHeading: "Những gì đã được quảng cáo",
     perksHeading:
-      "Ưu đãi & credit quảng cáo, so với những gì một người tham gia đã xác minh phản ánh",
+      "Ưu đãi & credit được quảng cáo so với những gì một người tham gia đã xác minh phản ánh",
     perksColProvider: "Nhà cung cấp",
-    perksColAdvertised: "Quảng cáo",
+    perksColAdvertised: "Được quảng cáo",
     perksColReported: "Thực tế",
     tracksHeading: "Hạng mục & đề bài",
     tracksSubtitle: (problems: number, tracks: number) =>
       `${problems} đề bài trải trên ${tracks} hạng mục, mỗi hạng mục do một doanh nghiệp có tên sở hữu. Mọi bài dự thi đều phải giải một trong số này.`,
     problemsBadge: (n: number) => `${n} đề bài`,
     sponsoredBy: "Tài trợ bởi",
-    winnersHeading: "Các đội vào vòng cuối & đội thắng",
+    winnersHeading: "Các đội vào vòng cuối & đội thắng cuộc",
     winnersSubtitleMapped: (count: number) =>
-      `Theo công bố của đơn vị tổ chức. Cả ${count} dự án được ghi nhận đều được xây để giải một bài toán vận hành của một nhà tài trợ có tên.`,
+      `Theo công bố của đơn vị tổ chức. Cả ${count} dự án được ghi nhận đều được xây dựng để giải một bài toán vận hành của một nhà tài trợ có tên.`,
     winnersSubtitlePlain: "Theo công bố của đơn vị tổ chức.",
     forSponsor: (name: string) => `cho ${name}`,
     factsHeading: "Đã ghi nhận",
@@ -477,7 +477,7 @@ export const vi = {
     problemsHeading: (n: number) => `Toàn bộ ${n} đề bài`,
     problemsSubtitle:
       "Mỗi đề là một bài toán vận hành có thật của một doanh nghiệp có tên.",
-    noReviews: "Chưa có đánh giá. Bạn đã ở đó chứ?",
+    noReviews: "Chưa có đánh giá. Bạn đã tham dự chứ?",
     beFirst: "Hãy là người đầu tiên đánh giá",
     sponsorsOnRecord: (list: string) => `Nhà tài trợ được ghi nhận: ${list}.`,
   },
@@ -499,19 +499,19 @@ export const vi = {
   reviewDimensions: {
     prizes: {
       label: "Giải thưởng được trao đúng cam kết",
-      help: "Giải thưởng đã quảng cáo có được trả đủ, đúng hạn không?",
+      help: "Giải thưởng đã quảng cáo có được trao đủ và đúng hạn không?",
     },
     perks: {
       label: "Ưu đãi & credit là thật",
-      help: "Các credit/ưu đãi được liệt kê có thực sự do đơn vị tổ chức cấp không, hay chỉ là chương trình bên thứ ba khoác áo mới?",
+      help: "Các credit/ưu đãi được liệt kê có thực sự do đơn vị tổ chức cung cấp, hay chỉ là chương trình của bên thứ ba được 'khoác áo mới'?",
     },
     judging: {
       label: "Chấm giải công bằng & minh bạch",
-      help: "Tiêu chí rõ ràng, không xung đột lợi ích, kết quả được giải thích?",
+      help: "Tiêu chí rõ ràng, không xung đột lợi ích và kết quả được giải thích?",
     },
     organization: {
       label: "Tổ chức chuyên nghiệp",
-      help: "Địa điểm, lịch trình, liên lạc, hỗ trợ?",
+      help: "Địa điểm, lịch trình, truyền thông và hỗ trợ?",
     },
     honesty: {
       label: "Quảng bá trung thực",
@@ -519,7 +519,7 @@ export const vi = {
     },
     respect: {
       label: "Tôn trọng công sức người tham gia",
-      help: "Đối xử công bằng với thời gian, chất xám và công sức của bạn?",
+      help: "Đối xử công bằng với thời gian, quyền sở hữu trí tuệ và công sức của bạn?",
     },
   },
 
@@ -533,7 +533,7 @@ export const vi = {
     explore: "Khám phá",
     trust: "Tin cậy",
     disclaimer: (brandName: string) =>
-      `Đây không phải trang chính thức của đơn vị tổ chức. ${brandName} đăng tải các đánh giá độc lập, từ người trong cuộc đã xác minh. Mọi con số trên trang này là thống kê lại những gì người tham gia thực sự phản ánh.`,
+      `Đây không phải trang chính thức của đơn vị tổ chức. ${brandName} đăng tải các đánh giá độc lập, từ người tham gia đã được xác minh. Mọi con số trên trang này đều là thống kê những gì người tham dự thực sự phản ánh.`,
     copyright: (year: number, brandName: string) => `© ${year} ${brandName}`,
   },
 };
