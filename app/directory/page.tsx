@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { Plus } from "lucide-react";
 import { actors, events, aggregateForActor } from "@/lib/data";
 import { getT } from "@/lib/i18n/server";
+import { buttonVariants } from "@/components/ui/button";
 import {
   DirectoryBrowser,
   type DirectoryItem,
@@ -57,8 +60,19 @@ export default async function DirectoryPage({
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-10">
-      <h1 className="text-3xl font-bold tracking-tight text-foreground">{t.directory.title}</h1>
-      <p className="mt-2 text-[15px] text-muted">{t.directory.subtitle}</p>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">{t.directory.title}</h1>
+          <p className="mt-2 text-[15px] text-muted">{t.directory.subtitle}</p>
+        </div>
+        <Link
+          href="/suggest"
+          className={buttonVariants({ variant: "secondary", size: "md", className: "shrink-0" })}
+        >
+          <Plus aria-hidden="true" />
+          {t.suggest.navLink}
+        </Link>
+      </div>
 
       <DirectoryBrowser items={items} initialQuery={query} />
     </div>
