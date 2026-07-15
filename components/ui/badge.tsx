@@ -13,9 +13,9 @@ export type BadgeSize = "sm" | "md";
 const tones: Record<BadgeTone, string> = {
   neutral: "bg-surface-muted text-foreground border-border",
   accent: "bg-accent-subtle text-accent-strong border-accent-border",
-  success: "bg-green-50 text-green-800 border-green-200",
-  warning: "bg-amber-50 text-amber-800 border-amber-200",
-  danger: "bg-red-50 text-red-800 border-red-200",
+  success: "bg-success-subtle text-success-strong border-success-border",
+  warning: "bg-warning-subtle text-warning-strong border-warning-border",
+  danger: "bg-danger-subtle text-danger-strong border-danger-border",
   outline: "bg-transparent text-muted border-border",
 };
 

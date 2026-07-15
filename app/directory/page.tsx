@@ -35,7 +35,6 @@ export default async function DirectoryPage({
       location: a.location,
       blurb: a.blurb,
       claimed: a.claimed ?? false,
-      example: a.example ?? false,
       avgOverall: agg.avgOverall,
       reviewCount: agg.count,
     };
@@ -49,7 +48,6 @@ export default async function DirectoryPage({
     location: e.location,
     blurb: e.blurb,
     format: e.format,
-    example: e.example ?? false,
   }));
 
   const items: DirectoryItem[] = [...actorItems, ...eventItems];
