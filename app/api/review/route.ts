@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
 import { REVIEW_DIMENSIONS } from "@/lib/types";
 
-// Review submission endpoint. v1 persistence is a MODERATION QUEUE with zero extra infra:
-// if a GitHub token is configured, each submission becomes a labelled issue in the repo
-// (human moderation before anything is published — the neutral-host + legal posture).
-// Without a token it still validates and accepts (logged), so the flow works end-to-end
-// on a fresh deploy; wire GITHUB_TOKEN + GITHUB_REPO to turn on the durable queue.
+// Review submission endpoint. Submissions land in a Supabase table (`review_submissions`)
+// as a MODERATION QUEUE — every row is `status: 'pending'` until a human verifies the
+// reviewer attended and publishes it (the neutral-host + legal posture). The table has RLS
+// with an anon-INSERT-only policy, so the public can submit but nobody can read submissions
+// back except via the dashboard. If SUPABASE_URL / SUPABASE_ANON_KEY aren't set the route
+// still validates and accepts (logged), so the flow works end-to-end on a fresh deploy.
 
 interface Submission {
   actorSlug?: string;
@@ -55,40 +57,27 @@ function validate(input: unknown): { ok: true; value: Submission } | { ok: false
 }
 
 async function persist(sub: Submission): Promise<{ queued: boolean }> {
-  const token = process.env.GITHUB_TOKEN;
-  const repo = process.env.GITHUB_REPO; // "owner/name"
-  if (!token || !repo) {
-    console.log("[review] received (no queue configured):", JSON.stringify({ ...sub, contact: sub.contact ? "[redacted]" : undefined }));
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_ANON_KEY; // publishable/anon key — RLS restricts it to INSERT only
+  if (!url || !key) {
+    console.log("[review] received (no store configured):", JSON.stringify({ ...sub, contact: sub.contact ? "[redacted]" : undefined }));
     return { queued: false };
   }
-  const target = sub.actorSlug ? `organizer:${sub.actorSlug}` : `event:${sub.eventSlug}`;
-  const title = `Pending review — ${target} — ${sub.headline}`.slice(0, 120);
-  const dims = sub.dimensions.map((d) => `- ${d.key}: ${d.rating}/5`).join("\n");
-  const bodyMd = [
-    `**Target:** ${target}`,
-    `**Overall:** ${sub.overall}/5`,
-    `**Dimensions:**\n${dims || "(none)"}`,
-    `**Headline:** ${sub.headline}`,
-    "",
-    `**Body:**\n${sub.body}`,
-    "",
-    `**Attendance proof (attendee's words):** ${sub.attendedProof ?? "(none provided)"}`,
-    `**Author pseudonym:** ${sub.author ?? "(anonymous)"}`,
-    `**Private contact (for verification only — do not publish):** ${sub.contact ?? "(none)"}`,
-    "",
-    "_Auto-filed by the submission form. Verify attendance, then publish (or reject) per the moderation policy._",
-  ].join("\n");
-  const res = await fetch(`https://api.github.com/repos/${repo}/issues`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: "application/vnd.github+json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ title, body: bodyMd, labels: ["pending-review"] }),
+  const supabase = createClient(url, key, { auth: { persistSession: false } });
+  const { error } = await supabase.from("review_submissions").insert({
+    actor_slug: sub.actorSlug ?? null,
+    event_slug: sub.eventSlug ?? null,
+    overall: sub.overall,
+    dimensions: sub.dimensions,
+    headline: sub.headline,
+    body: sub.body,
+    attended_proof: sub.attendedProof ?? null,
+    author: sub.author ?? null,
+    contact: sub.contact ?? null,
+    // status defaults to 'pending' in the table — a human verifies before publishing.
   });
-  if (!res.ok) {
-    console.error("[review] queue failed:", res.status, await res.text().catch(() => ""));
+  if (error) {
+    console.error("[review] store failed:", error.message);
     return { queued: false };
   }
   return { queued: true };
