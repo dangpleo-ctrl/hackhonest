@@ -45,10 +45,13 @@ reply, report/takedown. Region: Vietnam / SEA. The seed review is your real firs
 2. **Go public** (gated on you + your design doc's local-counsel read): set Vercel env
    `NEXT_PUBLIC_PUBLIC_LAUNCH=1` (flips robots to indexable) **and** turn off Vercel Deployment
    Protection, then `vercel deploy --prod`. Until then it stays private.
-3. **Durable review queue** — the form works, but submissions currently only log (no DB, to stay free +
-   HealthSyncX-separate). To capture them as a moderation queue: create the GitHub repo (above), mint a
-   fine-grained token with `issues:write` on it, and set Vercel envs `GITHUB_TOKEN` + `GITHUB_REPO`
-   (`dangpleo-ctrl/hackhonest`). Then every submission files a `pending-review` issue.
+3. **Durable review queue — WIRED (Supabase).** Submissions now persist to a Supabase Postgres table
+   (`review_submissions`) as a moderation queue: every row lands `status: 'pending'` until a human verifies
+   the reviewer attended and publishes it. Row-level security lets the public (anon key) INSERT only —
+   nobody can read the queue back through the browser key; verifying + publishing happens via the service
+   role / dashboard. Canonical schema is checked in at `supabase/migrations/0001_review_submissions.sql`.
+   Env: `SUPABASE_URL` + `SUPABASE_ANON_KEY` (in `.env.local` for local; set the same two in Vercel for
+   prod). If they're unset the route still validates + accepts (logs only), so a fresh clone runs without a DB.
 
 ## Deferred to v2 (in the design doc)
 DKIM-email + GitHub-repo verification rails (v1 uses evidence-upload + attendance-proof), the anonymous
