@@ -5,7 +5,7 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://hackhonest.
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const staticPaths = ["", "/directory", "/how-it-works", "/trust", "/about", "/tos", "/review/new"];
+  const staticPaths = ["", "/directory", "/how-it-works", "/trust", "/about", "/tos", "/review/new", "/suggest"];
   return [
     ...staticPaths.map((p) => ({ url: `${SITE_URL}${p}`, lastModified: now })),
     ...actors.map((a) => ({ url: `${SITE_URL}/o/${a.slug}`, lastModified: now })),

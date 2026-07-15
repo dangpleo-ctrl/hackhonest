@@ -16,6 +16,7 @@ export function SiteFooter() {
       heading: t.footer.explore,
       links: [
         { label: t.nav.directory, href: "/directory" },
+        { label: t.suggest.navLink, href: "/suggest" },
         { label: t.common.writeReview, href: "/review/new" },
       ],
     },
