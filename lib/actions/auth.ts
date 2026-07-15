@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getT } from "@/lib/i18n/server";
+import { safeInternalPath } from "@/lib/safe-redirect";
 
 const HANDLE_RE = /^[a-z0-9_]{3,24}$/;
 
@@ -10,12 +11,6 @@ export interface AuthState {
   error?: string;
   /** Set when signup succeeded but the project requires email confirmation. */
   confirmEmail?: boolean;
-}
-
-/** Only allow same-origin relative redirects, defaulting to the forum. */
-function safeNext(raw: FormDataEntryValue | null): string {
-  const n = typeof raw === "string" ? raw : "";
-  return n.startsWith("/") && !n.startsWith("//") ? n : "/forum";
 }
 
 export async function signInAction(
@@ -32,7 +27,7 @@ export async function signInAction(
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) return { error: t.auth.errInvalidCredentials };
 
-  redirect(safeNext(formData.get("next")));
+  redirect(safeInternalPath(formData.get("next")) || "/forum");
 }
 
 export async function signUpAction(
@@ -65,13 +60,16 @@ export async function signUpAction(
   });
   if (error) {
     if (/registered|already/i.test(error.message)) return { error: t.auth.errEmailInUse };
-    if (/duplicate|unique|profiles/i.test(error.message)) return { error: t.auth.errHandleTaken };
+    // A handle-collision race surfaces as the trigger's unique violation, which
+    // GoTrue reports as "Database error saving new user".
+    if (/duplicate|unique|profiles|database error saving new user/i.test(error.message))
+      return { error: t.auth.errHandleTaken };
     return { error: t.auth.errGeneric };
   }
   // No session means the project requires email confirmation first.
   if (!data.session) return { confirmEmail: true };
 
-  redirect(safeNext(formData.get("next")));
+  redirect(safeInternalPath(formData.get("next")) || "/forum");
 }
 
 export async function signOutAction(): Promise<void> {

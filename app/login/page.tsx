@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getT } from "@/lib/i18n/server";
 import { getSessionUser } from "@/lib/auth";
+import { safeInternalPath } from "@/lib/safe-redirect";
 import { LoginForm } from "./login-form";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -10,16 +11,12 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t.auth.loginMetaTitle };
 }
 
-function safeNext(next: string | undefined): string {
-  return next && next.startsWith("/") && !next.startsWith("//") ? next : "";
-}
-
 export default async function LoginPage({
   searchParams,
 }: {
   searchParams: Promise<{ next?: string }>;
 }) {
-  const next = safeNext((await searchParams).next);
+  const next = safeInternalPath((await searchParams).next);
   const user = await getSessionUser();
   if (user) redirect(next || "/forum");
 

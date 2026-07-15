@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AtSign } from "lucide-react";
 import { getLocaleAndT, getT } from "@/lib/i18n/server";
-import { getSessionUser } from "@/lib/auth";
+import { getSessionUser, getSessionEmail } from "@/lib/auth";
 import { getThreadsByAuthor } from "@/lib/forum";
 import { absoluteDate, relativeTime } from "@/lib/relative-time";
 import { SignOutButton } from "@/components/sign-out-button";
@@ -20,7 +20,10 @@ export default async function AccountPage() {
   if (!user) redirect("/login?next=/account");
 
   const { locale, t } = await getLocaleAndT();
-  const threads = await getThreadsByAuthor(user.id);
+  const [threads, email] = await Promise.all([
+    getThreadsByAuthor(user.id),
+    getSessionEmail(),
+  ]);
 
   return (
     <div className="mx-auto w-full max-w-3xl px-5 py-10">
@@ -49,7 +52,7 @@ export default async function AccountPage() {
             {t.account.privateEmail}
           </div>
           <div className="mt-1 break-all font-medium text-foreground">
-            {user.email ?? "—"}
+            {email ?? "—"}
           </div>
         </div>
         {user.createdAt && (
