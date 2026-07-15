@@ -12,6 +12,7 @@ export const vi = {
   nav: {
     ariaPrimary: "Điều hướng chính",
     directory: "Danh bạ",
+    addEntry: "Thêm mục",
     howItWorks: "Cách hoạt động",
     trust: "Tin cậy & an toàn",
     writeReview: "Viết đánh giá",
@@ -222,6 +223,7 @@ export const vi = {
     tabSponsors: "Nhà tài trợ",
     noMatches: (q: string) => `Không có kết quả cho "${q}".`,
     addFirstReviewArrow: "Thêm đánh giá đầu tiên →",
+    addToDirectoryArrow: "Thêm vào danh bạ →",
     nothingHereYet: "Chưa có gì ở đây.",
     addFirstReview: "Thêm đánh giá đầu tiên",
     alsoKnownAs: (list: string) => `Còn được biết đến là ${list}`,
