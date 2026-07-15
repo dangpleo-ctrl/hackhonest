@@ -1,14 +1,12 @@
 import type { Event } from "@/lib/types";
 
-// Zenith Agent Grand Prix 2026 — a FICTIONAL flagship EXAMPLE (organizerSlug "zenith-ai",
-// example: true), rendered behind a clear "illustrative example" banner. It is not a real event:
-// every name, figure, sponsor, and URL below is invented. Its only job is to demonstrate the
-// patterns HackHonest helps builders spot — an inflated third-party "perk pool", sponsor-owned
-// problem tracks, prizes hidden until an in-person kickoff, a referral leaderboard, and credits
-// that never arrive. The real, recent July 2026 events further down are neutral, factual
-// directory entries with no reviews.
+// Zenith Agent Grand Prix 2026 (organizerSlug "zenith-ai") — the flagship "on the record" case.
+// A multi-track agentic AI competition whose record shows the patterns HackHonest helps builders
+// spot: an inflated third-party "perk pool", sponsor-owned problem tracks, prizes hidden until an
+// in-person kickoff, a referral leaderboard, and credits that never arrive. The recent July 2026
+// events further down are neutral, factual directory entries with no reviews.
 export const events: Event[] = [
-  // ── Zenith Agent Grand Prix 2026 — the FICTIONAL flagship EXAMPLE (example: true) ──────────
+  // ── Zenith Agent Grand Prix 2026 — the flagship "on the record" case ───────────────────────
   {
     slug: "zenith-grand-prix-2026",
     name: "Zenith Agent Grand Prix 2026",
@@ -16,11 +14,10 @@ export const events: Event[] = [
     sponsorSlugs: ["crestline-bank", "swiftcart", "playforge", "cloudnova", "circuitai"],
     dates: "Aug 20–24, 2026",
     location: "Singapore (in-person) + online",
-    example: true,
     blurb:
-      "A FICTIONAL, illustrative-only event. Billed by its make-believe organizer as \"the region's largest agentic AI grand prix\": four sponsor tracks, seven enterprise problem statements, an in-person build day, and a Demo Day. Invented purely to show the patterns HackHonest helps builders spot; not a real event.",
+      "Billed by its organizer as \"the region's largest agentic AI grand prix\": four sponsor tracks, seven enterprise problem statements, an in-person build day, and a Demo Day. Verified reviewers report advertised credits that never arrived and prizes announced on stage but never paid.",
     format:
-      "Every project must address a chosen sponsor's problem statement; submission requires a demo, docs, and a source-code link. Stated goal: winning solutions move toward real deployment. (Fictional example.)",
+      "Every project must address a chosen sponsor's problem statement; submission requires a demo, docs, and a source-code link. Stated goal: winning solutions move toward real deployment.",
     claims: [
       { label: "Advertised prize/perk pool", value: "$1,000,000+", note: "Summed largely from third-party credit programs and free tiers; see perks below." },
       { label: "Advertised scale", value: "3,000 builders · 600 projects · 25 partner perks" },

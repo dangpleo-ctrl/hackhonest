@@ -2,7 +2,7 @@ import * as React from "react";
 import Link from "next/link";
 import { MapPin, Globe, History } from "lucide-react";
 import type { Actor, ActorKind, Aggregate } from "@/lib/types";
-import { StarRating } from "./star-rating";
+import { RatingScore } from "./rating-score";
 import { Badge, type BadgeTone } from "./ui/badge";
 import { cn } from "./ui/cn";
 
@@ -37,8 +37,8 @@ export function ActorCard({ actor, aggregate, href, className }: ActorCardProps)
     <Link
       href={target}
       className={cn(
-        "group block rounded-xl border border-border bg-surface shadow-sm transition-shadow transition-colors duration-150",
-        "hover:border-border-strong hover:shadow-md",
+        "group block rounded-2xl border border-border bg-surface shadow-sm transition duration-200",
+        "hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
@@ -77,14 +77,13 @@ export function ActorCard({ actor, aggregate, href, className }: ActorCardProps)
           </ul>
         )}
 
-        {/* Compact community record */}
+        {/* Compact community record — the rating reads at a glance */}
         {aggregate && aggregate.avgOverall !== null && (
-          <div className="flex items-center gap-2">
-            <StarRating value={aggregate.avgOverall} size="sm" showValue />
-            <span className="text-sm text-muted">
-              ({aggregate.count} {aggregate.count === 1 ? "review" : "reviews"})
-            </span>
-          </div>
+          <RatingScore
+            avg={aggregate.avgOverall}
+            count={aggregate.count}
+            size="md"
+          />
         )}
 
         {/* Blurb */}
