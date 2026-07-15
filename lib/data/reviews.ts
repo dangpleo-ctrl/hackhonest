@@ -33,11 +33,11 @@ export const reviews: Review[] = [
     headline: "Advertised credits never arrived, and most 'perks' were other companies' free programs",
     body:
       "I attended Agent Builders Summit 2026 (ABS) in person. Here is what happened to me, with receipts.\n\n" +
-      "The perks page advertised OpenAI credits ($150 plus 3 months of ChatGPT Plus) and $1,000 in AWS " +
+      "The perks page advertised NeuralForge credits ($150 plus 3 months of NeuralForge Pro) and $1,000 in StratusCloud " +
       "credits. I applied through the official portal, which showed my status as 'Applied' and later " +
-      "'Claimed'. I received nothing. The AWS 'perk' was a link that redirected to AWS's standard Activate " +
+      "'Claimed'. I received nothing. The StratusCloud 'perk' was a link that redirected to StratusCloud's standard Activate " +
       "program, which anyone can apply to and which has nothing to do with the event. Several of the big " +
-      "headline perks (Microsoft for Startups '$1.5M', BytePlus '$15,000', Notion 'over $6,000') are the " +
+      "headline perks (Hyperion for Startups '$1.5M', PixelByte '$15,000', Noteflow 'over $6,000') are the " +
       "providers' own public startup programs, presented as if the organizer was granting them.\n\n" +
       "The '$1M+ in perks and credits' headline is built from those third-party programs plus free tiers " +
       "and out-of-stock items. The perks page itself states, in fine print, that 'submitting an application " +
@@ -53,9 +53,9 @@ export const reviews: Review[] = [
     author: "Verified ABS 2026 participant",
     date: "2026-07-14",
     evidence: [
-      { label: "Perks & Credits page (30 partner perks)", kind: "screenshot", note: "OpenAI $150 and AWS $1,000 shown as 'Applied'." },
+      { label: "Perks & Credits page (30 partner perks)", kind: "screenshot", note: "NeuralForge $150 and StratusCloud $1,000 shown as 'Applied'." },
       { label: "Builder dashboard showing perks 'Claimed'", kind: "screenshot", note: "Marked Claimed; $0 received." },
-      { label: "AWS perk link redirects to AWS Activate", kind: "link", note: "The organizer's link goes to AWS's own standard program." },
+      { label: "StratusCloud perk link redirects to StratusCloud Activate", kind: "link", note: "The organizer's link goes to StratusCloud's own standard program." },
     ],
   },
 

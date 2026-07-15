@@ -25,8 +25,8 @@ export type PerkStatus =
   | "out_of_stock";
 
 export interface Perk {
-  provider: string; // "OpenAI", "AWS", ...
-  promised: string; // "$150 credits + 3-mo ChatGPT Plus"
+  provider: string; // "NeuralForge", "StratusCloud", ...
+  promised: string; // "$150 credits + 3-mo NeuralForge Pro"
   status: PerkStatus;
   note?: string;
 }
