@@ -60,6 +60,7 @@ export function SiteNav() {
 
   const navLinks = [
     { label: t.nav.directory, href: "/directory" },
+    { label: t.nav.addEntry, href: "/suggest" },
     { label: t.nav.howItWorks, href: "/how-it-works" },
     { label: t.nav.trust, href: "/trust" },
   ];
