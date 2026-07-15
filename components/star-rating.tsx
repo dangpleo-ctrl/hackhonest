@@ -97,7 +97,7 @@ export function StarRating({
                 style={{ width: px, height: px }}
                 strokeWidth={1.75}
                 className={cn(
-                  filled ? "fill-rating text-rating" : "fill-none text-slate-300",
+                  filled ? "fill-rating text-rating" : "fill-none text-rating-track",
                 )}
               />
             </button>
@@ -126,7 +126,7 @@ export function StarRating({
               key={i}
               style={{ width: px, height: px }}
               strokeWidth={1.75}
-              className="fill-none text-slate-300"
+              className="fill-none text-rating-track"
             />
           ))}
         </span>

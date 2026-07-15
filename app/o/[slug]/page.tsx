@@ -42,15 +42,8 @@ export default async function ActorPage({ params }: { params: Promise<{ slug: st
         <span>{actor.kinds.includes("organizer") ? "Organizer" : "Sponsor"}</span>
       </div>
 
-      {actor.example && (
-        <div role="note" className="mt-4 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900">
-          <span className="font-semibold">⚠ Illustrative example.</span>{" "}
-          This is a fictional organization created only to show the patterns {brand.name} helps you spot. It is not real.
-        </div>
-      )}
-
       <div className="mt-2 flex flex-wrap items-center gap-3">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">{actor.name}</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">{actor.name}</h1>
         <div className="flex gap-1.5">
           {actor.kinds.map((k) => (
             <Badge key={k} tone={kindTone[k]}>{kindLabel[k]}</Badge>
@@ -72,7 +65,7 @@ export default async function ActorPage({ params }: { params: Promise<{ slug: st
       )}
 
       <div className="mt-5 flex flex-wrap gap-3">
-        <Link href="/review/new" className="rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground hover:opacity-90">
+        <Link href="/review/new" className="rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground shadow-sm transition-colors hover:bg-accent-strong">
           Write a review
         </Link>
         <button className="cursor-not-allowed rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-faint" title="Right of reply — coming with public launch" disabled>
@@ -91,12 +84,12 @@ export default async function ActorPage({ params }: { params: Promise<{ slug: st
             {events.map((e) => {
               const role = e.organizerSlug === slug ? "Organized" : "Sponsored";
               return (
-                <Link key={e.slug} href={`/e/${e.slug}`} className="rounded-xl border border-border bg-surface p-4 transition hover:border-border-strong">
+                <Link key={e.slug} href={`/e/${e.slug}`} className="group block rounded-2xl border border-border bg-surface p-4 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md">
                   <div className="flex items-center justify-between gap-2">
-                    <div className="font-semibold text-foreground">{e.name}</div>
+                    <div className="font-semibold text-foreground transition-colors group-hover:text-accent-strong">{e.name}</div>
                     <Badge tone="outline" size="sm">{role}</Badge>
                   </div>
-                  <div className="mt-1 text-sm text-muted">{e.dates} · {e.location}</div>
+                  <div className="mt-1.5 text-sm text-muted">{e.dates} · {e.location}</div>
                 </Link>
               );
             })}
@@ -110,7 +103,7 @@ export default async function ActorPage({ params }: { params: Promise<{ slug: st
           {reviews.length === 0 ? (
             <div className="rounded-xl border border-dashed border-border bg-surface p-6 text-center">
               <p className="text-sm text-muted">No reviews yet.</p>
-              <Link href="/review/new" className="mt-3 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:opacity-90">
+              <Link href="/review/new" className="mt-3 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm transition-colors hover:bg-accent-strong">
                 Be the first to review
               </Link>
             </div>

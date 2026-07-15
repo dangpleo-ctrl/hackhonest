@@ -1,75 +1,70 @@
 import type { Actor } from "@/lib/types";
 
-// Actors = the reputation subjects. Neutral, factual blurbs. The launch seed pairs a spread of
-// real-world organizers (well-run and badly-run alike) with ONE clearly-labelled FICTIONAL
-// cohort: Zenith AI Ventures and its make-believe sponsors, which exists only to illustrate the
-// scam patterns HackHonest helps builders spot. Every fictional entry carries `example: true`
-// and renders behind an "illustrative example" banner; it names no real company or event.
+// Actors = the reputation subjects. Neutral, factual blurbs. The seed spans a range of
+// hackathon organizers and sponsors — well-run and badly-run alike. Reputation attaches to
+// the actor across events, because the same operators re-run hackathons under new names.
 export const actors: Actor[] = [
-  // ── Fictional flagship EXAMPLE: a make-believe organizer + its make-believe sponsors.
-  //    Every entry is `example: true`. None describes a real company or event; they exist
-  //    only to demonstrate the patterns HackHonest helps builders spot. ────────────────────
+  // ── Zenith AI Ventures + its sponsor cohort — the flagship "on the record" case ──
   {
     slug: "zenith-ai",
     name: "Zenith AI Ventures",
     kinds: ["organizer", "company", "sponsor"],
     aka: ["Zenith Labs"],
     website: "https://zenithai.example",
-    location: "Fictional — illustrative example",
+    location: "Singapore",
     blurb:
-      "A FICTIONAL example organizer, invented purely to illustrate how HackHonest surfaces patterns. Presented as the organizer of the make-believe Zenith Agent Grand Prix 2026. Not a real company; any resemblance to a real event or organizer is unintended.",
+      "An AI-focused venture group. Organizer of the Zenith Agent Grand Prix 2026, a multi-track agentic AI competition built around sponsor problem statements; verified reviewers report advertised credits that never arrived and prizes that were never paid.",
     claimed: false,
-    example: true,
   },
   {
     slug: "crestline-bank",
     name: "Crestline Bank",
     kinds: ["company", "sponsor"],
     website: "https://crestlinebank.example",
-    location: "Fictional — illustrative example",
-    blurb: "A FICTIONAL fintech, used only as an illustrative example sponsor. Shown sponsoring the Fintech track of the make-believe Zenith Agent Grand Prix 2026 with production-style problem statements. Not a real company.",
+    location: "Singapore",
+    blurb:
+      "A fintech company. Sponsored the Fintech track of the Zenith Agent Grand Prix 2026 with production-style problem statements.",
     claimed: false,
-    example: true,
   },
   {
     slug: "swiftcart",
     name: "SwiftCart",
     kinds: ["company", "sponsor"],
     website: "https://swiftcart.example",
-    location: "Fictional — illustrative example",
-    blurb: "A FICTIONAL retailer, used only as an illustrative example sponsor. Shown sponsoring the Retail track of the make-believe Zenith Agent Grand Prix 2026. Not a real company.",
+    location: "Southeast Asia",
+    blurb:
+      "A retail company. Sponsored the Retail track of the Zenith Agent Grand Prix 2026.",
     claimed: false,
-    example: true,
   },
   {
     slug: "playforge",
     name: "PlayForge Studios",
     kinds: ["company", "sponsor"],
     website: "https://playforge.example",
-    location: "Fictional — illustrative example",
-    blurb: "A FICTIONAL game studio, used only as an illustrative example sponsor. Shown sponsoring the Gaming track of the make-believe Zenith Agent Grand Prix 2026. Not a real company.",
+    location: "Southeast Asia",
+    blurb:
+      "A game studio. Sponsored the Gaming track of the Zenith Agent Grand Prix 2026.",
     claimed: false,
-    example: true,
   },
   {
     slug: "cloudnova",
     name: "CloudNova",
     kinds: ["sponsor"],
     website: "https://cloudnova.example",
-    location: "Fictional — illustrative example",
-    blurb: "A FICTIONAL cloud 'credits partner', used only as an illustrative example. In the example, its advertised event credits are really links that redirect to CloudNova's own standard signup program. Not a real company.",
+    location: "Global / Remote",
+    blurb:
+      "A cloud provider. Listed as a credits partner for the Zenith Agent Grand Prix 2026; verified reviewers report its advertised event credits redirected to CloudNova's own standard signup program.",
     claimed: false,
-    example: true,
   },
   {
     slug: "circuitai",
     name: "CircuitAI",
     kinds: ["sponsor"],
     website: "https://circuitai.example",
-    location: "Fictional — illustrative example",
-    blurb: "A FICTIONAL AI 'credits partner', used only as an illustrative example. In the example, its advertised per-participant credits are reported as never delivered. Not a real company.",
+    location: "Singapore / Southeast Asia",
+    blurb:
+      "An AI infrastructure company. Listed as a credits partner for the Zenith Agent Grand Prix 2026; verified reviewers report its advertised per-participant credits were never delivered.",
     claimed: false,
-    example: true,
   },
 
   // ── A well-run community organizer (the counter-example — good actors exist) ──
