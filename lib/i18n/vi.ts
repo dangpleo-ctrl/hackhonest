@@ -532,8 +532,135 @@ export const vi = {
   footer: {
     explore: "Khám phá",
     trust: "Tin cậy",
+    community: "Cộng đồng",
     disclaimer: (brandName: string) =>
       `Đây không phải trang chính thức của đơn vị tổ chức. ${brandName} đăng tải các đánh giá độc lập, từ người trong cuộc đã xác minh. Mọi con số trên trang này là thống kê lại những gì người tham gia thực sự phản ánh.`,
     copyright: (year: number, brandName: string) => `© ${year} ${brandName}`,
+  },
+
+  // ── Diễn đàn cộng đồng ──────────────────────────────────────────────────────
+  forum: {
+    navLink: "Cộng đồng",
+    metaTitle: "Cộng đồng",
+    metaDescription:
+      "Trao đổi kinh nghiệm với những người làm khác về đơn vị tổ chức, nhà tài trợ, giải thưởng và sự kiện hackathon.",
+    title: "Cộng đồng",
+    subtitle:
+      "Trao đổi kinh nghiệm với những người tham gia khác. Cảnh báo nhau về bên làm ăn không đàng hoàng, chia sẻ một sự kiện thực sự diễn ra thế nào, và hỏi trước khi dành cả một cuối tuần.",
+    startThread: "Bắt đầu thảo luận",
+    loginToPost: "Đăng nhập để đăng bài",
+    signedInAs: (handle: string) => `Đăng với tên ${handle}`,
+    categoriesHeading: "Chuyên mục",
+    recentHeading: "Thảo luận gần đây",
+    threadsIn: (name: string) => `Thảo luận trong ${name}`,
+    replyCount: (n: number) => `${n} trả lời`,
+    postCount: (n: number) => `${n} bài`,
+    noThreadsYet: "Chưa có thảo luận nào ở đây.",
+    beFirst: "Bắt đầu thảo luận đầu tiên",
+    startedBy: (handle: string) => `bởi ${handle}`,
+    lastActivity: "Hoạt động gần nhất",
+    aboutActor: (name: string) => `Về ${name} →`,
+
+    backToForum: "← Cộng đồng",
+    backToCategory: (name: string) => `← ${name}`,
+    repliesHeading: "Trả lời",
+    noRepliesYet: "Chưa có trả lời nào. Hãy là người đầu tiên lên tiếng.",
+    replyHeading: "Thêm trả lời",
+    replyLabel: "Trả lời của bạn",
+    replyPlaceholder: "Chia sẻ những gì bạn biết. Hãy nói từ trải nghiệm thật và có căn cứ.",
+    replySubmit: "Đăng trả lời",
+    replySubmitting: "Đang đăng…",
+    loginToReply: "Đăng nhập để trả lời",
+    loginToReplyNote: "Bạn cần một tài khoản miễn phí để tham gia thảo luận.",
+    locked: "Đã khóa",
+    lockedNote: "Thảo luận này đã bị khóa. Bạn vẫn có thể đọc, nhưng không thể trả lời thêm.",
+
+    newMetaTitle: "Bắt đầu thảo luận",
+    newTitle: "Bắt đầu thảo luận",
+    newSubtitle:
+      "Hãy nói từ trải nghiệm thật và có căn cứ. Đây là hồ sơ công khai, lâu dài — hãy đối xử với đơn vị tổ chức như cách bạn muốn được đối xử, và dẫn chứng cho những khẳng định quan trọng.",
+    categoryLabel: "Chuyên mục",
+    categoryPlaceholder: "Chọn một chuyên mục…",
+    titleLabel: "Tiêu đề",
+    titlePlaceholder: "Một dòng: bài này nói về điều gì?",
+    bodyLabel: "Nội dung",
+    bodyPlaceholder:
+      "Điều gì đã xảy ra, bạn muốn hỏi gì, hoặc điều người khác nên biết. Nêu sự thật trước, rồi đến quan điểm của bạn.",
+    bodyHelp: "Từ 20 ký tự trở lên. Markdown chưa được hiển thị — văn bản thuần là được.",
+    actorLabel: "Liên kết một đơn vị tổ chức hoặc sự kiện (tùy chọn)",
+    actorHelp: "Gắn thảo luận này với một mục trong danh bạ để người khác dễ tìm.",
+    actorNone: "Không gắn với mục cụ thể nào",
+    createSubmit: "Đăng thảo luận",
+    creating: "Đang đăng…",
+
+    errTitle: "Vui lòng nhập tiêu đề (6–160 ký tự).",
+    errBody: "Vui lòng viết nội dung (ít nhất 20 ký tự).",
+    errCategory: "Vui lòng chọn một chuyên mục.",
+    errAuth: "Vui lòng đăng nhập để đăng bài.",
+    errGeneric: "Đã có lỗi xảy ra. Vui lòng thử lại.",
+    errNetwork: "Lỗi kết nối. Vui lòng thử lại.",
+
+    justNow: "vừa xong",
+  },
+
+  // ── Tài khoản / đăng nhập ───────────────────────────────────────────────────
+  auth: {
+    emailLabel: "Email",
+    emailPlaceholder: "ban@vidu.com",
+    emailHelp: "Riêng tư. Chỉ dùng để đăng nhập và xác minh bạn — không bao giờ hiển thị hay chia sẻ.",
+    passwordLabel: "Mật khẩu",
+    passwordPlaceholder: "Ít nhất 8 ký tự",
+    handleLabel: "Tên hiển thị",
+    handleHelp:
+      "Tên công khai của bạn trong cộng đồng. Chữ thường, số và dấu gạch dưới; 3–24 ký tự. Đây là tất cả những gì người khác thấy — email của bạn luôn riêng tư.",
+    handlePlaceholder: "ví dụ: nguoi_lam_cuoi_tuan",
+
+    loginMetaTitle: "Đăng nhập",
+    loginTitle: "Đăng nhập",
+    loginSubtitle: "Chào mừng trở lại. Đăng nhập để đăng bài trong cộng đồng.",
+    loginSubmit: "Đăng nhập",
+    loginSubmitting: "Đang đăng nhập…",
+    noAccountPrompt: "Bạn mới đến?",
+    signUpLink: "Tạo tài khoản",
+
+    signupMetaTitle: "Tạo tài khoản",
+    signupTitle: "Tạo tài khoản",
+    signupSubtitle:
+      "Chọn một tên hiển thị là xong. Bạn giữ ẩn danh — email không bao giờ hiển thị, nên bạn có thể nói thật lòng mà không sợ đơn vị tổ chức trả đũa.",
+    signupSubmit: "Tạo tài khoản",
+    signupSubmitting: "Đang tạo…",
+    haveAccountPrompt: "Đã có tài khoản?",
+    loginLink: "Đăng nhập",
+
+    confirmEmailHeading: "Kiểm tra email của bạn",
+    confirmEmailBody:
+      "Chúng tôi đã gửi cho bạn một liên kết để xác nhận tài khoản. Nhấn vào đó, rồi quay lại đăng nhập.",
+    privacyNote:
+      "Email của bạn riêng tư và không bao giờ hiển thị. Tên hiển thị là danh tính công khai của bạn.",
+
+    errEmail: "Vui lòng nhập email hợp lệ.",
+    errPassword: "Mật khẩu phải có ít nhất 8 ký tự.",
+    errHandle:
+      "Tên hiển thị phải 3–24 ký tự: chữ thường, số và dấu gạch dưới.",
+    errHandleTaken: "Tên hiển thị này đã có người dùng. Hãy thử tên khác.",
+    errInvalidCredentials: "Sai email hoặc mật khẩu.",
+    errEmailInUse: "Email này đã có tài khoản. Hãy thử đăng nhập.",
+    errGeneric: "Đã có lỗi xảy ra. Vui lòng thử lại.",
+    errNetwork: "Lỗi kết nối. Vui lòng thử lại.",
+  },
+
+  // ── Trang tài khoản ─────────────────────────────────────────────────────────
+  account: {
+    navLink: "Tài khoản",
+    metaTitle: "Tài khoản của bạn",
+    title: "Tài khoản của bạn",
+    signedInAs: "Đang đăng nhập với",
+    publicHandle: "Tên hiển thị công khai",
+    privateEmail: "Email riêng tư (không hiển thị)",
+    memberSince: (date: string) => `Thành viên từ ${date}`,
+    signOut: "Đăng xuất",
+    myThreads: "Thảo luận của bạn",
+    noThreads: "Bạn chưa bắt đầu thảo luận nào.",
+    startOne: "Bắt đầu một thảo luận",
   },
 };
