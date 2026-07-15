@@ -1,28 +1,11 @@
+"use client";
+
 import * as React from "react";
 import { BadgeCheck } from "lucide-react";
 import type { VerifyMethod } from "@/lib/types";
+import { useT } from "@/lib/i18n/locale-provider";
 import { Badge, type BadgeSize } from "./ui/badge";
 import { cn } from "./ui/cn";
-
-/** Human-readable label + one-line explanation for each verification method. */
-const METHOD_COPY: Record<VerifyMethod, { label: string; detail: string }> = {
-  "founder-attested": {
-    label: "Founder-attested",
-    detail: "A named founder confirmed this reviewer attended.",
-  },
-  github: {
-    label: "GitHub-verified",
-    detail: "Linked to a GitHub account with a matching submission.",
-  },
-  evidence: {
-    label: "Evidence-backed",
-    detail: "Reviewer supplied supporting screenshots or documents.",
-  },
-  "email-dkim": {
-    label: "Email-verified",
-    detail: "Confirmed via a signed (DKIM) email from the event.",
-  },
-};
 
 export interface VerifiedBadgeProps {
   method?: VerifyMethod;
@@ -33,8 +16,8 @@ export interface VerifiedBadgeProps {
 }
 
 /**
- * "Verified attendee" trust marker. The `title` carries the plain-English
- * explanation of how this reviewer was verified.
+ * "Verified attendee" trust marker. The `title` carries the plain-English (or
+ * plain-Vietnamese) explanation of how this reviewer was verified.
  */
 export function VerifiedBadge({
   method,
@@ -42,11 +25,12 @@ export function VerifiedBadge({
   showMethod = false,
   className,
 }: VerifiedBadgeProps) {
-  const copy = method ? METHOD_COPY[method] : null;
-  const text = showMethod && copy ? copy.label : "Verified attendee";
+  const t = useT();
+  const copy = method ? t.verified.methods[method] : null;
+  const text = showMethod && copy ? copy.label : t.verified.attendee;
   const title = copy
-    ? `Verified attendee — ${copy.detail}`
-    : "Verified attendee";
+    ? `${t.verified.attendee} — ${copy.detail}`
+    : t.verified.attendee;
 
   return (
     <Badge tone="success" size={size} className={cn(className)} title={title}>

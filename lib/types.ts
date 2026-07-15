@@ -132,6 +132,8 @@ export interface Aggregate {
   verifiedCount: number;
   avgOverall: number | null;
   dimensionAverages: { key: string; label: string; avg: number | null; count: number }[];
-  // "N of M verified reviewers reported perks not delivered", etc.
-  signals: { label: string; n: number; of: number }[];
+  // "N of M verified reviewers reported perks not delivered", etc. `key` (when present)
+  // ties the signal back to a REVIEW_DIMENSIONS entry so the UI can localize the phrase;
+  // `label` is the pre-composed English fallback.
+  signals: { key?: string; label: string; n: number; of: number }[];
 }

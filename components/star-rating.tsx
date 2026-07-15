@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { Star } from "lucide-react";
+import { useT } from "@/lib/i18n/locale-provider";
 import { cn } from "./ui/cn";
 
 export type StarSize = "sm" | "md" | "lg";
@@ -49,6 +50,7 @@ export function StarRating({
   showValue = false,
   className,
 }: StarRatingProps) {
+  const t = useT();
   const interactive = !!onChange && !readOnly;
   const px = STAR_PX[size];
   const gapPx = GAP_PX[size];
@@ -74,7 +76,7 @@ export function StarRating({
     return (
       <div
         role="radiogroup"
-        aria-label={label ?? `Rating, ${max} stars`}
+        aria-label={label ?? t.starRating.ratingWithMax(max)}
         className={cn("inline-flex items-center", GAP_CLASS[size], className)}
         onMouseLeave={() => setHover(0)}
       >
@@ -86,7 +88,7 @@ export function StarRating({
               type="button"
               role="radio"
               aria-checked={i === current}
-              aria-label={`${i} of ${max} stars`}
+              aria-label={t.starRating.starOfMax(i, max)}
               tabIndex={i === current || (current === 0 && i === 1) ? 0 : -1}
               onClick={() => onChange(i)}
               onMouseEnter={() => setHover(i)}
@@ -116,7 +118,7 @@ export function StarRating({
     >
       <span
         role="img"
-        aria-label={label ?? `${roundedLabel} out of ${max} stars`}
+        aria-label={label ?? t.starRating.valueOutOfMax(String(roundedLabel), max)}
         className="relative inline-flex shrink-0"
         style={{ width: fullWidth, height: px }}
       >
