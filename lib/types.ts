@@ -14,6 +14,7 @@ export interface Actor {
   location?: string;
   blurb: string; // neutral, factual, one or two sentences
   claimed?: boolean; // has the actor claimed the page (right-of-reply)?
+  example?: boolean; // fictional, illustrative-only entry — rendered with a clear "example" banner, never a real accusation
 }
 
 // A perk/credit line as ADVERTISED by the organizer, plus what a verified attendee reported.
@@ -75,6 +76,7 @@ export interface Event {
   perks?: Perk[];
   winners?: Winner[];
   facts?: EventFact[]; // neutral, sourced facts (e.g. "moved off the accountable platform")
+  example?: boolean; // fictional, illustrative-only event — rendered with a clear "example" banner, not a real event
 }
 
 export interface ReviewDimension {

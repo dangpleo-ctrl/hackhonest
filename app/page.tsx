@@ -5,7 +5,7 @@ import { ActorCard } from "@/components/actor-card";
 import { StarRating } from "@/components/star-rating";
 
 export default function Home() {
-  const featured = getEvent("abs-2026");
+  const featured = getEvent("zenith-grand-prix-2026");
   const featuredAgg = featured ? aggregateForEvent(featured.slug) : null;
   const featuredOrg = featured ? getActor(featured.organizerSlug) : null;
   const notable = actors.filter((a) => a.kinds.includes("organizer")).slice(0, 4);
@@ -45,7 +45,12 @@ export default function Home() {
         {/* Featured case */}
         {featured && featuredAgg && (
           <section className="mt-12">
-            <p className="text-xs font-semibold uppercase tracking-wide text-faint">On the record</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-faint">
+              On the record
+              {featured.example && (
+                <span className="ml-2 rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold text-amber-800">Illustrative example</span>
+              )}
+            </p>
             <Link
               href={`/e/${featured.slug}`}
               className="mt-2 block rounded-2xl border border-border bg-surface p-6 transition hover:border-border-strong"
@@ -68,7 +73,7 @@ export default function Home() {
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 <Stat label="Problem statements" value={`${(featured.problems ?? []).length}`} sub="each a sponsor's real production problem" />
                 <Stat label="Advertised" value="$1M+ perks" sub="mostly third-party programs & free tiers" />
-                <Stat label="Reported" value="Credits not delivered" sub="OpenAI & AWS credits: applied, received $0" />
+                <Stat label="Reported" value="Credits not delivered" sub="CircuitAI & CloudNova credits: applied, received $0" />
               </div>
               <span className="mt-4 inline-block text-sm font-semibold text-accent-strong">See the full record →</span>
             </Link>
