@@ -49,6 +49,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
   const problemsByTrack = groupBy(event.problems ?? [], (p) => p.track);
   const winnersByTrack = groupBy(event.winners ?? [], (w) => w.track);
   const winnerCount = (event.winners ?? []).length;
+  const winnersSponsorMapped = (event.winners ?? []).some((w) => w.sponsor);
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-10">
@@ -163,7 +164,11 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
       {winnerCount > 0 && (
         <Section
           title="Shortlisted teams & winners"
-          subtitle={`As posted by the organizer. Every one of the ${winnerCount} projects on record was built to solve a named sponsor's production problem.`}
+          subtitle={
+            winnersSponsorMapped
+              ? `As posted by the organizer. Every one of the ${winnerCount} projects on record was built to solve a named sponsor's production problem.`
+              : "As posted by the organizer."
+          }
         >
           <div className="space-y-4">
             {Object.entries(winnersByTrack).map(([track, ws]) => {
@@ -211,7 +216,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
       {/* Problem statements (evidence, grouped) */}
       {Object.keys(problemsByTrack).length > 0 && (
-        <Section title="The 67 problem statements" subtitle="Each is a named enterprise's real production problem.">
+        <Section title={`The ${(event.problems ?? []).length} problem statements`} subtitle="Each is a named enterprise's real production problem.">
           <div className="space-y-4">
             {Object.entries(problemsByTrack).map(([track, ps]) => (
               <details key={track} className="rounded-xl border border-border bg-surface p-4">
