@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Be_Vietnam_Pro } from "next/font/google";
 import { brand } from "@/lib/brand";
 import { getLocaleAndT } from "@/lib/i18n/server";
+import { getSessionUser } from "@/lib/auth";
 import { LocaleProvider } from "@/lib/i18n/locale-provider";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
@@ -45,12 +46,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = (await getLocaleAndT()).locale;
+  const [{ locale }, user] = await Promise.all([getLocaleAndT(), getSessionUser()]);
   return (
     <html lang={locale} className={`${beVietnamPro.variable} h-full`}>
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground antialiased">
         <LocaleProvider initialLocale={locale}>
-          <SiteNav />
+          <SiteNav user={user ? { handle: user.handle } : null} />
           <main className="flex-1">{children}</main>
           <SiteFooter />
         </LocaleProvider>
