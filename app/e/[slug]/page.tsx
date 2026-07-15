@@ -60,14 +60,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <span>Event</span>
       </div>
 
-      {event.example && (
-        <div role="note" className="mt-4 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900">
-          <span className="font-semibold">⚠ Illustrative example.</span>{" "}
-          This is a fictional event created only to show the patterns {brand.name} helps you spot. It is not real.
-        </div>
-      )}
-
-      <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground">{event.name}</h1>
+      <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">{event.name}</h1>
       <p className="mt-2 text-[15px] text-muted">
         {event.dates} · {event.location}
         {organizer && (
@@ -86,7 +79,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         </p>
       )}
       <div className="mt-5 flex flex-wrap gap-3">
-        <Link href={`/review/new`} className="rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground hover:opacity-90">
+        <Link href={`/review/new`} className="rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground shadow-sm transition-colors hover:bg-accent-strong">
           Write a review
         </Link>
       </div>
@@ -101,7 +94,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <Section title="What was advertised">
           <div className="grid gap-3 sm:grid-cols-2">
             {event.claims.map((c) => (
-              <div key={c.label} className="rounded-xl border border-border bg-surface p-4">
+              <div key={c.label} className="rounded-2xl border border-border bg-surface p-4 shadow-sm">
                 <div className="text-xs font-medium uppercase tracking-wide text-faint">{c.label}</div>
                 <div className="mt-1 text-lg font-semibold text-foreground">{c.value}</div>
                 {c.note && <div className="mt-1 text-xs text-muted">{c.note}</div>}
@@ -114,18 +107,18 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
       {/* Perks — the evidence */}
       {event.perks && event.perks.length > 0 && (
         <Section title="Advertised perks & credits, vs. what a verified attendee reported">
-          <div className="overflow-hidden rounded-xl border border-border">
+          <div className="overflow-hidden rounded-2xl border border-border shadow-sm">
             <table className="w-full text-left text-sm">
               <thead className="bg-surface-muted text-xs uppercase tracking-wide text-faint">
                 <tr>
-                  <th className="px-4 py-2.5 font-medium">Provider</th>
-                  <th className="px-4 py-2.5 font-medium">Advertised</th>
-                  <th className="px-4 py-2.5 font-medium">Reported</th>
+                  <th className="px-4 py-3 font-semibold">Provider</th>
+                  <th className="px-4 py-3 font-semibold">Advertised</th>
+                  <th className="px-4 py-3 font-semibold">Reported</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
                 {event.perks.map((p, i) => (
-                  <tr key={i} className="bg-surface align-top">
+                  <tr key={i} className="bg-surface align-top transition-colors hover:bg-surface-muted/50">
                     <td className="px-4 py-3 font-medium text-foreground">{p.provider}</td>
                     <td className="px-4 py-3 text-muted">{p.promised}</td>
                     <td className="px-4 py-3">
@@ -150,7 +143,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
             {event.tracks.map((t) => {
               const sponsor = t.sponsor ? getActor(t.sponsor) : undefined;
               return (
-                <div key={t.name} className="rounded-xl border border-border bg-surface p-4">
+                <div key={t.name} className="rounded-2xl border border-border bg-surface p-4 shadow-sm">
                   <div className="flex items-center justify-between gap-2">
                     <div className="font-semibold text-foreground">{t.name}</div>
                     <Badge tone="neutral">{t.problemCount} problems</Badge>
@@ -182,7 +175,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
             {Object.entries(winnersByTrack).map(([track, ws]) => {
               const sponsor = ws[0]?.sponsor ? getActor(ws[0].sponsor) : undefined;
               return (
-                <div key={track} className="rounded-xl border border-border bg-surface p-4">
+                <div key={track} className="rounded-2xl border border-border bg-surface p-4 shadow-sm">
                   <div className="flex items-center justify-between gap-2">
                     <div className="font-semibold text-foreground">{track}</div>
                     {sponsor && (
@@ -212,7 +205,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <Section title="On the record" subtitle="Sourced facts about this event. We state them; we don't interpret them.">
           <div className="space-y-3">
             {event.facts.map((f) => (
-              <div key={f.label} className="rounded-xl border border-border bg-surface p-4">
+              <div key={f.label} className="rounded-2xl border border-border bg-surface p-4 shadow-sm">
                 <div className="font-semibold text-foreground">{f.label}</div>
                 <p className="mt-1 text-sm leading-relaxed text-muted">{f.fact}</p>
                 {f.source && <div className="mt-1 text-xs text-faint">Source: {f.source}</div>}
@@ -227,7 +220,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <Section title={`The ${(event.problems ?? []).length} problem statements`} subtitle="Each is a named enterprise's real production problem.">
           <div className="space-y-4">
             {Object.entries(problemsByTrack).map(([track, ps]) => (
-              <details key={track} className="rounded-xl border border-border bg-surface p-4">
+              <details key={track} className="rounded-2xl border border-border bg-surface p-4 shadow-sm">
                 <summary className="cursor-pointer font-semibold text-foreground">{track} <span className="font-normal text-faint">({ps.length})</span></summary>
                 <ul className="mt-3 space-y-2">
                   {ps.map((p, i) => (
@@ -279,7 +272,7 @@ function EmptyReviews() {
   return (
     <div className="rounded-xl border border-dashed border-border bg-surface p-6 text-center">
       <p className="text-sm text-muted">No reviews yet. Were you there?</p>
-      <Link href="/review/new" className="mt-3 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:opacity-90">
+      <Link href="/review/new" className="mt-3 inline-block rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm transition-colors hover:bg-accent-strong">
         Be the first to review
       </Link>
     </div>

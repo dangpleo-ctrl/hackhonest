@@ -331,7 +331,8 @@ export default function ComponentsPreviewPage() {
         </h1>
         <p className="max-w-2xl text-base leading-relaxed text-muted">
           Every reusable component rendered with realistic sample data. Light
-          theme, Be Vietnam Pro, AAA body contrast, single blue accent.
+          and dark themes, Be Vietnam Pro, AAA body contrast, one blue accent,
+          restrained rating colors.
         </p>
       </header>
 

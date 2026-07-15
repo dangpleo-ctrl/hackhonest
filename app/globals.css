@@ -3,10 +3,17 @@
 /*
   HackHonest design system — Tailwind 4, CSS-based config.
 
-  Direction: light-first, editorial, trustworthy. One blue accent (#1d4ed8).
-  Generous whitespace, 1px borders, minimal shadows, AAA contrast for body text.
-  All semantic tokens live here; components only ever reference the token names
-  (bg-surface, text-muted, border-border, ...) so re-theming is a one-file change.
+  Direction: credible, editorial, trustworthy — "the community record." One
+  confident blue brand accent, a gold star convention, and a restrained
+  green/amber/red rating language (good / caution / bad) used only where a
+  rating needs to read at a glance. Generous whitespace, hairline borders doing
+  most of the structural work, soft real shadows for genuine elevation, AAA
+  contrast for body text in BOTH themes.
+
+  Every semantic token lives here. Components only ever reference token NAMES
+  (bg-surface, text-muted, border-border, bg-danger-subtle, ...), so light/dark
+  re-theming is a single-file change: the dark block near the bottom overrides
+  the same variables and every utility follows.
 */
 
 @theme {
@@ -15,49 +22,70 @@
     var(--font-be-vietnam-pro), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-  /* Core neutrals — a calm off-white page under pure-white cards. */
+  /* ── Neutrals — a calm off-white page under pure-white cards. ───────────── */
   --color-background: #f8fafc; /* page canvas (slate-50) */
   --color-surface: #ffffff; /* cards, nav, elevated blocks */
   --color-surface-muted: #f1f5f9; /* subtle fills, tracks (slate-100) */
-  --color-border: #e2e8f0; /* default 1px hairline (slate-200) */
+  --color-surface-sunken: #eef2f7; /* insets / scorecards, one step deeper */
+  --color-border: #e2e8f0; /* default hairline (slate-200) */
   --color-border-strong: #cbd5e1; /* hover / emphasis border (slate-300) */
 
-  /* Text — tuned for AAA (>=7:1) on white and on surface-muted. */
+  /* ── Text — tuned for AAA (>=7:1) on white and on surface-muted. ────────── */
   --color-foreground: #0f172a; /* primary text ~16:1 (slate-900) */
   --color-muted: #475569; /* secondary text ~7.5:1 AAA (slate-600) */
   --color-faint: #64748b; /* meta / placeholders ~5.9:1 (slate-500) */
 
-  /* Accent — the single blue. Fills use `accent`; text-on-light uses
-     `accent-strong` (blue-800, ~8:1) so inline links stay AAA. */
+  /* ── Accent — the single blue. Fills use `accent`; text-on-light uses
+     `accent-strong` (blue-800) so inline links stay high-contrast. ────────── */
   --color-accent: #1d4ed8; /* blue-700 — buttons, focus, active */
   --color-accent-strong: #1e40af; /* blue-800 — AAA link text on light */
   --color-accent-foreground: #ffffff; /* text/icons on an accent fill */
   --color-accent-subtle: #eff6ff; /* tinted accent background (blue-50) */
   --color-accent-border: #bfdbfe; /* accent chip border (blue-200) */
 
-  /* Semantic status — solid values for icons/borders. Chips pair a 50-tint
-     background with an 800-tone text from Tailwind's default palette (AAA). */
+  /* ── Semantic status — the rating language. Each tone has a SOLID (icons,
+     bars, borders) plus a chip triplet: -subtle bg, -strong text (AAA on the
+     tint), -border. Kept deliberately calm; color earns its place. ────────── */
   --color-success: #15803d; /* green-700 */
+  --color-success-subtle: #f0fdf4; /* green-50 */
+  --color-success-strong: #166534; /* green-800 — text on tint */
+  --color-success-border: #bbf7d0; /* green-200 */
+
   --color-warning: #b45309; /* amber-700 */
+  --color-warning-subtle: #fffbeb; /* amber-50 */
+  --color-warning-strong: #92400e; /* amber-800 */
+  --color-warning-border: #fde68a; /* amber-200 */
+
   --color-danger: #b91c1c; /* red-700 */
+  --color-danger-subtle: #fef2f2; /* red-50 */
+  --color-danger-strong: #991b1b; /* red-800 */
+  --color-danger-border: #fecaca; /* red-200 */
 
-  /* Rating gold — the universal star convention, kept distinct from the UI
-     accent so a rating never reads as an interactive control. */
-  --color-rating: #f59e0b; /* amber-500 */
+  /* ── Rating gold — the universal star convention, kept distinct from the UI
+     accent so a rating never reads as an interactive control. ─────────────── */
+  --color-rating: #f59e0b; /* amber-500 — filled star */
+  --color-rating-track: #cbd5e1; /* empty star / rating track (slate-300) */
 
-  /* Radius — softly rounded, editorial. */
+  /* ── Radius — softly rounded, editorial. ────────────────────────────────── */
   --radius-md: 0.5rem;
   --radius-lg: 0.625rem;
   --radius-xl: 0.875rem;
   --radius-2xl: 1.25rem;
 
-  /* Shadows — barely-there elevation; the border does most of the work. */
-  --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.04);
+  /* ── Shadows — real but restrained elevation; borders still carry structure.
+     Overridden in dark to lean on black so depth survives a dark canvas. ──── */
+  --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.05);
   --shadow-md:
-    0 4px 12px -2px rgb(15 23 42 / 0.06), 0 2px 6px -2px rgb(15 23 42 / 0.04);
+    0 4px 16px -4px rgb(15 23 42 / 0.1), 0 2px 6px -3px rgb(15 23 42 / 0.06);
+  --shadow-lg:
+    0 18px 40px -12px rgb(15 23 42 / 0.18), 0 6px 14px -6px rgb(15 23 42 / 0.1);
 }
 
-/* Base — apply canvas + text + font once, globally. */
+/* ── Base — canvas + text + font, once, globally. ─────────────────────────── */
+html {
+  color-scheme: light;
+}
+
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
@@ -67,7 +95,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Editorial niceties: balanced headings, pretty body wrapping. */
+/* Editorial niceties: balanced, tight headings; pretty body wrapping. */
 h1,
 h2,
 h3,
@@ -75,10 +103,82 @@ h4,
 h5,
 h6 {
   text-wrap: balance;
+  letter-spacing: -0.018em;
+  line-height: 1.15;
 }
 
 p {
   text-wrap: pretty;
+}
+
+/* A small, on-brand selection color. */
+::selection {
+  background-color: var(--color-accent-subtle);
+  color: var(--color-accent-strong);
+}
+
+/*
+  ── Dark theme ─────────────────────────────────────────────────────────────
+  Automatic, follows the OS (no toggle, no JS). Re-declares the SAME token
+  variables against a deep navy canvas; every Tailwind utility that reads a
+  token flips with it. Text tones hold AAA on the dark canvas; the rating
+  colors brighten so gold/green/amber/red still read; chips invert to a dark
+  tint + light text.
+*/
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+
+  :root {
+    /* Neutrals — a rich near-navy, layered surfaces for depth. */
+    --color-background: #0a0f1a;
+    --color-surface: #111826;
+    --color-surface-muted: #1b2536;
+    --color-surface-sunken: #0e1626;
+    --color-border: #27324a;
+    --color-border-strong: #3b4a68;
+
+    /* Text — AAA on the dark canvas. */
+    --color-foreground: #f1f5f9; /* slate-100 ~16:1 */
+    --color-muted: #cbd5e1; /* slate-300 ~11:1 */
+    --color-faint: #9db0c9; /* ~7:1 for meta */
+
+    /* Accent — button fill stays blue-600 (white text = AA); links/inline text
+       brighten to blue-300 for AAA on the dark canvas. */
+    --color-accent: #2563eb; /* blue-600 fill */
+    --color-accent-strong: #93c5fd; /* blue-300 — link text on dark */
+    --color-accent-foreground: #ffffff;
+    --color-accent-subtle: #16233c; /* deep blue tint */
+    --color-accent-border: #2f4877;
+
+    /* Semantic — solids brighten for a dark canvas; chips invert to tint+light. */
+    --color-success: #22c55e;
+    --color-success-subtle: #0f2a1c;
+    --color-success-strong: #86efac; /* green-300 */
+    --color-success-border: #14532d;
+
+    --color-warning: #f59e0b;
+    --color-warning-subtle: #2a1d06;
+    --color-warning-strong: #fcd34d; /* amber-300 */
+    --color-warning-border: #4d3108;
+
+    --color-danger: #ef4444;
+    --color-danger-subtle: #2a1113;
+    --color-danger-strong: #fca5a5; /* red-300 */
+    --color-danger-border: #4c1d1d;
+
+    /* Rating — brighter gold + a subtle dark track. */
+    --color-rating: #fbbf24;
+    --color-rating-track: #3b4a68;
+
+    /* Elevation via black so cards lift off the navy canvas. */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+    --shadow-md:
+      0 4px 16px -4px rgb(0 0 0 / 0.5), 0 2px 6px -3px rgb(0 0 0 / 0.4);
+    --shadow-lg:
+      0 18px 40px -12px rgb(0 0 0 / 0.6), 0 6px 14px -6px rgb(0 0 0 / 0.45);
+  }
 }
 
 /* Respect reduced-motion users everywhere. */

@@ -8,7 +8,7 @@ import {
   CornerDownRight,
 } from "lucide-react";
 import type { Review, Evidence } from "@/lib/types";
-import { StarRating } from "./star-rating";
+import { RatingScore } from "./rating-score";
 import { VerifiedBadge } from "./verified-badge";
 import { Badge } from "./ui/badge";
 import { cn } from "./ui/cn";
@@ -64,7 +64,7 @@ export function ReviewCard({ review, className }: ReviewCardProps) {
   return (
     <article
       className={cn(
-        "rounded-xl border border-border bg-surface shadow-sm",
+        "rounded-2xl border border-border bg-surface shadow-sm",
         className,
       )}
     >
@@ -72,7 +72,7 @@ export function ReviewCard({ review, className }: ReviewCardProps) {
         {/* Top row: overall rating + verification, date */}
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-            <StarRating value={overall} size="sm" showValue />
+            <RatingScore avg={overall} count={0} size="sm" showCount={false} />
             {verified && <VerifiedBadge method={verifyMethod} showMethod />}
           </div>
           <time

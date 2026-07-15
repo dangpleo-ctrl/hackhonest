@@ -3,9 +3,9 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { MapPin, Globe, History, Search, X } from "lucide-react";
+import { MapPin, Globe, History, Search, X, Calendar } from "lucide-react";
 import type { ActorKind } from "@/lib/types";
-import { StarRating } from "./star-rating";
+import { RatingScore } from "./rating-score";
 import { Badge, type BadgeTone } from "./ui/badge";
 import { cn } from "./ui/cn";
 
@@ -24,7 +24,6 @@ export interface DirectoryActorItem {
   location?: string;
   blurb: string;
   claimed?: boolean;
-  example?: boolean;
   /** Precomputed via aggregateForActor on the server — a neutral count, never a verdict. */
   avgOverall: number | null;
   reviewCount: number;
@@ -38,7 +37,6 @@ export interface DirectoryEventItem {
   location: string;
   blurb: string;
   format?: string;
-  example?: boolean;
 }
 
 export type DirectoryItem = DirectoryActorItem | DirectoryEventItem;
@@ -381,7 +379,7 @@ function CategoryBlock({
 
 function ItemGrid({ items }: { items: DirectoryItem[] }) {
   return (
-    <div className="mt-4 grid gap-3 sm:grid-cols-2">
+    <div className="mt-4 grid gap-4 sm:grid-cols-2">
       {items.map((it) =>
         it.type === "actor" ? (
           <ActorItemCard key={`a-${it.slug}`} item={it} />
@@ -404,8 +402,8 @@ function ActorItemCard({ item }: { item: DirectoryActorItem }) {
     <Link
       href={`/o/${item.slug}`}
       className={cn(
-        "group block rounded-xl border border-border bg-surface shadow-sm transition-shadow transition-colors duration-150",
-        "hover:border-border-strong hover:shadow-md",
+        "group block rounded-2xl border border-border bg-surface shadow-sm transition duration-200",
+        "hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
       )}
     >
@@ -422,18 +420,11 @@ function ActorItemCard({ item }: { item: DirectoryActorItem }) {
               </span>
             )}
           </div>
-          <div className="flex shrink-0 flex-col items-end gap-1">
-            {item.example && (
-              <Badge tone="outline" size="sm">
-                Example
-              </Badge>
-            )}
-            {item.claimed && (
-              <Badge tone="success" size="sm">
-                Claimed
-              </Badge>
-            )}
-          </div>
+          {item.claimed && (
+            <Badge tone="success" size="sm" className="shrink-0">
+              Claimed
+            </Badge>
+          )}
         </div>
 
         {item.kinds.length > 0 && (
@@ -449,12 +440,7 @@ function ActorItemCard({ item }: { item: DirectoryActorItem }) {
         )}
 
         {item.avgOverall !== null && (
-          <div className="flex items-center gap-2">
-            <StarRating value={item.avgOverall} size="sm" showValue />
-            <span className="text-sm text-muted">
-              ({item.reviewCount} {item.reviewCount === 1 ? "review" : "reviews"})
-            </span>
-          </div>
+          <RatingScore avg={item.avgOverall} count={item.reviewCount} size="md" />
         )}
 
         <p className="line-clamp-2 text-sm leading-relaxed text-muted">{item.blurb}</p>
@@ -482,17 +468,18 @@ function EventItemCard({ item }: { item: DirectoryEventItem }) {
   return (
     <Link
       href={`/e/${item.slug}`}
-      className="rounded-xl border border-border bg-surface p-4 transition hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className="group block rounded-2xl border border-border bg-surface p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       <div className="flex items-start justify-between gap-2">
-        <div className="font-semibold text-foreground">{item.name}</div>
-        {item.example && (
-          <Badge tone="outline" size="sm" className="shrink-0">
-            Example
-          </Badge>
-        )}
+        <div className="font-semibold leading-snug text-foreground transition-colors group-hover:text-accent-strong">
+          {item.name}
+        </div>
+        <Badge tone="outline" size="sm" className="shrink-0">
+          Event
+        </Badge>
       </div>
-      <div className="mt-1 text-sm text-muted">
+      <div className="mt-2 inline-flex items-center gap-1.5 text-sm text-muted">
+        <Calendar aria-hidden="true" className="size-3.5 text-faint" />
         {item.dates} · {item.location}
       </div>
     </Link>
