@@ -24,11 +24,11 @@ export const en = {
 
   // Brand copy that used to live in lib/brand.ts (name stays untranslated).
   brand: {
-    tagline: "The community record of hackathon organizers.",
+    tagline: "A community keeping hackathons honest, together.",
     pitch:
-      "Verified, first-hand reviews of the companies, organizers, and sponsors behind hackathons — so you can see who pays prizes, judges fairly, and keeps their promises before you burn a weekend.",
+      "Honest, first-hand reviews of the organizers, companies, and sponsors behind hackathons, shared by the builders who were there, so we can all find the events that pay their prizes, judge fairly, and keep their word.",
     posture:
-      "We host what verified participants report. We never rate or accuse anyone ourselves — every number on this site is a count of what real attendees said.",
+      "We're a neutral home for what verified participants report. We never rate or accuse anyone ourselves; every number here is simply a count of what real attendees said.",
     region: "Vietnam & Southeast Asia",
   },
 
@@ -88,7 +88,7 @@ export const en = {
     eyebrow: "How it works",
     title: "Know who you're building for",
     intro: (brandName: string) =>
-      `A weekend of work is real work. ${brandName} is the community's durable record of which hackathon organizers keep their word, so the signal doesn't wash away in a Discord by Tuesday.`,
+      `A weekend of work is real work, and it deserves an organizer who keeps their word. ${brandName} is the community's shared, lasting record of who does, so what we learn together doesn't wash away in a Discord by Tuesday.`,
     steps: [
       {
         title: "Search the organizer",
@@ -116,7 +116,7 @@ export const en = {
     metaDescription:
       "How verification, anonymity, moderation, and the right of reply work on HackHonest.",
     eyebrow: "Trust & Safety",
-    title: "How this stays honest",
+    title: "How we keep this honest, together",
     sections: {
       host: {
         title: "We host, we don't judge",
@@ -154,12 +154,12 @@ export const en = {
       "Why a community record of hackathon organizers exists, and who it's for.",
     eyebrow: "About",
     title: "Why this exists",
-    p1: 'AI made it possible for anyone to build fast, so hackathons exploded. With them came a wave of abuse: companies running "hackathons" whose tracks are their real, specced business problems, then taking the winning solutions into deployment instead of paying a dev team. Organizers over-promising credits, prizes, and perks that never arrive. Young, passionate developers giving away a weekend of real work on a promise.',
+    p1: 'AI made it possible for anyone to build fast, and hackathons exploded across the region. Most are great. But builders kept running into the same painful patterns: companies running "hackathons" whose tracks are their real, specced business problems, then taking the winning solutions into deployment instead of paying a dev team; organizers over-promising credits, prizes, and perks that never arrive; passionate developers giving away a weekend of real work on a promise.',
     p2: (brandName: string) =>
-      `Today none of that leaves a searchable trace. A bad experience dies in a rage-tweet, an event Discord, or a group chat, and the next cohort walks in blind. ${brandName} is the fix: a durable, public record of which organizers, companies, and sponsors keep their word, built from the first-hand accounts of people who were actually there.`,
-    p3: "It is balanced by design. Praise the good events so more people join them; document the bad ones so fewer people get burned. The platform never accuses anyone, it only shows what verified attendees reported, and lets you decide.",
+      `Today none of that leaves a searchable trace. A bad experience dies in a rage-tweet, an event Discord, or a group chat, and the next cohort walks in blind. So the community started keeping a shared record. ${brandName} is a durable, public account of which organizers, companies, and sponsors keep their word, built from the first-hand stories of the people who were actually there.`,
+    p3: "It's balanced by design. We celebrate the events that get it right so more builders join them, and we document the ones that don't so fewer people get hurt. The platform never accuses anyone; it simply shows what verified attendees reported and lets you decide.",
     p4: (region: string) =>
-      `This is a community project, starting in ${region}, where the need is sharpest right now. The platform is only the tool. The record belongs to the community that builds it.`,
+      `This is a community project, starting in ${region}, where the need is sharpest right now. The platform is only the tool; the record belongs to the community that builds it, together.`,
   },
 
   tos: {
