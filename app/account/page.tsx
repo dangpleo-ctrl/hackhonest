@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { AtSign, MessagesSquare, MessageSquare } from "lucide-react";
+import { AtSign, MessagesSquare, MessageSquare, ShieldCheck } from "lucide-react";
 import { getLocaleAndT, getT } from "@/lib/i18n/server";
 import { getSessionUser, getSessionEmail } from "@/lib/auth";
 import { getThreadsByAuthor, getAuthorStats } from "@/lib/forum";
+import { isAdmin } from "@/lib/admin";
 import { absoluteDate, relativeTime } from "@/lib/relative-time";
 import { SignOutButton } from "@/components/sign-out-button";
 import { buttonVariants } from "@/components/ui/button";
@@ -20,10 +21,11 @@ export default async function AccountPage() {
   if (!user) redirect("/login?next=/account");
 
   const { locale, t } = await getLocaleAndT();
-  const [threads, email, stats] = await Promise.all([
+  const [threads, email, stats, admin] = await Promise.all([
     getThreadsByAuthor(user.id),
     getSessionEmail(),
     getAuthorStats(user.id),
+    isAdmin(),
   ]);
 
   return (
@@ -40,6 +42,19 @@ export default async function AccountPage() {
         </div>
         <SignOutButton />
       </div>
+
+      {admin && (
+        <Link
+          href="/moderate"
+          className={cn(
+            buttonVariants({ variant: "secondary", size: "md" }),
+            "mt-6 w-full justify-center sm:w-auto",
+          )}
+        >
+          <ShieldCheck aria-hidden="true" />
+          {t.account.moderation}
+        </Link>
+      )}
 
       <div className="mt-8 grid gap-4 rounded-xl border border-border bg-surface p-5 sm:grid-cols-2 sm:p-6">
         <div>

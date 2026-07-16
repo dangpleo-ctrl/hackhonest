@@ -665,6 +665,7 @@ export const vi = {
     startOne: "Tạo mới",
     reputation: "Uy tín",
     viewProfile: "Xem hồ sơ công khai",
+    moderation: "Hàng chờ kiểm duyệt",
   },
 
   // ── Trang công khai / uy tín ────────────────────────────────────────────────
@@ -715,5 +716,30 @@ export const vi = {
     errReplyBody: "Vui lòng viết phản hồi (từ 2 đến 5000 ký tự).",
     errReplyDenied: "Chỉ chủ sở hữu trang đã được xác minh mới có thể phản hồi.",
     errGeneric: "Đã xảy ra sự cố. Vui lòng thử lại.",
+  },
+
+  // ── Hàng chờ kiểm duyệt (quản trị) ──────────────────────────────────────────
+  moderate: {
+    metaTitle: "Kiểm duyệt",
+    title: "Hàng chờ kiểm duyệt",
+    subtitle:
+      "Duyệt hoặc từ chối những nội dung cộng đồng gửi lên — đánh giá, mục danh bạ và yêu cầu nhận trang.",
+    allClear: "Không còn gì đang chờ — bạn đã xử lý hết.",
+    reviewsHeading: (n: number) => `Đánh giá đang chờ (${n})`,
+    suggestionsHeading: (n: number) => `Mục danh bạ đang chờ (${n})`,
+    claimsHeading: (n: number) => `Yêu cầu nhận trang đang chờ (${n})`,
+    approve: "Duyệt",
+    reject: "Từ chối",
+    reviewFor: (name: string) => `Đánh giá về ${name}`,
+    reviewForUnknown: "Đánh giá (chưa gắn mục nào)",
+    byAuthor: (author: string) => `bởi ${author}`,
+    anon: "ẩn danh",
+    proofLabel: "Bằng chứng tham dự",
+    contactLabel: "Liên hệ riêng tư",
+    claimHeadline: (handle: string, name: string) => `${handle} muốn nhận ${name}`,
+    domainMatches: "email khớp với tên miền của website",
+    domainNoMatch: "tên miền email không khớp với website",
+    sourceLabel: "Liên kết nguồn",
+    submittedByLabel: "Người gửi",
   },
 };
