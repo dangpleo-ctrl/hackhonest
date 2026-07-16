@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { actors, getActor, eventsForActor, reviewsForActor, aggregateForActor } from "@/lib/data";
+import { BadgeCheck } from "lucide-react";
+import { getActor, eventsForActor, reviewsForActor, aggregateForActor } from "@/lib/data";
 import type { ActorKind } from "@/lib/types";
 import { getT } from "@/lib/i18n/server";
+import { getSessionUser } from "@/lib/auth";
+import { getActorOwnerHandle, getViewerClaimStatus, getRepliesForActor } from "@/lib/claims";
 import { AggregateBar } from "@/components/aggregate-bar";
 import { ReviewCard } from "@/components/review-card";
 import { Badge, type BadgeTone } from "@/components/ui/badge";
-
-export function generateStaticParams() {
-  return actors.map((a) => ({ slug: a.slug }));
-}
+import { buttonVariants } from "@/components/ui/button";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -34,6 +34,14 @@ export default async function ActorPage({ params }: { params: Promise<{ slug: st
   const events = eventsForActor(slug);
   const reviews = reviewsForActor(slug);
   const agg = aggregateForActor(slug);
+
+  const [user, ownerHandle, replies] = await Promise.all([
+    getSessionUser(),
+    getActorOwnerHandle(slug),
+    getRepliesForActor(slug),
+  ]);
+  const viewerOwnsClaim =
+    !!user && (await getViewerClaimStatus(slug, user.id)) === "verified";
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-10">
@@ -69,9 +77,19 @@ export default async function ActorPage({ params }: { params: Promise<{ slug: st
         <Link href="/review/new" className="rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground shadow-sm transition-colors hover:bg-accent-strong">
           {t.organizerPage.writeReview}
         </Link>
-        <button className="cursor-not-allowed rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-faint" title={t.organizerPage.claimTooltip} disabled>
-          {t.organizerPage.claimPage}
-        </button>
+        {ownerHandle ? (
+          <span className="inline-flex items-center gap-1.5 rounded-lg border border-success-border bg-success-subtle px-4 py-2.5 text-sm font-semibold text-success-strong">
+            <BadgeCheck aria-hidden="true" className="size-4" />
+            {t.claim.claimedByName(ownerHandle)}
+          </span>
+        ) : (
+          <Link
+            href={`/o/${slug}/claim`}
+            className={buttonVariants({ variant: "secondary", size: "md" })}
+          >
+            {t.organizerPage.claimPage}
+          </Link>
+        )}
       </div>
 
       <div className="mt-10">
@@ -110,9 +128,20 @@ export default async function ActorPage({ params }: { params: Promise<{ slug: st
             </div>
           ) : (
             <div className="space-y-4">
-              {reviews.map((r) => (
-                <ReviewCard key={r.id} review={r} />
-              ))}
+              {reviews.map((r) => {
+                const dr = replies.get(r.id);
+                return (
+                  <ReviewCard
+                    key={r.id}
+                    review={r}
+                    actorSlug={slug}
+                    canReply={viewerOwnsClaim}
+                    dynamicReply={
+                      dr ? { author: dr.handle, body: dr.body, date: dr.createdAt } : null
+                    }
+                  />
+                );
+              })}
             </div>
           )}
         </div>
