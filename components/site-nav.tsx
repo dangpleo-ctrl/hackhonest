@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, X, ShieldCheck, PenLine } from "lucide-react";
+import { Menu, X, ShieldCheck, PenLine, UserCircle2 } from "lucide-react";
 import { brand } from "@/lib/brand";
 import { LOCALES } from "@/lib/i18n";
 import { useT, useLocale, useSetLocale } from "@/lib/i18n/locale-provider";
@@ -10,6 +10,11 @@ import { buttonVariants } from "./ui/button";
 import { cn } from "./ui/cn";
 
 const WRITE_REVIEW_HREF = "/review/new";
+
+/** The signed-in identity the nav needs — just the public handle, or null. */
+export interface NavUser {
+  handle: string;
+}
 
 /** Compact English ⇄ Tiếng Việt switch. Keyboard-operable; each option is a button. */
 function LanguageToggle({ className }: { className?: string }) {
@@ -54,22 +59,43 @@ function LanguageToggle({ className }: { className?: string }) {
 }
 
 /** Sticky top navigation with a mobile drawer. */
-export function SiteNav() {
+export function SiteNav({ user }: { user: NavUser | null }) {
   const t = useT();
   const [open, setOpen] = React.useState(false);
 
   const navLinks = [
     { label: t.nav.directory, href: "/directory" },
+    { label: t.forum.navLink, href: "/forum" },
     { label: t.nav.addEntry, href: "/suggest" },
     { label: t.nav.howItWorks, href: "/how-it-works" },
     { label: t.nav.trust, href: "/trust" },
   ];
 
+  // The account / log-in affordance, shared by desktop + drawer.
+  const account = user ? (
+    <Link
+      href="/account"
+      onClick={() => setOpen(false)}
+      className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium text-muted transition-colors hover:bg-surface-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+    >
+      <UserCircle2 aria-hidden="true" className="size-5 text-faint" />
+      <span className="max-w-[9rem] truncate">{user.handle}</span>
+    </Link>
+  ) : (
+    <Link
+      href="/login"
+      onClick={() => setOpen(false)}
+      className="inline-flex h-9 items-center rounded-md px-3 text-sm font-medium text-muted transition-colors hover:bg-surface-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+    >
+      {t.auth.loginTitle}
+    </Link>
+  );
+
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-surface/90 backdrop-blur supports-[backdrop-filter]:bg-surface/75">
       <nav
         aria-label={t.nav.ariaPrimary}
-        className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6"
+        className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-3 px-4 sm:px-6"
       >
         {/* Brand */}
         <Link
@@ -82,12 +108,12 @@ export function SiteNav() {
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-0.5 lg:flex">
           {navLinks.map((l) => (
             <li key={l.href}>
               <Link
                 href={l.href}
-                className="inline-flex h-9 items-center rounded-md px-3 text-sm font-medium text-muted transition-colors hover:bg-surface-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+                className="inline-flex h-9 items-center rounded-md px-2.5 text-sm font-medium text-muted transition-colors hover:bg-surface-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
               >
                 {l.label}
               </Link>
@@ -95,9 +121,10 @@ export function SiteNav() {
           ))}
         </ul>
 
-        {/* Desktop language toggle + CTA */}
-        <div className="hidden items-center gap-3 md:flex">
+        {/* Desktop language toggle + account + CTA */}
+        <div className="hidden items-center gap-2 lg:flex">
           <LanguageToggle />
+          {account}
           <Link
             href={WRITE_REVIEW_HREF}
             className={buttonVariants({ variant: "primary", size: "md" })}
@@ -108,7 +135,7 @@ export function SiteNav() {
         </div>
 
         {/* Mobile: language toggle stays visible next to the menu button */}
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <LanguageToggle />
           <button
             type="button"
@@ -131,7 +158,7 @@ export function SiteNav() {
       <div
         id="mobile-menu"
         hidden={!open}
-        className="border-t border-border bg-surface md:hidden"
+        className="border-t border-border bg-surface lg:hidden"
       >
         <ul className="mx-auto flex w-full max-w-6xl flex-col gap-1 px-4 py-3 sm:px-6">
           {navLinks.map((l) => (
@@ -145,6 +172,7 @@ export function SiteNav() {
               </Link>
             </li>
           ))}
+          <li className="mt-1 border-t border-border pt-2">{account}</li>
           <li className="pt-2">
             <Link
               href={WRITE_REVIEW_HREF}

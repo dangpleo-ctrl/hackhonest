@@ -532,8 +532,144 @@ export const en = {
   footer: {
     explore: "Explore",
     trust: "Trust",
+    community: "Community",
     disclaimer: (brandName: string) =>
       `This is not the organizer's official page. ${brandName} hosts independent, first-hand reviews from verified participants. Every number on this site is a count of what real attendees reported.`,
     copyright: (year: number, brandName: string) => `© ${year} ${brandName}`,
+  },
+
+  // ── Community forum ─────────────────────────────────────────────────────────
+  forum: {
+    navLink: "Community",
+    metaTitle: "Community",
+    metaDescription:
+      "Compare notes with other builders about hackathon organizers, sponsors, prizes, and events.",
+    title: "Community",
+    subtitle:
+      "Compare notes with other builders. Warn each other about bad actors, share how an event actually went, and ask before you commit a weekend.",
+    startThread: "Start a discussion",
+    loginToPost: "Log in to post",
+    signedInAs: (handle: string) => `Posting as ${handle}`,
+    categoriesHeading: "Categories",
+    recentHeading: "Recent discussions",
+    threadsIn: (name: string) => `Discussions in ${name}`,
+    replyCount: (n: number) => `${n} ${n === 1 ? "reply" : "replies"}`,
+    postCount: (n: number) => `${n} ${n === 1 ? "post" : "posts"}`,
+    noThreadsYet: "No discussions here yet.",
+    beFirst: "Start the first one",
+    startedBy: (handle: string) => `by ${handle}`,
+    lastActivity: "Last activity",
+    aboutActor: (name: string) => `About ${name} →`,
+
+    // Thread detail
+    backToForum: "← Community",
+    backToCategory: (name: string) => `← ${name}`,
+    repliesHeading: "Replies",
+    noRepliesYet: "No replies yet. Be the first to weigh in.",
+    replyHeading: "Add a reply",
+    replyLabel: "Your reply",
+    replyPlaceholder: "Share what you know. Keep it first-hand and factual.",
+    replySubmit: "Post reply",
+    replySubmitting: "Posting…",
+    loginToReply: "Log in to reply",
+    loginToReplyNote: "You need a free account to join the discussion.",
+    locked: "Locked",
+    lockedNote: "This discussion is locked. You can still read it, but new replies are closed.",
+
+    // New thread
+    newMetaTitle: "Start a discussion",
+    newTitle: "Start a discussion",
+    newSubtitle:
+      "Keep it first-hand and factual. This is a public, durable record — treat organizers as you'd want to be treated, and back hard claims with evidence.",
+    categoryLabel: "Category",
+    categoryPlaceholder: "Choose a category…",
+    titleLabel: "Title",
+    titlePlaceholder: "One line: what's this about?",
+    bodyLabel: "Your post",
+    bodyPlaceholder:
+      "What happened, what you're asking, or what others should know. State the facts first, then your view.",
+    bodyHelp: "20 characters or more. Markdown isn't rendered yet — plain text is fine.",
+    actorLabel: "Link an organizer or event (optional)",
+    actorHelp: "Tie this discussion to a directory entry so others can find it.",
+    actorNone: "Not linked to a specific one",
+    createSubmit: "Post discussion",
+    creating: "Posting…",
+
+    // Errors + validation
+    errTitle: "Please write a title (6–160 characters).",
+    errBody: "Please write your post (at least 20 characters).",
+    errCategory: "Please choose a category.",
+    errAuth: "Please log in to post.",
+    errGeneric: "Something went wrong. Please try again.",
+    errNetwork: "Network error. Please try again.",
+
+    // Relative time (unit words; the number is prepended by the formatter)
+    justNow: "just now",
+  },
+
+  // ── Accounts / auth ─────────────────────────────────────────────────────────
+  auth: {
+    // Shared field labels
+    emailLabel: "Email",
+    emailPlaceholder: "you@example.com",
+    emailHelp: "Private. Used only to sign in and to verify you — never shown, never shared.",
+    passwordLabel: "Password",
+    passwordPlaceholder: "At least 8 characters",
+    handleLabel: "Handle",
+    handleHelp:
+      "Your public name in the community. Lowercase letters, numbers, and underscores; 3–24 characters. This is all anyone sees — your email stays private.",
+    handlePlaceholder: "e.g. weekend_builder",
+
+    // Log in
+    loginMetaTitle: "Log in",
+    loginTitle: "Log in",
+    loginSubtitle: "Welcome back. Log in to post in the community.",
+    loginSubmit: "Log in",
+    loginSubmitting: "Logging in…",
+    noAccountPrompt: "New here?",
+    signUpLink: "Create an account",
+
+    // Sign up
+    signupMetaTitle: "Create an account",
+    signupTitle: "Create an account",
+    signupSubtitle:
+      "Pick a handle and you're in. You stay pseudonymous — your email is never shown, so you can speak honestly without an organizer coming after you.",
+    signupSubmit: "Create account",
+    signupSubmitting: "Creating…",
+    haveAccountPrompt: "Already have an account?",
+    loginLink: "Log in",
+
+    // Outcomes
+    confirmEmailHeading: "Check your email",
+    confirmEmailBody:
+      "We sent you a link to confirm your account. Click it, then come back and log in.",
+    privacyNote:
+      "Your email is private and never shown. Your handle is your public identity.",
+
+    // Errors
+    errEmail: "Please enter a valid email.",
+    errPassword: "Password must be at least 8 characters.",
+    errHandle:
+      "Handle must be 3–24 characters: lowercase letters, numbers, and underscores.",
+    errHandleTaken: "That handle is taken. Try another.",
+    errInvalidCredentials: "Wrong email or password.",
+    errEmailInUse: "That email already has an account. Try logging in.",
+    errGeneric: "Something went wrong. Please try again.",
+    errNetwork: "Network error. Please try again.",
+  },
+
+  // ── Account page ────────────────────────────────────────────────────────────
+  account: {
+    navLink: "Account",
+    metaTitle: "Your account",
+    title: "Your account",
+    signedInAs: "Signed in as",
+    publicHandle: "Public handle",
+    privateEmail: "Private email (never shown)",
+    memberSince: (date: string) => `Member since ${date}`,
+    signOut: "Log out",
+    myThreads: "Your discussions",
+    noThreads: "You haven't started any discussions yet.",
+    startOne: "Start one",
   },
 };
