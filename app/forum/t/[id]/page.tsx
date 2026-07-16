@@ -61,8 +61,20 @@ export default async function ThreadPage({
           {thread.title}
         </h1>
         <p className="mt-2 text-sm text-faint">
-          {t.forum.startedBy(thread.authorHandle ?? "—")} ·{" "}
-          {relativeTime(thread.createdAt, locale, t.forum.justNow)}
+          {thread.authorHandle ? (
+            <>
+              {t.forum.by}{" "}
+              <Link
+                href={`/u/${thread.authorHandle}`}
+                className="font-medium text-accent-strong hover:underline"
+              >
+                {thread.authorHandle}
+              </Link>
+            </>
+          ) : (
+            t.forum.startedBy("—")
+          )}{" "}
+          · {relativeTime(thread.createdAt, locale, t.forum.justNow)}
         </p>
       </header>
 
@@ -89,9 +101,16 @@ export default async function ThreadPage({
             {posts.map((p) => (
               <li key={p.id} className="rounded-xl border border-border bg-surface p-5">
                 <div className="flex flex-wrap items-center gap-x-2 text-sm">
-                  <span className="font-semibold text-foreground">
-                    {p.authorHandle ?? "—"}
-                  </span>
+                  {p.authorHandle ? (
+                    <Link
+                      href={`/u/${p.authorHandle}`}
+                      className="font-semibold text-foreground transition-colors hover:text-accent-strong hover:underline"
+                    >
+                      {p.authorHandle}
+                    </Link>
+                  ) : (
+                    <span className="font-semibold text-foreground">—</span>
+                  )}
                   <span className="text-faint">
                     · {relativeTime(p.createdAt, locale, t.forum.justNow)}
                   </span>

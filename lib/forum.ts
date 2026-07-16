@@ -196,3 +196,49 @@ export async function getPosts(threadId: string): Promise<ForumPost[]> {
     authorHandle: handleOf(r.author),
   }));
 }
+
+// ── Reputation / public profiles (activity-based) ─────────────────────────────
+// "Reputation" here is factual contribution volume (discussions started, replies
+// posted) — un-gameable and on-brand for an accountability platform, rather than
+// a brigadable upvote score. Counts come from the existing tables (no migration).
+
+export interface AuthorStats {
+  threadCount: number;
+  replyCount: number;
+}
+
+/** Contribution counts for a user — the activity-based reputation signal. */
+export async function getAuthorStats(authorId: string): Promise<AuthorStats> {
+  const supabase = await createClient();
+  const [threads, posts] = await Promise.all([
+    supabase
+      .from("forum_threads")
+      .select("id", { count: "exact", head: true })
+      .eq("author_id", authorId),
+    supabase
+      .from("forum_posts")
+      .select("id", { count: "exact", head: true })
+      .eq("author_id", authorId),
+  ]);
+  return { threadCount: threads.count ?? 0, replyCount: posts.count ?? 0 };
+}
+
+export interface PublicProfile {
+  id: string;
+  handle: string;
+  bio: string | null;
+  createdAt: string;
+}
+
+/** A user's public profile by handle (case-insensitive), or null if unknown. */
+export async function getProfileByHandle(handle: string): Promise<PublicProfile | null> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("profiles")
+    .select("id, handle, bio, created_at")
+    .eq("handle", handle.toLowerCase())
+    .maybeSingle();
+  return data
+    ? { id: data.id, handle: data.handle, bio: data.bio, createdAt: data.created_at }
+    : null;
+}
