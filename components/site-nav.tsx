@@ -62,9 +62,12 @@ function LanguageToggle({ className }: { className?: string }) {
 export function SiteNav({
   user,
   unreadCount = 0,
+  isStaff = false,
 }: {
   user: NavUser | null;
   unreadCount?: number;
+  /** True for admins + moderators — surfaces the Moderate link. */
+  isStaff?: boolean;
 }) {
   const t = useT();
   const [open, setOpen] = React.useState(false);
@@ -75,6 +78,7 @@ export function SiteNav({
     { label: t.nav.addEntry, href: "/suggest" },
     { label: t.nav.howItWorks, href: "/how-it-works" },
     { label: t.nav.trust, href: "/trust" },
+    ...(isStaff ? [{ label: t.nav.moderate, href: "/moderate" }] : []),
   ];
 
   // The account / log-in affordance, shared by desktop + drawer.
