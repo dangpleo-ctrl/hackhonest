@@ -3,6 +3,7 @@ import { Be_Vietnam_Pro } from "next/font/google";
 import { brand } from "@/lib/brand";
 import { getLocaleAndT } from "@/lib/i18n/server";
 import { getSessionUser } from "@/lib/auth";
+import { isModerator } from "@/lib/admin";
 import { getUnreadCount } from "@/lib/notifications";
 import { LocaleProvider } from "@/lib/i18n/locale-provider";
 import { SiteNav } from "@/components/site-nav";
@@ -48,7 +49,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const [{ locale }, user] = await Promise.all([getLocaleAndT(), getSessionUser()]);
-  const unreadCount = user ? await getUnreadCount(user.id) : 0;
+  const [unreadCount, isStaff] = user
+    ? await Promise.all([getUnreadCount(user.id), isModerator()])
+    : [0, false];
   return (
     <html lang={locale} className={`${beVietnamPro.variable} h-full`}>
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground antialiased">
@@ -56,6 +59,7 @@ export default async function RootLayout({
           <SiteNav
             user={user ? { handle: user.handle } : null}
             unreadCount={unreadCount}
+            isStaff={isStaff}
           />
           <main className="flex-1">{children}</main>
           <SiteFooter />

@@ -13,6 +13,7 @@ export const en = {
     addEntry: "Add an entry",
     howItWorks: "How it works",
     trust: "Trust & safety",
+    moderate: "Moderate",
     writeReview: "Write a review",
     openMenu: "Open menu",
     closeMenu: "Close menu",
@@ -751,6 +752,36 @@ export const en = {
     domainNoMatch: "email domain does not match the website",
     sourceLabel: "Source link",
     submittedByLabel: "Submitted by",
+
+    // Moderator capability notice (shown to moderators, not admins)
+    modNoticeTitle: "You're a moderator",
+    modNoticeBody:
+      "You can approve or reject items that are still pending. You can't undo a decision once it's made, delete anything, or manage the team — those stay with an admin.",
+
+    // Team management (admin-only)
+    team: {
+      heading: "Team",
+      subtitle:
+        "Admins have full control. Moderators can approve or reject pending items and nothing else.",
+      empty: "No teammates yet. Add one below.",
+      you: "you",
+      unknownUser: "unknown account",
+      roleAdmin: "Admin",
+      roleModerator: "Moderator",
+      makeAdmin: "Make admin",
+      makeModerator: "Make moderator",
+      remove: "Remove",
+      confirmRemove: (who: string) => `Remove ${who} from the team?`,
+      addTitle: "Add a teammate",
+      usernameLabel: "Username",
+      usernamePlaceholder: "their username",
+      roleLabel: "Role",
+      addButton: "Add",
+      addedOk: (who: string, role: string) => `Added ${who} as ${role}.`,
+      errNoHandle: "Enter a username.",
+      errNotFound: "No account with that username.",
+      errFailed: "Couldn't update the team. Please try again.",
+    },
   },
 
   // ── Notifications ───────────────────────────────────────────────────────────

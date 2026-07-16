@@ -5,15 +5,19 @@ import { getLocaleAndT, getT } from "@/lib/i18n/server";
 import type { Messages } from "@/lib/i18n";
 import {
   isAdmin,
+  isModerator,
   getPendingReviews,
   getPendingSuggestions,
   getPendingClaims,
+  getStaff,
 } from "@/lib/admin";
+import { getSessionUser } from "@/lib/auth";
 import {
   moderateReviewAction,
   moderateSuggestionAction,
   moderateClaimAction,
 } from "@/lib/actions/moderate";
+import { TeamManager } from "@/components/moderate/team-manager";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -56,24 +60,40 @@ function Actions({
 }
 
 export default async function ModeratePage() {
-  if (!(await isAdmin())) notFound();
+  const [admin, moderator] = await Promise.all([isAdmin(), isModerator()]);
+  if (!moderator) notFound();
 
   const { t } = await getLocaleAndT();
-  const [reviews, suggestions, claims] = await Promise.all([
+  const [reviews, suggestions, claims, staff, user] = await Promise.all([
     getPendingReviews(),
     getPendingSuggestions(),
     getPendingClaims(),
+    admin ? getStaff() : Promise.resolve([]),
+    getSessionUser(),
   ]);
   const total = reviews.length + suggestions.length + claims.length;
 
   return (
     <div className="mx-auto w-full max-w-3xl px-5 py-10">
-      <h1 className="text-3xl font-bold tracking-tight text-foreground">
-        {t.moderate.title}
-      </h1>
+      <div className="flex flex-wrap items-center gap-3">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          {t.moderate.title}
+        </h1>
+        <Badge tone={admin ? "accent" : "neutral"} size="md">
+          {admin ? t.moderate.team.roleAdmin : t.moderate.team.roleModerator}
+        </Badge>
+      </div>
       <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-muted">
         {t.moderate.subtitle}
       </p>
+
+      {/* A moderator sees exactly what they can and can't do. */}
+      {!admin && (
+        <div className="mt-5 rounded-xl border border-border bg-surface-muted p-4 text-sm text-muted">
+          <p className="font-medium text-foreground">{t.moderate.modNoticeTitle}</p>
+          <p className="mt-1 leading-relaxed">{t.moderate.modNoticeBody}</p>
+        </div>
+      )}
 
       {total === 0 ? (
         <div className="mt-8 rounded-xl border border-dashed border-border bg-surface p-8 text-center text-muted">
@@ -212,6 +232,12 @@ export default async function ModeratePage() {
               </ul>
             </section>
           )}
+        </div>
+      )}
+
+      {admin && (
+        <div className="mt-12 border-t border-border pt-8">
+          <TeamManager staff={staff} currentUserId={user?.id ?? null} />
         </div>
       )}
     </div>
