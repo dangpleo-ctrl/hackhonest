@@ -752,4 +752,16 @@ export const en = {
     sourceLabel: "Source link",
     submittedByLabel: "Submitted by",
   },
+
+  // ── Notifications ───────────────────────────────────────────────────────────
+  notifications: {
+    navAria: "Notifications",
+    metaTitle: "Notifications",
+    title: "Notifications",
+    empty: "No notifications yet. When someone replies to your discussions, you'll see it here.",
+    markAllRead: "Mark all as read",
+    threadReply: (handle: string, title: string) =>
+      `${handle} replied to your discussion "${title}"`,
+    threadReplyNoTitle: (handle: string) => `${handle} replied to your discussion`,
+  },
 };

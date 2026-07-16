@@ -742,4 +742,16 @@ export const vi = {
     sourceLabel: "Liên kết nguồn",
     submittedByLabel: "Người gửi",
   },
+
+  // ── Thông báo ───────────────────────────────────────────────────────────────
+  notifications: {
+    navAria: "Thông báo",
+    metaTitle: "Thông báo",
+    title: "Thông báo",
+    empty: "Chưa có thông báo nào. Khi có người trả lời thảo luận của bạn, thông báo sẽ hiện ở đây.",
+    markAllRead: "Đánh dấu tất cả đã đọc",
+    threadReply: (handle: string, title: string) =>
+      `${handle} đã trả lời thảo luận “${title}” của bạn`,
+    threadReplyNoTitle: (handle: string) => `${handle} đã trả lời thảo luận của bạn`,
+  },
 };
