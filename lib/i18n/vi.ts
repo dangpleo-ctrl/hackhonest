@@ -15,6 +15,7 @@ export const vi = {
     addEntry: "Thêm mục",
     howItWorks: "Cách hoạt động",
     trust: "Tin cậy & an toàn",
+    moderate: "Kiểm duyệt",
     writeReview: "Viết đánh giá",
     openMenu: "Mở menu",
     closeMenu: "Đóng menu",
@@ -741,6 +742,36 @@ export const vi = {
     domainNoMatch: "tên miền email không khớp với website",
     sourceLabel: "Liên kết nguồn",
     submittedByLabel: "Người gửi",
+
+    // Thông báo quyền của điều hành viên (chỉ hiện cho điều hành viên)
+    modNoticeTitle: "Bạn là điều hành viên",
+    modNoticeBody:
+      "Bạn có thể duyệt hoặc từ chối những mục còn đang chờ. Bạn không thể hoàn tác một quyết định đã đưa ra, xoá bất kỳ nội dung nào, hay quản lý nhóm điều hành — những việc đó thuộc về quản trị viên.",
+
+    // Quản lý nhóm điều hành (chỉ quản trị viên)
+    team: {
+      heading: "Nhóm điều hành",
+      subtitle:
+        "Quản trị viên có toàn quyền. Điều hành viên chỉ có thể duyệt hoặc từ chối các mục đang chờ, ngoài ra không làm gì khác.",
+      empty: "Chưa có ai trong nhóm. Thêm người bên dưới.",
+      you: "bạn",
+      unknownUser: "tài khoản không xác định",
+      roleAdmin: "Quản trị viên",
+      roleModerator: "Điều hành viên",
+      makeAdmin: "Đặt làm quản trị viên",
+      makeModerator: "Đặt làm điều hành viên",
+      remove: "Gỡ",
+      confirmRemove: (who: string) => `Gỡ ${who} khỏi nhóm điều hành?`,
+      addTitle: "Thêm thành viên",
+      usernameLabel: "Tên người dùng",
+      usernamePlaceholder: "tên người dùng của họ",
+      roleLabel: "Vai trò",
+      addButton: "Thêm",
+      addedOk: (who: string, role: string) => `Đã thêm ${who} với vai trò ${role}.`,
+      errNoHandle: "Hãy nhập tên người dùng.",
+      errNotFound: "Không có tài khoản nào với tên người dùng đó.",
+      errFailed: "Không cập nhật được nhóm. Vui lòng thử lại.",
+    },
   },
 
   // ── Thông báo ───────────────────────────────────────────────────────────────
