@@ -46,8 +46,8 @@ export const vi = {
 
   home: {
     heroBadge: "Việt Nam & Đông Nam Á",
-    heroTitleLead: "Giữ hackathon",
-    heroTitleAccent: "chịu trách nhiệm.",
+    heroTitleLead: "Cùng xây dựng hackathon ",
+    heroTitleAccent: "lành mạnh",
     searchAria: "Tìm đơn vị tổ chức, nhà tài trợ hoặc sự kiện",
     searchPlaceholder: "Tìm đơn vị tổ chức, nhà tài trợ hoặc sự kiện…",
     searchButton: "Tìm",
@@ -448,10 +448,10 @@ export const vi = {
     metaTitleFallback: "Sự kiện",
     metaTitle: (name: string) => `${name} — đánh giá & hồ sơ`,
     metaDescription: (name: string, dates: string, location: string) =>
-      `Dưới đây là chia sẻ từ những người tham dự đã xác minh về ${name} (${dates}, ${location}): giải thưởng, quyền lợi, tiêu chí chấm điểm và cấu trúc hỗ trợ từ nhà tài trợ.`,
+      `Dưới đây là chia sẻ từ những người tham dự đã xác minh về ${name} (${dates}, ${location}): giải thưởng, quyền lợi, tiêu chí chấm điểm và cơ chế hỗ trợ từ nhà tài trợ.`,
     crumbEvent: "Sự kiện",
     organizedBy: "tổ chức bởi",
-    howItWorked: "Cách thức tổ chức:",
+    howItWorked: "Cách thức tổ chức: ",
     writeReview: "Viết đánh giá",
     aggregateTitle: "Người tham dự đã xác minh nói gì",
     advertisedHeading: "Được quảng cáo",
