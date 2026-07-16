@@ -41,7 +41,7 @@ The track structure bothered me most. Every problem statement was a named sponso
     verified: true,
     verifyMethod: "evidence",
     author: "Verified participant, Zenith Grand Prix 2026",
-    date: "2026-08-25",
+    date: "2026-06-25",
     evidence: [
       { label: "Perk portal showing 'Claimed'", kind: "screenshot", note: "Applied; received $0." },
       { label: "CloudNova perk link → standard signup program", kind: "link" },
@@ -65,7 +65,7 @@ The track structure bothered me most. Every problem statement was a named sponso
     verified: true,
     verifyMethod: "evidence",
     author: "Participant, Zenith Grand Prix 2026",
-    date: "2026-08-26",
+    date: "2026-06-26",
   },
   {
     id: "zenith-grand-prix-2026-3",
@@ -81,7 +81,7 @@ The track structure bothered me most. Every problem statement was a named sponso
       "Our team was named on stage for a track prize and then heard nothing: no transfer, no timeline, and no reply to our follow-up emails.",
     verified: false,
     author: "Track finalist, Zenith Grand Prix 2026",
-    date: "2026-08-27",
+    date: "2026-06-27",
   },
 
   // ══ OpenBuild Hack 2026 — a well-run event (the counter-example) ══════════════
@@ -219,17 +219,17 @@ The track structure bothered me most. Every problem statement was a named sponso
       { key: "honesty", label: "Honest marketing", rating: 4 },
       { key: "respect", label: "Respected participants' work", rating: 3 },
     ],
-    headline: "The prize took three months and three follow-up emails",
+    headline: "The prize took two months and three follow-up emails",
     body:
-      "We won our category in early May. The money didn't reach us until August, after I chased it three times. " +
-      "To be fair, the amount was exactly what they advertised and nobody was rude — but three months of silence " +
+      "We won our category in early May. The money didn't reach us until July, after I chased it three times. " +
+      "To be fair, the amount was exactly what they advertised and nobody was rude — but two months of silence " +
       "for a prize you announced on stage is not okay. Posting so others know to keep following up.",
     verified: true,
     verifyMethod: "evidence",
     author: "Category winner, Nexus 2026",
-    date: "2026-08-18",
+    date: "2026-07-12",
     evidence: [
-      { label: "Follow-up email thread (3 messages)", kind: "email", note: "May–August, prize eventually paid." },
+      { label: "Follow-up email thread (3 messages)", kind: "email", note: "May–July, prize eventually paid." },
     ],
     reply: {
       author: "Nexus Labs",
@@ -237,7 +237,7 @@ The track structure bothered me most. Every problem statement was a named sponso
         "You're right, and we're sorry. Our finance approval chain was too slow in 2026. We've since moved prize " +
         "disbursement to same-week payouts and added a named contact so nobody has to chase again. Thank you for " +
         "flagging it publicly — it's the reason we changed the process.",
-      date: "2026-08-25",
+      date: "2026-07-15",
     },
   },
   {

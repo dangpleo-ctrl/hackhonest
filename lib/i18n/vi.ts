@@ -24,11 +24,11 @@ export const vi = {
   },
 
   brand: {
-    tagline: "Hồ sơ cộng đồng về các đơn vị tổ chức hackathon.",
+    tagline: "Cùng nhau giữ hackathon trung thực.",
     pitch:
-      "Những đánh giá đã xác minh, từ chính người tham dự, về các công ty, đơn vị tổ chức và nhà tài trợ đứng sau các cuộc hackathon — để bạn biết rõ ai thật sự trả giải, chấm công bằng và giữ lời hứa trước khi dành cả cuối tuần.",
+      "Những đánh giá trung thực, từ chính người tham dự, về các đơn vị tổ chức, công ty và nhà tài trợ đứng sau các cuộc hackathon — để chúng ta cùng tìm được những sự kiện trả giải đúng hạn, chấm công bằng và giữ lời hứa.",
     posture:
-      "Chúng tôi chỉ đăng những gì người tham dự đã xác minh báo cáo. Chúng tôi không tự đánh giá hay buộc tội ai — mọi con số trên trang này đều là tổng hợp từ phản hồi thực tế của người tham dự.",
+      "Chúng tôi là nơi trung lập lưu lại những gì người tham dự đã xác minh báo cáo. Chúng tôi không tự đánh giá hay buộc tội ai — mọi con số ở đây chỉ đơn giản là tổng hợp từ phản hồi thực tế của người tham dự.",
     region: "Việt Nam & Đông Nam Á",
   },
 
@@ -90,7 +90,7 @@ export const vi = {
     eyebrow: "Cách thức hoạt động",
     title: "Biết rõ bạn đang xây dựng cho ai",
     intro: (brandName: string) =>
-      `Một cuối tuần cặm cụi là lao động thực sự. ${brandName} là hồ sơ bền vững do cộng đồng xây dựng, ghi nhận những đơn vị tổ chức hackathon giữ đúng lời hứa — để tiếng nói không tan biến trong Discord ngay hôm thứ Ba.`,
+      `Một cuối tuần cặm cụi là lao động thực sự, và xứng đáng có một đơn vị tổ chức giữ đúng lời hứa. ${brandName} là hồ sơ bền vững do cộng đồng cùng xây dựng, để những gì chúng ta học được không trôi mất trong Discord ngay hôm thứ Ba.`,
     steps: [
       {
         title: "Tìm đơn vị tổ chức",
@@ -118,7 +118,7 @@ export const vi = {
     metaDescription:
       "Cách HackHonest đảm bảo tính xác thực, ẩn danh, kiểm duyệt và quyền phản hồi.",
     eyebrow: "Niềm tin & An toàn",
-    title: "Làm sao để giữ được sự trung thực",
+    title: "Cùng nhau giữ sự trung thực",
     sections: {
       host: {
         title: "Chúng tôi lưu trữ, không phán xét",
@@ -156,12 +156,12 @@ export const vi = {
       "Lý do tồn tại của kho lưu trữ cộng đồng về các đơn vị tổ chức hackathon, và đối tượng mà nó phục vụ.",
     eyebrow: "Giới thiệu",
     title: "Tại sao nền tảng này ra đời",
-    p1: 'AI khiến ai cũng có thể xây dựng sản phẩm thật nhanh, nên hackathon bùng nổ. Kèm theo đó là một làn sóng lạm dụng: các công ty tổ chức "hackathon" mà đề bài chính là những bài toán kinh doanh thật, đã được đặc tả sẵn của họ, rồi đem giải pháp thắng cuộc đi triển khai thay vì trả tiền cho một đội ngũ phát triển. Đơn vị tổ chức hứa hẹn quá đà về credit, giải thưởng và ưu đãi rồi chẳng bao giờ giao. Những lập trình viên trẻ, đầy nhiệt huyết đem cho không cả một cuối tuần lao động thật chỉ để đổi lấy một lời hứa.',
+    p1: 'AI giúp ai cũng có thể xây dựng sản phẩm nhanh chóng, khiến hackathon bùng nổ khắp nơi. Phần lớn đều tuyệt vời. Nhưng các builder cứ liên tục gặp lại những mẫu chuyện đau lòng: công ty tổ chức “hackathon” với đề bài chính là những bài toán kinh doanh thật, đã được đặc tả sẵn, rồi đem giải pháp thắng cuộc đi triển khai thay vì thuê đội dev; đơn vị tổ chức hứa quá nhiều về credit, giải thưởng hay đặc quyền nhưng chẳng bao giờ giao; những developer nhiệt huyết dành trọn một cuối tuần lao động thật — chỉ đổi lấy một lời hứa.',
     p2: (brandName: string) =>
-      `Hiện nay, tất cả những điều đó đều không để lại dấu vết tìm kiếm được. Một trải nghiệm tồi thường chết lịm trong một dòng tweet bực tức, một kênh Discord sự kiện, hay nhóm chat — và lứa người tham dự tiếp theo lại bước vào hoàn toàn mù mờ. ${brandName} chính là giải pháp: một hồ sơ công khai, bền vững về những đơn vị tổ chức, công ty và nhà tài trợ nào giữ lời hứa — được xây dựng từ lời kể trực tiếp của những người thực sự có mặt.`,
-    p3: "Nền tảng được thiết kế cân bằng: khen ngợi sự kiện tốt để ngày càng nhiều người tham gia; ghi lại sự kiện xấu để ít người bị lừa hơn. Nền tảng không bao giờ buộc tội ai — nó chỉ hiển thị những gì người tham dự đã xác minh báo cáo, và để bạn tự đưa ra quyết định.",
+      `Hiện nay, những trải nghiệm ấy thường không để lại dấu vết tìm kiếm được — chúng chết lịm trong một dòng tweet bực tức, kênh Discord sự kiện hay nhóm chat, và lứa người tham dự tiếp theo lại bước vào hoàn toàn mù mờ. Thế nên cộng đồng đã cùng nhau bắt đầu lưu lại một hồ sơ chung. ${brandName} là nơi lưu trữ công khai và bền vững về những đơn vị tổ chức, công ty và nhà tài trợ nào giữ lời hứa — được xây dựng từ lời kể trực tiếp của chính những người có mặt tại sự kiện.`,
+    p3: "Nền tảng được thiết kế cân bằng: chúng ta cùng nhau vinh danh những sự kiện làm tốt để ngày càng nhiều builder tham gia, và ghi lại những trường hợp chưa trọn vẹn để ít người bị tổn thương hơn. Nền tảng không bao giờ buộc tội ai — nó chỉ hiển thị những gì người tham dự đã xác minh báo cáo, và để bạn tự quyết định.",
     p4: (region: string) =>
-      `Đây là một dự án cộng đồng, khởi đầu tại ${region} — nơi nhu cầu cấp thiết nhất hiện nay. Nền tảng chỉ là công cụ. Hồ sơ này thuộc về chính cộng đồng xây dựng nên nó.`,
+      `Đây là một dự án cộng đồng, khởi đầu tại ${region} — nơi nhu cầu cấp thiết nhất hiện nay. Nền tảng chỉ là công cụ; hồ sơ này thuộc về chính cộng đồng xây dựng nên nó, cùng nhau.`,
   },
 
   tos: {

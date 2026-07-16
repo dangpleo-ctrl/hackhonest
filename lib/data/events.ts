@@ -12,7 +12,7 @@ export const events: Event[] = [
     name: "Zenith Agent Grand Prix 2026",
     organizerSlug: "zenith-ai",
     sponsorSlugs: ["crestline-bank", "swiftcart", "playforge", "cloudnova", "circuitai"],
-    dates: "Aug 20–24, 2026",
+    dates: "Jun 18–22, 2026",
     location: "Singapore (in-person) + online",
     blurb:
       "Billed by its organizer as \"the region's largest agentic AI grand prix\": four sponsor tracks, seven enterprise problem statements, an in-person build day, and a Demo Day. Verified reviewers report advertised credits that never arrived and prizes announced on stage but never paid.",
@@ -21,7 +21,7 @@ export const events: Event[] = [
     claims: [
       { label: "Advertised prize/perk pool", value: "$1,000,000+", note: "Summed largely from third-party credit programs and free tiers; see perks below." },
       { label: "Advertised scale", value: "3,000 builders · 600 projects · 25 partner perks" },
-      { label: "Prize reveal", value: "Track prizes announced only at the Aug 22 in-person kickoff (RSVP required)" },
+      { label: "Prize reveal", value: "Track prizes announced only at the Jun 20 in-person kickoff (RSVP required)" },
     ],
     tracks: [
       { name: "Fintech", sponsor: "crestline-bank", problemCount: 2 },
@@ -57,7 +57,7 @@ export const events: Event[] = [
       { label: "Moved off the accountable platform", fact: "The event was first listed on a public hackathon platform, then moved to a private portal days before it started, so entries and results no longer sit on a neutral third-party site.", source: "zenithai.example/portal" },
       { label: "Source code required", fact: "Submission rules require a source-code link plus a demo and docs, and state the project 'should address the problem statement for the chosen sponsored track.'", source: "build.zenithai.example/rules" },
       { label: "Deployment framing", fact: "Positioning stated: 'Sponsors aren't here to judge you, they're here to find solutions they can ship,' with winning solutions 'potentially deploying within 90 days.'", source: "build.zenithai.example" },
-      { label: "Prizes hidden until the kickoff", fact: "Track prizes were announced only at the Aug 22 kickoff, which required an in-person RSVP.", source: "build.zenithai.example/prizes" },
+      { label: "Prizes hidden until the kickoff", fact: "Track prizes were announced only at the Jun 20 kickoff, which required an in-person RSVP.", source: "build.zenithai.example/prizes" },
       { label: "Public leaderboard measures referrals", fact: "The only public 'Leaderboard' ranks Top Referrers (who brought the most people in), not solution quality.", source: "build.zenithai.example/leaderboard" },
       { label: "Perk disclaimer", fact: "The perks page states: 'Submitting an application does not guarantee receipt.'", source: "build.zenithai.example/perks" },
     ],
