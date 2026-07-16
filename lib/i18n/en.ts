@@ -46,8 +46,8 @@ export const en = {
 
   home: {
     heroBadge: "Vietnam & Southeast Asia",
-    heroTitleLead: "Hold hackathons ",
-    heroTitleAccent: "accountable.",
+    heroTitleLead: "Building healthier hackathons, ",
+    heroTitleAccent: "together",
     searchAria: "Search an organizer, sponsor, or event",
     searchPlaceholder: "Search an organizer, sponsor, or event…",
     searchButton: "Search",
