@@ -680,4 +680,40 @@ export const vi = {
     threadsHeading: "Thảo luận",
     noThreads: "Chưa có thảo luận nào.",
   },
+
+  // ── Đơn vị tổ chức nhận trang + quyền phản hồi ──────────────────────────────
+  claim: {
+    metaTitle: (name: string) => `Nhận trang ${name}`,
+    title: (name: string) => `Nhận trang ${name}`,
+    intro:
+      "Nếu bạn đại diện cho đơn vị tổ chức này, hãy nhận trang để có thể phản hồi các đánh giá. Bạn được phản hồi công khai, nhưng không bao giờ được xóa một đánh giá.",
+    loginToClaim: "Đăng nhập để nhận trang này",
+    emailNote: (email: string) =>
+      `Chúng tôi sẽ ghi lại email tài khoản của bạn (${email}) để có người xác minh bạn đại diện cho đơn vị này.`,
+    domainMatch: (domain: string) =>
+      `Tên miền email của bạn khớp với ${domain}, nên yêu cầu sẽ được duyệt nhanh.`,
+    domainNoMatch:
+      "Email tài khoản của bạn không khớp với tên miền website, nên yêu cầu sẽ được duyệt thủ công.",
+    submit: "Gửi yêu cầu",
+    submitting: "Đang gửi…",
+    successHeading: "Đã gửi yêu cầu",
+    successBody:
+      "Chúng tôi sẽ xác minh bạn đại diện cho đơn vị này, sau đó bạn có thể phản hồi các đánh giá tại đây.",
+    pending: "Yêu cầu nhận trang của bạn đang chờ duyệt.",
+    claimedByYou: "Bạn quản lý trang này — bạn có thể phản hồi các đánh giá bên dưới.",
+    claimedBadge: "Đã nhận",
+    claimedByName: (handle: string) => `Được nhận bởi ${handle}`,
+    replyCta: "Phản hồi với tư cách đơn vị tổ chức",
+    replyHeading: "Phản hồi của bạn",
+    replyPlaceholder:
+      "Phản hồi đánh giá này. Hãy nêu sự thật. Bạn không thể xóa đánh giá, chỉ có thể nêu quan điểm của mình.",
+    replySubmit: "Đăng phản hồi",
+    replySubmitting: "Đang đăng…",
+    errAuth: "Vui lòng đăng nhập trước.",
+    errActor: "Không rõ đơn vị tổ chức.",
+    errAlready: "Bạn đã gửi yêu cầu nhận trang này rồi.",
+    errReplyBody: "Vui lòng viết phản hồi (2–5000 ký tự).",
+    errReplyDenied: "Chỉ chủ sở hữu đã xác minh của trang này mới có thể phản hồi.",
+    errGeneric: "Đã xảy ra sự cố. Vui lòng thử lại.",
+  },
 };
