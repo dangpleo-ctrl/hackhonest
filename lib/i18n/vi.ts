@@ -611,9 +611,9 @@ export const vi = {
     emailHelp: "Thông tin riêng tư. Chỉ dùng để đăng nhập và xác minh danh tính — không bao giờ hiển thị hay chia sẻ.",
     passwordLabel: "Mật khẩu",
     passwordPlaceholder: "Ít nhất 8 ký tự",
-    handleLabel: "Tên hiển thị",
+    handleLabel: "Tên người dùng",
     handleHelp:
-      "Tên công khai của bạn trong cộng đồng. Chỉ dùng chữ thường, số và dấu gạch dưới; độ dài từ 3–24 ký tự. Đây là tất cả những gì người khác thấy — email của bạn luôn được giữ riêng tư.",
+      "Tên người dùng công khai của bạn trong cộng đồng. Chỉ dùng chữ thường, số và dấu gạch dưới; độ dài từ 3–24 ký tự. Đây là tất cả những gì người khác thấy — email của bạn luôn được giữ riêng tư.",
     handlePlaceholder: "ví dụ: nguoi_lam_cuoi_tuan",
 
     loginMetaTitle: "Đăng nhập",
@@ -627,7 +627,7 @@ export const vi = {
     signupMetaTitle: "Tạo tài khoản",
     signupTitle: "Tạo tài khoản",
     signupSubtitle:
-      "Chọn một tên hiển thị là xong. Bạn sẽ giữ ẩn danh — email không bao giờ được hiển thị, nên bạn có thể chia sẻ trung thực mà không lo đơn vị tổ chức trả đũa.",
+      "Chọn một tên người dùng là xong. Bạn sẽ giữ ẩn danh — email không bao giờ được hiển thị, nên bạn có thể chia sẻ trung thực mà không lo đơn vị tổ chức trả đũa.",
     signupSubmit: "Tạo tài khoản",
     signupSubmitting: "Đang tạo…",
     haveAccountPrompt: "Đã có tài khoản?",
@@ -637,13 +637,13 @@ export const vi = {
     confirmEmailBody:
       "Chúng tôi đã gửi bạn một liên kết để xác nhận tài khoản. Hãy nhấp vào liên kết đó, sau đó quay lại và đăng nhập.",
     privacyNote:
-      "Email của bạn là riêng tư và không bao giờ được hiển thị. Tên hiển thị chính là danh tính công khai của bạn.",
+      "Email của bạn là riêng tư và không bao giờ được hiển thị. Tên người dùng chính là danh tính công khai của bạn.",
 
     errEmail: "Vui lòng nhập một địa chỉ email hợp lệ.",
     errPassword: "Mật khẩu phải có ít nhất 8 ký tự.",
     errHandle:
-      "Tên hiển thị phải có 3–24 ký tự: chỉ gồm chữ thường, số và dấu gạch dưới.",
-    errHandleTaken: "Tên hiển thị này đã được sử dụng. Hãy thử tên khác.",
+      "Tên người dùng phải có 3–24 ký tự: chỉ gồm chữ thường, số và dấu gạch dưới.",
+    errHandleTaken: "Tên người dùng này đã được sử dụng. Hãy thử tên khác.",
     errInvalidCredentials: "Sai email hoặc mật khẩu.",
     errEmailInUse: "Email này đã được đăng ký. Hãy thử đăng nhập.",
     errGeneric: "Đã xảy ra sự cố. Vui lòng thử lại.",
@@ -656,7 +656,7 @@ export const vi = {
     metaTitle: "Tài khoản của bạn",
     title: "Tài khoản của bạn",
     signedInAs: "Đang đăng nhập với",
-    publicHandle: "Tên hiển thị công khai",
+    publicHandle: "Tên người dùng",
     privateEmail: "Email riêng tư (không bao giờ hiển thị)",
     memberSince: (date: string) => `Thành viên từ ${date}`,
     signOut: "Đăng xuất",
