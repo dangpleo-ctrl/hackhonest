@@ -690,4 +690,40 @@ export const en = {
     threadsHeading: "Discussions",
     noThreads: "No discussions yet.",
   },
+
+  // ── Organizer claim + right-of-reply ────────────────────────────────────────
+  claim: {
+    metaTitle: (name: string) => `Claim ${name}`,
+    title: (name: string) => `Claim ${name}`,
+    intro:
+      "If you represent this organizer, claim this page so you can reply to reviews. You can respond in public, but you can never delete a review.",
+    loginToClaim: "Log in to claim this page",
+    emailNote: (email: string) =>
+      `We'll record your account email (${email}) so a human can verify you represent this organizer.`,
+    domainMatch: (domain: string) =>
+      `Your email domain matches ${domain}, so your claim should be approved quickly.`,
+    domainNoMatch:
+      "Your account email doesn't match the website domain, so your claim will go to manual review.",
+    submit: "Submit claim",
+    submitting: "Submitting…",
+    successHeading: "Claim submitted",
+    successBody:
+      "We'll verify that you represent this organizer, then you'll be able to reply to reviews here.",
+    pending: "Your claim for this page is pending review.",
+    claimedByYou: "You manage this page — you can reply to reviews below.",
+    claimedBadge: "Claimed",
+    claimedByName: (handle: string) => `Claimed by ${handle}`,
+    replyCta: "Reply as the organizer",
+    replyHeading: "Your response",
+    replyPlaceholder:
+      "Respond to this review. State the facts. You can't delete the review, only add your side.",
+    replySubmit: "Post reply",
+    replySubmitting: "Posting…",
+    errAuth: "Please log in first.",
+    errActor: "Unknown organizer.",
+    errAlready: "You've already submitted a claim for this page.",
+    errReplyBody: "Please write a reply (2–5000 characters).",
+    errReplyDenied: "Only a verified owner of this page can reply.",
+    errGeneric: "Something went wrong. Please try again.",
+  },
 };

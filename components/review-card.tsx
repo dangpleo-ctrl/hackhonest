@@ -15,6 +15,7 @@ import { RatingScore } from "./rating-score";
 import { VerifiedBadge } from "./verified-badge";
 import { Badge } from "./ui/badge";
 import { cn } from "./ui/cn";
+import { OrganizerReplyForm } from "./organizer-reply-form";
 
 /** Deterministic, locale-aware date formatting (safe across server/client render). */
 function formatDate(raw: string, locale: string): string {
@@ -37,6 +38,11 @@ const EVIDENCE_ICON: Record<Evidence["kind"], React.ComponentType<{ className?: 
 export interface ReviewCardProps {
   review: Review;
   className?: string;
+  /** A verified organizer's reply to this review (from the DB), if any. */
+  dynamicReply?: { author: string | null; body: string; date: string } | null;
+  /** When true + actorSlug is set, show an inline reply box (viewer owns the page). */
+  canReply?: boolean;
+  actorSlug?: string;
 }
 
 /**
@@ -44,7 +50,13 @@ export interface ReviewCardProps {
  * per-dimension scores, headline + body, any evidence they attached, a
  * pseudonymous byline, and the organizer's right-of-reply if they responded.
  */
-export function ReviewCard({ review, className }: ReviewCardProps) {
+export function ReviewCard({
+  review,
+  className,
+  dynamicReply,
+  canReply,
+  actorSlug,
+}: ReviewCardProps) {
   const t = useT();
   const locale = useLocale();
   const dimLabels = t.reviewDimensions as Record<string, { label: string; help: string }>;
@@ -172,6 +184,32 @@ export function ReviewCard({ review, className }: ReviewCardProps) {
               {reply.body}
             </p>
           </div>
+        )}
+
+        {/* Verified organizer reply posted through the claim flow */}
+        {dynamicReply && (
+          <div className="rounded-lg border-l-2 border-accent bg-accent-subtle px-4 py-3">
+            <div className="mb-1 flex flex-wrap items-center gap-2">
+              <CornerDownRight aria-hidden="true" className="size-4 text-accent-strong" />
+              <span className="text-sm font-semibold text-accent-strong">
+                {t.reviewCard.responseFrom(dynamicReply.author ?? "—")}
+              </span>
+              <Badge tone="accent" size="sm">
+                {t.reviewCard.organizerReply}
+              </Badge>
+              <time dateTime={dynamicReply.date} className="ml-auto text-xs text-muted">
+                {formatDate(dynamicReply.date, locale)}
+              </time>
+            </div>
+            <p className="whitespace-pre-line text-sm leading-relaxed text-foreground">
+              {dynamicReply.body}
+            </p>
+          </div>
+        )}
+
+        {/* Inline reply box for the verified page owner (no reply yet) */}
+        {canReply && actorSlug && !dynamicReply && (
+          <OrganizerReplyForm actorSlug={actorSlug} reviewId={review.id} />
         )}
       </div>
     </article>
