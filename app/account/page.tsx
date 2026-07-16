@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { AtSign } from "lucide-react";
+import { AtSign, MessagesSquare, MessageSquare } from "lucide-react";
 import { getLocaleAndT, getT } from "@/lib/i18n/server";
 import { getSessionUser, getSessionEmail } from "@/lib/auth";
-import { getThreadsByAuthor } from "@/lib/forum";
+import { getThreadsByAuthor, getAuthorStats } from "@/lib/forum";
 import { absoluteDate, relativeTime } from "@/lib/relative-time";
 import { SignOutButton } from "@/components/sign-out-button";
 import { buttonVariants } from "@/components/ui/button";
@@ -20,9 +20,10 @@ export default async function AccountPage() {
   if (!user) redirect("/login?next=/account");
 
   const { locale, t } = await getLocaleAndT();
-  const [threads, email] = await Promise.all([
+  const [threads, email, stats] = await Promise.all([
     getThreadsByAuthor(user.id),
     getSessionEmail(),
+    getAuthorStats(user.id),
   ]);
 
   return (
@@ -61,6 +62,30 @@ export default async function AccountPage() {
           </div>
         )}
       </div>
+
+      <section className="mt-6">
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="text-xs font-semibold uppercase tracking-wide text-faint">
+            {t.account.reputation}
+          </h2>
+          <Link
+            href={`/u/${user.handle}`}
+            className="text-sm font-medium text-accent-strong hover:underline"
+          >
+            {t.account.viewProfile} →
+          </Link>
+        </div>
+        <div className="mt-2 flex flex-wrap gap-3">
+          <span className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-2 text-sm font-medium text-foreground">
+            <MessagesSquare aria-hidden="true" className="size-4 text-accent" />
+            {t.profile.discussionsStarted(stats.threadCount)}
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-2 text-sm font-medium text-foreground">
+            <MessageSquare aria-hidden="true" className="size-4 text-accent" />
+            {t.profile.repliesPosted(stats.replyCount)}
+          </span>
+        </div>
+      </section>
 
       <section className="mt-10">
         <h2 className="text-lg font-semibold tracking-tight text-foreground">

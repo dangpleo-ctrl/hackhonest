@@ -558,6 +558,7 @@ export const vi = {
     noThreadsYet: "Chưa có thảo luận nào ở đây.",
     beFirst: "Bắt đầu thảo luận đầu tiên",
     startedBy: (handle: string) => `bởi ${handle}`,
+    by: "bởi",
     lastActivity: "Hoạt động gần nhất",
     aboutActor: (name: string) => `Về ${name} →`,
 
@@ -662,5 +663,21 @@ export const vi = {
     myThreads: "Bài thảo luận của bạn",
     noThreads: "Bạn chưa tạo bài thảo luận nào.",
     startOne: "Tạo bài mới",
+    reputation: "Uy tín",
+    viewProfile: "Xem trang công khai",
+  },
+
+  // ── Trang công khai / uy tín ────────────────────────────────────────────────
+  profile: {
+    metaTitle: (handle: string) => `${handle}`,
+    metaDescription: (handle: string) =>
+      `Hoạt động của ${handle} trong cộng đồng HackHonest.`,
+    notFound: "Thành viên này không tồn tại.",
+    reputation: "Uy tín",
+    memberSince: (date: string) => `Thành viên từ ${date}`,
+    discussionsStarted: (n: number) => `Đã tạo ${n} thảo luận`,
+    repliesPosted: (n: number) => `Đã đăng ${n} trả lời`,
+    threadsHeading: "Thảo luận",
+    noThreads: "Chưa có thảo luận nào.",
   },
 };
