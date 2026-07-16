@@ -616,9 +616,9 @@ export const en = {
     emailHelp: "Private. Used only to sign in and to verify you — never shown, never shared.",
     passwordLabel: "Password",
     passwordPlaceholder: "At least 8 characters",
-    handleLabel: "Handle",
+    handleLabel: "Username",
     handleHelp:
-      "Your public name in the community. Lowercase letters, numbers, and underscores; 3–24 characters. This is all anyone sees — your email stays private.",
+      "Your public username in the community. Lowercase letters, numbers, and underscores; 3–24 characters. This is all anyone sees — your email stays private.",
     handlePlaceholder: "e.g. weekend_builder",
 
     // Log in
@@ -634,7 +634,7 @@ export const en = {
     signupMetaTitle: "Create an account",
     signupTitle: "Create an account",
     signupSubtitle:
-      "Pick a handle and you're in. You stay pseudonymous — your email is never shown, so you can speak honestly without an organizer coming after you.",
+      "Pick a username and you're in. You stay pseudonymous — your email is never shown, so you can speak honestly without an organizer coming after you.",
     signupSubmit: "Create account",
     signupSubmitting: "Creating…",
     haveAccountPrompt: "Already have an account?",
@@ -645,14 +645,14 @@ export const en = {
     confirmEmailBody:
       "We sent you a link to confirm your account. Click it, then come back and log in.",
     privacyNote:
-      "Your email is private and never shown. Your handle is your public identity.",
+      "Your email is private and never shown. Your username is your public identity.",
 
     // Errors
     errEmail: "Please enter a valid email.",
     errPassword: "Password must be at least 8 characters.",
     errHandle:
-      "Handle must be 3–24 characters: lowercase letters, numbers, and underscores.",
-    errHandleTaken: "That handle is taken. Try another.",
+      "Username must be 3–24 characters: lowercase letters, numbers, and underscores.",
+    errHandleTaken: "That username is taken. Try another.",
     errInvalidCredentials: "Wrong email or password.",
     errEmailInUse: "That email already has an account. Try logging in.",
     errGeneric: "Something went wrong. Please try again.",
@@ -665,7 +665,7 @@ export const en = {
     metaTitle: "Your account",
     title: "Your account",
     signedInAs: "Signed in as",
-    publicHandle: "Public handle",
+    publicHandle: "Username",
     privateEmail: "Private email (never shown)",
     memberSince: (date: string) => `Member since ${date}`,
     signOut: "Log out",
