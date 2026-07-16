@@ -674,6 +674,7 @@ export const en = {
     startOne: "Start one",
     reputation: "Reputation",
     viewProfile: "View public profile",
+    moderation: "Moderation queue",
   },
 
   // ── Public profile / reputation ─────────────────────────────────────────────
@@ -725,5 +726,42 @@ export const en = {
     errReplyBody: "Please write a reply (2–5000 characters).",
     errReplyDenied: "Only a verified owner of this page can reply.",
     errGeneric: "Something went wrong. Please try again.",
+  },
+
+  // ── Admin moderation queue ──────────────────────────────────────────────────
+  moderate: {
+    metaTitle: "Moderation",
+    title: "Moderation queue",
+    subtitle:
+      "Approve or reject what the community submits — reviews, directory entries, and organizer page claims.",
+    allClear: "Nothing pending — you're all caught up.",
+    reviewsHeading: (n: number) => `Pending reviews (${n})`,
+    suggestionsHeading: (n: number) => `Pending directory entries (${n})`,
+    claimsHeading: (n: number) => `Pending page claims (${n})`,
+    approve: "Approve",
+    reject: "Reject",
+    reviewFor: (name: string) => `Review of ${name}`,
+    reviewForUnknown: "Review (no linked entry)",
+    byAuthor: (author: string) => `by ${author}`,
+    anon: "anonymous",
+    proofLabel: "Attendance proof",
+    contactLabel: "Private contact",
+    claimHeadline: (handle: string, name: string) => `${handle} claims ${name}`,
+    domainMatches: "account email matches the website domain",
+    domainNoMatch: "email domain does not match the website",
+    sourceLabel: "Source link",
+    submittedByLabel: "Submitted by",
+  },
+
+  // ── Notifications ───────────────────────────────────────────────────────────
+  notifications: {
+    navAria: "Notifications",
+    metaTitle: "Notifications",
+    title: "Notifications",
+    empty: "No notifications yet. When someone replies to your discussions, you'll see it here.",
+    markAllRead: "Mark all as read",
+    threadReply: (handle: string, title: string) =>
+      `${handle} replied to your discussion "${title}"`,
+    threadReplyNoTitle: (handle: string) => `${handle} replied to your discussion`,
   },
 };

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, X, ShieldCheck, PenLine, UserCircle2 } from "lucide-react";
+import { Menu, X, ShieldCheck, PenLine, UserCircle2, Bell } from "lucide-react";
 import { brand } from "@/lib/brand";
 import { LOCALES } from "@/lib/i18n";
 import { useT, useLocale, useSetLocale } from "@/lib/i18n/locale-provider";
@@ -59,7 +59,13 @@ function LanguageToggle({ className }: { className?: string }) {
 }
 
 /** Sticky top navigation with a mobile drawer. */
-export function SiteNav({ user }: { user: NavUser | null }) {
+export function SiteNav({
+  user,
+  unreadCount = 0,
+}: {
+  user: NavUser | null;
+  unreadCount?: number;
+}) {
   const t = useT();
   const [open, setOpen] = React.useState(false);
 
@@ -90,6 +96,28 @@ export function SiteNav({ user }: { user: NavUser | null }) {
       {t.auth.loginTitle}
     </Link>
   );
+
+  // Notification bell — signed-in only. Green count badge (on-brand: a reply is
+  // good news), capped at "9+". Shared by desktop + mobile top bar.
+  const bell = user ? (
+    <Link
+      href="/notifications"
+      onClick={() => setOpen(false)}
+      aria-label={
+        unreadCount > 0
+          ? `${t.notifications.navAria} (${unreadCount})`
+          : t.notifications.navAria
+      }
+      className="relative inline-flex size-9 items-center justify-center rounded-md text-muted transition-colors hover:bg-surface-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+    >
+      <Bell aria-hidden="true" className="size-5" />
+      {unreadCount > 0 && (
+        <span className="absolute -right-0.5 -top-0.5 inline-flex min-w-[1.125rem] items-center justify-center rounded-full bg-accent px-1 text-[0.625rem] font-bold leading-none text-accent-foreground ring-2 ring-surface">
+          {unreadCount > 9 ? "9+" : unreadCount}
+        </span>
+      )}
+    </Link>
+  ) : null;
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-surface/90 backdrop-blur supports-[backdrop-filter]:bg-surface/75">
@@ -124,6 +152,7 @@ export function SiteNav({ user }: { user: NavUser | null }) {
         {/* Desktop language toggle + account + CTA */}
         <div className="hidden items-center gap-2 lg:flex">
           <LanguageToggle />
+          {bell}
           {account}
           <Link
             href={WRITE_REVIEW_HREF}
@@ -137,6 +166,7 @@ export function SiteNav({ user }: { user: NavUser | null }) {
         {/* Mobile: language toggle stays visible next to the menu button */}
         <div className="flex items-center gap-2 lg:hidden">
           <LanguageToggle />
+          {bell}
           <button
             type="button"
             className="inline-flex size-10 items-center justify-center rounded-md text-foreground transition-colors hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
