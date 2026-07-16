@@ -558,6 +558,7 @@ export const en = {
     noThreadsYet: "No discussions here yet.",
     beFirst: "Start the first one",
     startedBy: (handle: string) => `by ${handle}`,
+    by: "by",
     lastActivity: "Last activity",
     aboutActor: (name: string) => `About ${name} →`,
 
@@ -671,5 +672,22 @@ export const en = {
     myThreads: "Your discussions",
     noThreads: "You haven't started any discussions yet.",
     startOne: "Start one",
+    reputation: "Reputation",
+    viewProfile: "View public profile",
+  },
+
+  // ── Public profile / reputation ─────────────────────────────────────────────
+  profile: {
+    metaTitle: (handle: string) => `${handle}`,
+    metaDescription: (handle: string) =>
+      `${handle}'s activity on the HackHonest community.`,
+    notFound: "That member doesn't exist.",
+    reputation: "Reputation",
+    memberSince: (date: string) => `Member since ${date}`,
+    discussionsStarted: (n: number) =>
+      `${n} ${n === 1 ? "discussion" : "discussions"} started`,
+    repliesPosted: (n: number) => `${n} ${n === 1 ? "reply" : "replies"} posted`,
+    threadsHeading: "Discussions",
+    noThreads: "No discussions yet.",
   },
 };
