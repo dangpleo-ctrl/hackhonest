@@ -77,7 +77,7 @@ export function ReviewCard({
   return (
     <article
       className={cn(
-        "rounded-2xl border border-border bg-surface shadow-sm",
+        "rounded-lg border border-border bg-surface shadow-sm",
         className,
       )}
     >
@@ -88,10 +88,7 @@ export function ReviewCard({
             <RatingScore avg={overall} count={0} size="sm" showCount={false} />
             {verified && <VerifiedBadge method={verifyMethod} showMethod />}
           </div>
-          <time
-            dateTime={date}
-            className="text-sm text-faint"
-          >
+          <time dateTime={date} className="hh-ref">
             {formatDate(date, locale)}
           </time>
         </div>
@@ -117,7 +114,7 @@ export function ReviewCard({
                     className="fill-rating text-rating"
                   />
                   <span>{dimLabels[d.key]?.label ?? d.label}</span>
-                  <span className="font-semibold tabular-nums text-foreground">
+                  <span className="font-mono font-semibold tabular-nums text-foreground">
                     {d.rating}/5
                   </span>
                 </Badge>
@@ -129,7 +126,7 @@ export function ReviewCard({
         {/* Evidence */}
         {evidence && evidence.length > 0 && (
           <div className="flex flex-col gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wide text-faint">
+            <span className="hh-label text-faint">
               {t.reviewCard.evidenceProvided}
             </span>
             <ul className="flex flex-wrap gap-2">
