@@ -1,84 +1,97 @@
 @import "tailwindcss";
 
 /*
-  HackHonest design system — Tailwind 4, CSS-based config.
+  HackHonest design system — "On the Record" — Tailwind 4, CSS-based config.
 
-  Direction: credible, editorial, trustworthy — "the community record." One
-  confident blue brand accent, a gold star convention, and a restrained
-  green/amber/red rating language (good / caution / bad) used only where a
-  rating needs to read at a glance. Generous whitespace, hairline borders doing
-  most of the structural work, soft real shadows for genuine elevation, AAA
-  contrast for body text in BOTH themes.
+  Direction: a credible, hacker-native PUBLIC LEDGER. HackHonest isn't a
+  friendly SaaS review site — it's the tamper-evident community record of who
+  runs hackathons. The identity is built from three moves:
 
-  Every semantic token lives here. Components only ever reference token NAMES
-  (bg-surface, text-muted, border-border, bg-danger-subtle, ...), so light/dark
-  re-theming is a single-file change: the dark block near the bottom overrides
-  the same variables and every utility follows.
+    1. An engineered monospace voice (IBM Plex Mono) for every label, record ID,
+       date, and score — the "receipt / ledger / terminal" texture.
+    2. Fine ruled lines doing the structural work, like a filed document, with a
+       faint engineering-grid wash on the masthead.
+    3. One confident PINE-GREEN brand — verified / on-the-record / ledger-native.
+       Green because being well-reviewed on the honest record IS the good state,
+       so the brand color and the "good rating" are deliberately the same tone.
+       Neutral and authoritative, never accusatory (the posture is: we host what
+       verified attendees report, we never accuse anyone ourselves).
+
+  Every semantic token lives here. Components only reference token NAMES
+  (bg-surface, text-muted, border-border, bg-danger-subtle, font-mono, ...), so
+  a light/dark re-theme is a single-file change: the dark block near the bottom
+  overrides the same variables and every utility follows.
 */
 
 @theme {
-  /* Typography — Be Vietnam Pro (wired in app/layout.tsx via next/font). */
+  /* Typography — IBM Plex, wired in app/layout.tsx via next/font.
+     Sans carries headlines + body (full Vietnamese support). Mono is the
+     signature "record" voice: labels, IDs, dates, scores, stamps. */
   --font-sans:
-    var(--font-be-vietnam-pro), ui-sans-serif, system-ui, -apple-system,
+    var(--font-plex-sans), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:
+    var(--font-plex-mono), ui-monospace, "SFMono-Regular", "Menlo",
+    "Consolas", monospace;
 
-  /* ── Neutrals — a calm off-white page under pure-white cards. ───────────── */
-  --color-background: #f8fafc; /* page canvas (slate-50) */
-  --color-surface: #ffffff; /* cards, nav, elevated blocks */
-  --color-surface-muted: #f1f5f9; /* subtle fills, tracks (slate-100) */
-  --color-surface-sunken: #eef2f7; /* insets / scorecards, one step deeper */
-  --color-border: #e2e8f0; /* default hairline (slate-200) */
-  --color-border-strong: #cbd5e1; /* hover / emphasis border (slate-300) */
+  /* ── Neutrals — a cool "document" gray under pure-white filed records. ──── */
+  --color-background: #edeef1; /* page canvas — archival document gray */
+  --color-surface: #ffffff; /* filed record cards, nav */
+  --color-surface-muted: #f4f5f7; /* subtle fills, tracks */
+  --color-surface-sunken: #e7e9ed; /* insets / scorecards, one step deeper */
+  --color-border: #d8dce1; /* default hairline / ledger rule */
+  --color-border-strong: #c0c6cd; /* hover / emphasis border */
 
   /* ── Text — tuned for AAA (>=7:1) on white and on surface-muted. ────────── */
-  --color-foreground: #0f172a; /* primary text ~16:1 (slate-900) */
-  --color-muted: #475569; /* secondary text ~7.5:1 AAA (slate-600) */
-  --color-faint: #64748b; /* meta / placeholders ~5.9:1 (slate-500) */
+  --color-foreground: #15171c; /* primary text ~16:1 */
+  --color-muted: #464c55; /* secondary text ~8:1 AAA */
+  --color-faint: #646b75; /* meta / placeholders ~5.4:1 */
 
-  /* ── Accent — the single blue. Fills use `accent`; text-on-light uses
-     `accent-strong` (blue-800) so inline links stay high-contrast. ────────── */
-  --color-accent: #1d4ed8; /* blue-700 — buttons, focus, active */
-  --color-accent-strong: #1e40af; /* blue-800 — AAA link text on light */
+  /* ── Accent — the single pine-green. Fills use `accent`; text-on-light uses
+     `accent-strong` so inline links stay AAA-contrast. ────────────────────── */
+  --color-accent: #0c6b4d; /* pine-700 — buttons, focus, active fills */
+  --color-accent-strong: #095038; /* pine-800 — AAA link text on light */
   --color-accent-foreground: #ffffff; /* text/icons on an accent fill */
-  --color-accent-subtle: #eff6ff; /* tinted accent background (blue-50) */
-  --color-accent-border: #bfdbfe; /* accent chip border (blue-200) */
+  --color-accent-subtle: #e6f2ec; /* tinted accent background */
+  --color-accent-border: #b4d9c8; /* accent chip border */
 
-  /* ── Semantic status — the rating language. Each tone has a SOLID (icons,
-     bars, borders) plus a chip triplet: -subtle bg, -strong text (AAA on the
-     tint), -border. Kept deliberately calm; color earns its place. ────────── */
-  --color-success: #15803d; /* green-700 */
-  --color-success-subtle: #f0fdf4; /* green-50 */
-  --color-success-strong: #166534; /* green-800 — text on tint */
-  --color-success-border: #bbf7d0; /* green-200 */
+  /* ── Semantic status — the rating language. "good" shares the brand pine on
+     purpose (well-reviewed = on the honest record). caution/poor stay distinct
+     so a score never reads as the brand. Each tone: a SOLID (icons, bars) plus
+     a chip triplet (-subtle bg, -strong AAA text on the tint, -border). ────── */
+  --color-success: #0c6b4d; /* pine — same as accent, intentionally */
+  --color-success-subtle: #e6f2ec;
+  --color-success-strong: #095038;
+  --color-success-border: #b4d9c8;
 
-  --color-warning: #b45309; /* amber-700 */
-  --color-warning-subtle: #fffbeb; /* amber-50 */
-  --color-warning-strong: #92400e; /* amber-800 */
-  --color-warning-border: #fde68a; /* amber-200 */
+  --color-warning: #9a5a0f; /* ochre-700 */
+  --color-warning-subtle: #f9f1e3;
+  --color-warning-strong: #7c470a; /* ochre-800 — text on tint */
+  --color-warning-border: #ecd9b0;
 
-  --color-danger: #b91c1c; /* red-700 */
-  --color-danger-subtle: #fef2f2; /* red-50 */
-  --color-danger-strong: #991b1b; /* red-800 */
-  --color-danger-border: #fecaca; /* red-200 */
+  --color-danger: #b02a1f; /* clay-red-700 */
+  --color-danger-subtle: #fbece9;
+  --color-danger-strong: #8c1f16; /* clay-red-800 */
+  --color-danger-border: #f0c2bb;
 
-  /* ── Rating gold — the universal star convention, kept distinct from the UI
+  /* ── Rating gold — the universal star convention, kept distinct from the pine
      accent so a rating never reads as an interactive control. ─────────────── */
-  --color-rating: #f59e0b; /* amber-500 — filled star */
-  --color-rating-track: #cbd5e1; /* empty star / rating track (slate-300) */
+  --color-rating: #dd9b06; /* gold — filled star */
+  --color-rating-track: #c7ccd3; /* empty star / rating track */
 
-  /* ── Radius — softly rounded, editorial. ────────────────────────────────── */
-  --radius-md: 0.5rem;
-  --radius-lg: 0.625rem;
-  --radius-xl: 0.875rem;
-  --radius-2xl: 1.25rem;
+  /* ── Radius — small + engineered. Filed records, not pillowy SaaS cards.
+     Chips stay fully round (rounded-full) as a deliberate counterpoint. ────── */
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.625rem;
+  --radius-2xl: 0.875rem;
 
-  /* ── Shadows — real but restrained elevation; borders still carry structure.
-     Overridden in dark to lean on black so depth survives a dark canvas. ──── */
+  /* ── Shadows — restrained; borders + rules carry most structure. ────────── */
   --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.05);
   --shadow-md:
-    0 4px 16px -4px rgb(15 23 42 / 0.1), 0 2px 6px -3px rgb(15 23 42 / 0.06);
+    0 4px 16px -6px rgb(15 23 42 / 0.1), 0 2px 5px -3px rgb(15 23 42 / 0.06);
   --shadow-lg:
-    0 18px 40px -12px rgb(15 23 42 / 0.18), 0 6px 14px -6px rgb(15 23 42 / 0.1);
+    0 20px 44px -16px rgb(15 23 42 / 0.2), 0 6px 14px -8px rgb(15 23 42 / 0.1);
 }
 
 /* ── Base — canvas + text + font, once, globally. ─────────────────────────── */
@@ -103,8 +116,8 @@ h4,
 h5,
 h6 {
   text-wrap: balance;
-  letter-spacing: -0.018em;
-  line-height: 1.15;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
 }
 
 p {
@@ -118,12 +131,96 @@ p {
 }
 
 /*
+  ── Signature primitives ────────────────────────────────────────────────────
+  The three custom classes the "record" identity is built from. Everything else
+  is plain Tailwind utilities; these carry the parts utilities can't.
+*/
+
+/* Monospace eyebrow / label — the ledger voice. Uppercase, tracked, small. */
+.hh-label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* Rubber-stamp mark — "VERIFIED", "ON THE RECORD". A tracked mono word inside a
+   2px pine frame, tilted a hair like an inked stamp. Kept low-key, never loud. */
+.hh-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.625rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.3rem 0.5rem;
+  color: var(--color-accent-strong);
+  border: 1.5px solid var(--color-accent-border);
+  border-radius: 0.25rem;
+  transform: rotate(-1.5deg);
+  background-color: color-mix(in srgb, var(--color-accent-subtle) 60%, transparent);
+}
+
+/* A "record ID" chip: mono, faint, monotone — REC-0042 style provenance. */
+.hh-ref {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  color: var(--color-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Faint engineering-grid wash for the masthead — graph-paper / ledger texture.
+   Two hairline gradients; opacity kept very low so it reads as paper, not UI. */
+.hh-grid {
+  background-image:
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  background-size: 2.25rem 2.25rem;
+  background-position: center top;
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 70% at 30% 0%,
+    #000 0%,
+    transparent 75%
+  );
+  mask-image: radial-gradient(
+    ellipse 80% 70% at 30% 0%,
+    #000 0%,
+    transparent 75%
+  );
+  opacity: 0.5;
+}
+
+/* Stamp settle-in — respected by reduced-motion below. */
+@keyframes hh-stamp-in {
+  0% {
+    opacity: 0;
+    transform: rotate(-1.5deg) scale(1.35);
+  }
+  60% {
+    opacity: 1;
+    transform: rotate(-1.5deg) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-1.5deg) scale(1);
+  }
+}
+.hh-stamp-animate {
+  animation: hh-stamp-in 0.42s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+/*
   ── Dark theme ─────────────────────────────────────────────────────────────
   Automatic, follows the OS (no toggle, no JS). Re-declares the SAME token
-  variables against a deep navy canvas; every Tailwind utility that reads a
-  token flips with it. Text tones hold AAA on the dark canvas; the rating
-  colors brighten so gold/green/amber/red still read; chips invert to a dark
-  tint + light text.
+  variables against a deep near-black "terminal" canvas; every Tailwind utility
+  that reads a token flips with it. Text holds AAA on the dark canvas; the pine
+  brightens; chips invert to a dark tint + light text.
 */
 @media (prefers-color-scheme: dark) {
   html {
@@ -131,53 +228,61 @@ p {
   }
 
   :root {
-    /* Neutrals — a rich near-navy, layered surfaces for depth. */
-    --color-background: #0a0f1a;
-    --color-surface: #111826;
-    --color-surface-muted: #1b2536;
-    --color-surface-sunken: #0e1626;
-    --color-border: #27324a;
-    --color-border-strong: #3b4a68;
+    /* Neutrals — deep near-black with a hint of blue, layered surfaces. */
+    --color-background: #0b0e14;
+    --color-surface: #12161f;
+    --color-surface-muted: #1a1f2b;
+    --color-surface-sunken: #0e121a;
+    --color-border: #262c39;
+    --color-border-strong: #3a4252;
 
     /* Text — AAA on the dark canvas. */
-    --color-foreground: #f1f5f9; /* slate-100 ~16:1 */
-    --color-muted: #cbd5e1; /* slate-300 ~11:1 */
-    --color-faint: #9db0c9; /* ~7:1 for meta */
+    --color-foreground: #eef1f5;
+    --color-muted: #c2c9d3;
+    --color-faint: #94a0ae;
 
-    /* Accent — button fill stays blue-600 (white text = AA); links/inline text
-       brighten to blue-300 for AAA on the dark canvas. */
-    --color-accent: #2563eb; /* blue-600 fill */
-    --color-accent-strong: #93c5fd; /* blue-300 — link text on dark */
-    --color-accent-foreground: #ffffff;
-    --color-accent-subtle: #16233c; /* deep blue tint */
-    --color-accent-border: #2f4877;
+    /* Accent — pine brightens; links/inline text brighter still for AAA. */
+    --color-accent: #17a06e; /* pine fill on dark */
+    --color-accent-strong: #57d4a4; /* link text on dark */
+    --color-accent-foreground: #04120c;
+    --color-accent-subtle: #0f2a20;
+    --color-accent-border: #1f5641;
 
-    /* Semantic — solids brighten for a dark canvas; chips invert to tint+light. */
-    --color-success: #22c55e;
-    --color-success-subtle: #0f2a1c;
-    --color-success-strong: #86efac; /* green-300 */
-    --color-success-border: #14532d;
+    /* Semantic — good mirrors the brand; caution/poor brighten; chips invert. */
+    --color-success: #17a06e;
+    --color-success-subtle: #0f2a20;
+    --color-success-strong: #57d4a4;
+    --color-success-border: #1f5641;
 
-    --color-warning: #f59e0b;
-    --color-warning-subtle: #2a1d06;
-    --color-warning-strong: #fcd34d; /* amber-300 */
-    --color-warning-border: #4d3108;
+    --color-warning: #d98a1f;
+    --color-warning-subtle: #2a1e08;
+    --color-warning-strong: #f0c06a;
+    --color-warning-border: #4a3410;
 
-    --color-danger: #ef4444;
-    --color-danger-subtle: #2a1113;
-    --color-danger-strong: #fca5a5; /* red-300 */
-    --color-danger-border: #4c1d1d;
+    --color-danger: #e04b3c;
+    --color-danger-subtle: #2b1210;
+    --color-danger-strong: #f2a79d;
+    --color-danger-border: #4c1d18;
 
     /* Rating — brighter gold + a subtle dark track. */
-    --color-rating: #fbbf24;
-    --color-rating-track: #3b4a68;
+    --color-rating: #f0b429;
+    --color-rating-track: #3a4252;
 
-    /* Elevation via black so cards lift off the navy canvas. */
+    /* Elevation via black so records lift off the near-black canvas. */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
     --shadow-md:
-      0 4px 16px -4px rgb(0 0 0 / 0.5), 0 2px 6px -3px rgb(0 0 0 / 0.4);
+      0 4px 16px -6px rgb(0 0 0 / 0.5), 0 2px 5px -3px rgb(0 0 0 / 0.4);
     --shadow-lg:
-      0 18px 40px -12px rgb(0 0 0 / 0.6), 0 6px 14px -6px rgb(0 0 0 / 0.45);
+      0 20px 44px -16px rgb(0 0 0 / 0.6), 0 6px 14px -8px rgb(0 0 0 / 0.45);
+  }
+
+  /* The stamp reads brighter on dark — lean on the accent border + tint. */
+  .hh-stamp {
+    background-color: color-mix(
+      in srgb,
+      var(--color-accent-subtle) 75%,
+      transparent
+    );
   }
 }
 
