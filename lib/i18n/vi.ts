@@ -22,6 +22,8 @@ export const vi = {
     languageGroup: "Ngôn ngữ",
     switchToEnglish: "Chuyển sang tiếng Anh",
     switchToVietnamese: "Chuyển sang tiếng Việt",
+    switchToDark: "Chuyển sang giao diện tối",
+    switchToLight: "Chuyển sang giao diện sáng",
   },
 
   brand: {
@@ -47,8 +49,11 @@ export const vi = {
 
   home: {
     heroBadge: "Việt Nam & Đông Nam Á",
-    heroTitleLead: "Cùng xây dựng hackathon ",
-    heroTitleAccent: "lành mạnh",
+    recordEyebrow: "Hồ sơ công khai",
+    processEyebrow: "Quy trình",
+    postureEyebrow: "Lập trường của chúng tôi",
+    heroTitleLead: "Hồ sơ công khai về những ai ",
+    heroTitleAccent: "tổ chức hackathon",
     searchAria: "Tìm đơn vị tổ chức, nhà tài trợ hoặc sự kiện",
     searchPlaceholder: "Tìm đơn vị tổ chức, nhà tài trợ hoặc sự kiện…",
     searchButton: "Tìm",

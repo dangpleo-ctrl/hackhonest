@@ -21,6 +21,8 @@ export const en = {
     languageGroup: "Language",
     switchToEnglish: "Switch to English",
     switchToVietnamese: "Switch to Vietnamese",
+    switchToDark: "Switch to dark theme",
+    switchToLight: "Switch to light theme",
   },
 
   // Brand copy that used to live in lib/brand.ts (name stays untranslated).
@@ -47,8 +49,11 @@ export const en = {
 
   home: {
     heroBadge: "Vietnam & Southeast Asia",
-    heroTitleLead: "Building healthier hackathons, ",
-    heroTitleAccent: "together",
+    recordEyebrow: "The public record",
+    processEyebrow: "The process",
+    postureEyebrow: "Our posture",
+    heroTitleLead: "The public record of who ",
+    heroTitleAccent: "runs hackathons",
     searchAria: "Search an organizer, sponsor, or event",
     searchPlaceholder: "Search an organizer, sponsor, or event…",
     searchButton: "Search",

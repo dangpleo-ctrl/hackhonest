@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ShieldCheck, MapPin } from "lucide-react";
+import { Check, MapPin } from "lucide-react";
 import { brand } from "@/lib/brand";
 import { useT } from "@/lib/i18n/locale-provider";
 
@@ -36,8 +36,13 @@ export function SiteFooter() {
         <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           {/* Brand + posture */}
           <div className="max-w-md">
-            <div className="mb-3 inline-flex items-center gap-2 text-lg font-bold tracking-tight text-foreground">
-              <ShieldCheck aria-hidden="true" className="size-6 text-accent" />
+            <div className="mb-3 inline-flex items-center gap-2.5 text-lg font-bold tracking-tight text-foreground">
+              <span
+                aria-hidden="true"
+                className="flex size-7 items-center justify-center rounded-md bg-accent text-accent-foreground shadow-sm"
+              >
+                <Check className="size-[1.15rem]" strokeWidth={3} />
+              </span>
               <span>{brand.name}</span>
             </div>
             <p className="text-sm leading-relaxed text-muted">{t.brand.posture}</p>
