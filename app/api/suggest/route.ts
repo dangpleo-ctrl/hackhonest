@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { isEntryType, type SuggestEntryType } from "@/lib/suggest";
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "@/lib/supabase/config";
 
 // Suggestion submission endpoint (confirm half of assist-and-confirm). The
 // reviewed, human-confirmed entry lands in a Supabase table (`entry_suggestions`)
@@ -74,8 +75,10 @@ function validate(input: unknown): { ok: true; value: Suggestion } | { ok: false
 }
 
 async function persist(sug: Suggestion): Promise<{ queued: boolean }> {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_ANON_KEY; // publishable/anon key — RLS restricts it to INSERT only
+  // Shared config (NEXT_PUBLIC_* first, SUPABASE_* fallback) — keeps this route
+  // on the same env names as the forum so submissions can't silently drop.
+  const url = SUPABASE_URL;
+  const key = SUPABASE_ANON_KEY; // publishable/anon key — RLS restricts it to INSERT only
   if (!url || !key) {
     console.log("[suggest] received (no store configured):", JSON.stringify({ ...sug }));
     return { queued: false };
