@@ -2,11 +2,12 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, X, ShieldCheck, PenLine, UserCircle2, Bell } from "lucide-react";
+import { Menu, X, Check, PenLine, UserCircle2, Bell } from "lucide-react";
 import { brand } from "@/lib/brand";
 import { LOCALES } from "@/lib/i18n";
 import { useT, useLocale, useSetLocale } from "@/lib/i18n/locale-provider";
 import { buttonVariants } from "./ui/button";
+import { ThemeToggle } from "./theme-toggle";
 import { cn } from "./ui/cn";
 
 const WRITE_REVIEW_HREF = "/review/new";
@@ -132,11 +133,16 @@ export function SiteNav({
         {/* Brand */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 rounded-md text-lg font-bold tracking-tight text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+          className="inline-flex items-center gap-2.5 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
           onClick={() => setOpen(false)}
         >
-          <ShieldCheck aria-hidden="true" className="size-6 text-accent" />
-          <span>{brand.name}</span>
+          <span
+            aria-hidden="true"
+            className="flex size-7 items-center justify-center rounded-md bg-accent text-accent-foreground shadow-sm"
+          >
+            <Check className="size-[1.15rem]" strokeWidth={3} />
+          </span>
+          <span className="text-lg font-bold tracking-tight text-foreground">{brand.name}</span>
         </Link>
 
         {/* Desktop links */}
@@ -155,6 +161,7 @@ export function SiteNav({
 
         {/* Desktop language toggle + account + CTA */}
         <div className="hidden items-center gap-2 lg:flex">
+          <ThemeToggle />
           <LanguageToggle />
           {bell}
           {account}
@@ -169,6 +176,7 @@ export function SiteNav({
 
         {/* Mobile: language toggle stays visible next to the menu button */}
         <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
           <LanguageToggle />
           {bell}
           <button

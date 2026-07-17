@@ -103,12 +103,12 @@ export default async function ActorPage({ params }: { params: Promise<{ slug: st
             {events.map((e) => {
               const role = e.organizerSlug === slug ? t.organizerPage.roleOrganized : t.organizerPage.roleSponsored;
               return (
-                <Link key={e.slug} href={`/e/${e.slug}`} className="group block rounded-2xl border border-border bg-surface p-4 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md">
+                <Link key={e.slug} href={`/e/${e.slug}`} className="group block rounded-lg border border-border bg-surface p-4 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md">
                   <div className="flex items-center justify-between gap-2">
                     <div className="font-semibold text-foreground transition-colors group-hover:text-accent-strong">{e.name}</div>
                     <Badge tone="outline" size="sm">{role}</Badge>
                   </div>
-                  <div className="mt-1.5 text-sm text-muted">{e.dates} · {e.location}</div>
+                  <div className="hh-ref mt-1.5">{e.dates} · {e.location}</div>
                 </Link>
               );
             })}

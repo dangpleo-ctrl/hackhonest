@@ -89,8 +89,8 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <Section title={t.eventPage.advertisedHeading}>
           <div className="grid gap-3 sm:grid-cols-2">
             {event.claims.map((c) => (
-              <div key={c.label} className="rounded-2xl border border-border bg-surface p-4 shadow-sm">
-                <div className="text-xs font-medium uppercase tracking-wide text-faint">{c.label}</div>
+              <div key={c.label} className="rounded-lg border border-border bg-surface p-4 shadow-sm">
+                <div className="hh-label text-faint">{c.label}</div>
                 <div className="mt-1 text-lg font-semibold text-foreground">{c.value}</div>
                 {c.note && <div className="mt-1 text-xs text-muted">{c.note}</div>}
               </div>
@@ -104,7 +104,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <Section title={t.eventPage.perksHeading}>
           <div className="overflow-hidden rounded-2xl border border-border shadow-sm">
             <table className="w-full text-left text-sm">
-              <thead className="bg-surface-muted text-xs uppercase tracking-wide text-faint">
+              <thead className="bg-surface-muted font-mono text-[0.7rem] uppercase tracking-wider text-faint">
                 <tr>
                   <th className="px-4 py-3 font-semibold">{t.eventPage.perksColProvider}</th>
                   <th className="px-4 py-3 font-semibold">{t.eventPage.perksColAdvertised}</th>
@@ -138,7 +138,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
             {event.tracks.map((tr) => {
               const sponsor = tr.sponsor ? getActor(tr.sponsor) : undefined;
               return (
-                <div key={tr.name} className="rounded-2xl border border-border bg-surface p-4 shadow-sm">
+                <div key={tr.name} className="rounded-lg border border-border bg-surface p-4 shadow-sm">
                   <div className="flex items-center justify-between gap-2">
                     <div className="font-semibold text-foreground">{tr.name}</div>
                     <Badge tone="neutral">{t.eventPage.problemsBadge(tr.problemCount)}</Badge>
@@ -170,7 +170,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
             {Object.entries(winnersByTrack).map(([track, ws]) => {
               const sponsor = ws[0]?.sponsor ? getActor(ws[0].sponsor) : undefined;
               return (
-                <div key={track} className="rounded-2xl border border-border bg-surface p-4 shadow-sm">
+                <div key={track} className="rounded-lg border border-border bg-surface p-4 shadow-sm">
                   <div className="flex items-center justify-between gap-2">
                     <div className="font-semibold text-foreground">{track}</div>
                     {sponsor && (
@@ -200,7 +200,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <Section title={t.eventPage.factsHeading} subtitle={t.eventPage.factsSubtitle}>
           <div className="space-y-3">
             {event.facts.map((f) => (
-              <div key={f.label} className="rounded-2xl border border-border bg-surface p-4 shadow-sm">
+              <div key={f.label} className="rounded-lg border border-border bg-surface p-4 shadow-sm">
                 <div className="font-semibold text-foreground">{f.label}</div>
                 <p className="mt-1 text-sm leading-relaxed text-muted">{f.fact}</p>
                 {f.source && <div className="mt-1 text-xs text-faint">{t.eventPage.source(f.source)}</div>}
@@ -215,7 +215,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <Section title={t.eventPage.problemsHeading((event.problems ?? []).length)} subtitle={t.eventPage.problemsSubtitle}>
           <div className="space-y-4">
             {Object.entries(problemsByTrack).map(([track, ps]) => (
-              <details key={track} className="rounded-2xl border border-border bg-surface p-4 shadow-sm">
+              <details key={track} className="rounded-lg border border-border bg-surface p-4 shadow-sm">
                 <summary className="cursor-pointer font-semibold text-foreground">{track} <span className="font-normal text-faint">({ps.length})</span></summary>
                 <ul className="mt-3 space-y-2">
                   {ps.map((p, i) => (
