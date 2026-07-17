@@ -63,7 +63,7 @@ function DimensionRow({
             <>
               <span
                 className={cn(
-                  "font-semibold",
+                  "font-mono font-semibold",
                   tone ? TONE_TEXT[tone] : "text-foreground",
                 )}
               >
@@ -126,7 +126,7 @@ export function AggregateBar({
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <ShieldCheck aria-hidden="true" className="size-4 text-accent" />
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">
+            <h3 className="hh-label text-faint">
               {resolvedTitle}
             </h3>
           </div>
@@ -139,7 +139,7 @@ export function AggregateBar({
             <div className="flex items-center gap-4">
               <div
                 className={cn(
-                  "text-6xl font-bold leading-none tracking-tight tabular-nums",
+                  "font-mono text-6xl font-semibold leading-none tracking-tight tabular-nums",
                   overallTone ? TONE_TEXT[overallTone] : "text-foreground",
                 )}
               >
@@ -196,7 +196,7 @@ export function AggregateBar({
                 return (
                   <li key={i} className="flex flex-col gap-1.5">
                     <p className="text-sm text-foreground">
-                      <span className="font-semibold tabular-nums">
+                      <span className="font-mono font-semibold tabular-nums">
                         {s.n} {t.common.of} {s.of}
                       </span>{" "}
                       {t.aggregate.reviewersReported}{" "}

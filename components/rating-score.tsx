@@ -64,7 +64,7 @@ export function RatingScore({
     <span className={cn("inline-flex items-center gap-2", className)}>
       <span
         className={cn(
-          "font-bold tabular-nums leading-none",
+          "font-mono font-semibold tabular-nums leading-none",
           NUM_TEXT[size],
           TONE_TEXT[tone],
         )}
