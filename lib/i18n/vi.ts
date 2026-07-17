@@ -22,6 +22,8 @@ export const vi = {
     languageGroup: "Ngôn ngữ",
     switchToEnglish: "Chuyển sang tiếng Anh",
     switchToVietnamese: "Chuyển sang tiếng Việt",
+    switchToDark: "Chuyển sang giao diện tối",
+    switchToLight: "Chuyển sang giao diện sáng",
   },
 
   brand: {

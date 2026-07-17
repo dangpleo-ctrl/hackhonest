@@ -66,6 +66,13 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`${plexSans.variable} ${plexMono.variable} h-full`}>
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground antialiased">
+        {/* Apply the saved light/dark choice before first paint (no flash). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var t=localStorage.getItem('hh-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();",
+          }}
+        />
         <LocaleProvider initialLocale={locale}>
           <SiteNav
             user={user ? { handle: user.handle } : null}

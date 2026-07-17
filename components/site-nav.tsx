@@ -7,6 +7,7 @@ import { brand } from "@/lib/brand";
 import { LOCALES } from "@/lib/i18n";
 import { useT, useLocale, useSetLocale } from "@/lib/i18n/locale-provider";
 import { buttonVariants } from "./ui/button";
+import { ThemeToggle } from "./theme-toggle";
 import { cn } from "./ui/cn";
 
 const WRITE_REVIEW_HREF = "/review/new";
@@ -160,6 +161,7 @@ export function SiteNav({
 
         {/* Desktop language toggle + account + CTA */}
         <div className="hidden items-center gap-2 lg:flex">
+          <ThemeToggle />
           <LanguageToggle />
           {bell}
           {account}
@@ -174,6 +176,7 @@ export function SiteNav({
 
         {/* Mobile: language toggle stays visible next to the menu button */}
         <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
           <LanguageToggle />
           {bell}
           <button
