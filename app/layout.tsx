@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Be_Vietnam_Pro } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import { brand } from "@/lib/brand";
 import { getLocaleAndT } from "@/lib/i18n/server";
 import { getSessionUser } from "@/lib/auth";
@@ -10,12 +10,23 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
 
-// Be Vietnam Pro — designed for Vietnamese + Latin. Not a variable font, so we
-// pin the weights we use. `vietnamese` subset ships the full accented glyph set.
-const beVietnamPro = Be_Vietnam_Pro({
-  variable: "--font-be-vietnam-pro",
-  subsets: ["latin", "vietnamese"],
+// IBM Plex Sans — the engineered, credible voice of "the record". Ships a
+// `vietnamese` subset (this product is Vietnam & SE Asia first), so headlines
+// and body keep full accented coverage. Not a variable font: pin our weights.
+const plexSans = IBM_Plex_Sans({
+  variable: "--font-plex-sans",
+  subsets: ["latin", "latin-ext", "vietnamese"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+// IBM Plex Mono — the signature "ledger / receipt / terminal" voice: labels,
+// record IDs, dates, scores, stamps. Used for short, mostly-ASCII strings, so
+// latin + latin-ext cover it; any localized string falls back to Plex Sans.
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -53,7 +64,7 @@ export default async function RootLayout({
     ? await Promise.all([getUnreadCount(user.id), isModerator()])
     : [0, false];
   return (
-    <html lang={locale} className={`${beVietnamPro.variable} h-full`}>
+    <html lang={locale} className={`${plexSans.variable} ${plexMono.variable} h-full`}>
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground antialiased">
         <LocaleProvider initialLocale={locale}>
           <SiteNav
