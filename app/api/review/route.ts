@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { REVIEW_DIMENSIONS } from "@/lib/types";
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "@/lib/supabase/config";
 
 // Review submission endpoint. Submissions land in a Supabase table (`review_submissions`)
 // as a MODERATION QUEUE — every row is `status: 'pending'` until a human verifies the
@@ -57,8 +58,11 @@ function validate(input: unknown): { ok: true; value: Submission } | { ok: false
 }
 
 async function persist(sub: Submission): Promise<{ queued: boolean }> {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_ANON_KEY; // publishable/anon key — RLS restricts it to INSERT only
+  // Shared config resolves NEXT_PUBLIC_* first with SUPABASE_* fallback — the
+  // forum and this route must never disagree on which env names are live
+  // (a split would keep the forum working while submissions silently drop).
+  const url = SUPABASE_URL;
+  const key = SUPABASE_ANON_KEY; // publishable/anon key — RLS restricts it to INSERT only
   if (!url || !key) {
     console.log("[review] received (no store configured):", JSON.stringify({ ...sub, contact: sub.contact ? "[redacted]" : undefined }));
     return { queued: false };
