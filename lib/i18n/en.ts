@@ -21,6 +21,8 @@ export const en = {
     languageGroup: "Language",
     switchToEnglish: "Switch to English",
     switchToVietnamese: "Switch to Vietnamese",
+    switchToDark: "Switch to dark theme",
+    switchToLight: "Switch to light theme",
   },
 
   // Brand copy that used to live in lib/brand.ts (name stays untranslated).

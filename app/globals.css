@@ -223,11 +223,9 @@ p {
   brightens; chips invert to a dark tint + light text.
 */
 @media (prefers-color-scheme: dark) {
-  html {
+  :root:not([data-theme="light"]) {
     color-scheme: dark;
-  }
 
-  :root {
     /* Neutrals — deep near-black with a hint of blue, layered surfaces. */
     --color-background: #0b0e14;
     --color-surface: #12161f;
@@ -276,14 +274,61 @@ p {
       0 20px 44px -16px rgb(0 0 0 / 0.6), 0 6px 14px -8px rgb(0 0 0 / 0.45);
   }
 
-  /* The stamp reads brighter on dark — lean on the accent border + tint. */
-  .hh-stamp {
-    background-color: color-mix(
-      in srgb,
-      var(--color-accent-subtle) 75%,
-      transparent
-    );
+  :root:not([data-theme="light"]) .hh-stamp {
+    background-color: color-mix(in srgb, var(--color-accent-subtle) 75%, transparent);
   }
+}
+
+/* Explicit dark toggle — identical values, applies regardless of OS setting.
+   Written onto <html> by the nav theme switch; re-applied before first paint
+   by the inline script in app/layout.tsx so a toggle never flashes. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-background: #0b0e14;
+  --color-surface: #12161f;
+  --color-surface-muted: #1a1f2b;
+  --color-surface-sunken: #0e121a;
+  --color-border: #262c39;
+  --color-border-strong: #3a4252;
+
+  --color-foreground: #eef1f5;
+  --color-muted: #c2c9d3;
+  --color-faint: #94a0ae;
+
+  --color-accent: #17a06e;
+  --color-accent-strong: #57d4a4;
+  --color-accent-foreground: #04120c;
+  --color-accent-subtle: #0f2a20;
+  --color-accent-border: #1f5641;
+
+  --color-success: #17a06e;
+  --color-success-subtle: #0f2a20;
+  --color-success-strong: #57d4a4;
+  --color-success-border: #1f5641;
+
+  --color-warning: #d98a1f;
+  --color-warning-subtle: #2a1e08;
+  --color-warning-strong: #f0c06a;
+  --color-warning-border: #4a3410;
+
+  --color-danger: #e04b3c;
+  --color-danger-subtle: #2b1210;
+  --color-danger-strong: #f2a79d;
+  --color-danger-border: #4c1d18;
+
+  --color-rating: #f0b429;
+  --color-rating-track: #3a4252;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --shadow-md:
+    0 4px 16px -6px rgb(0 0 0 / 0.5), 0 2px 5px -3px rgb(0 0 0 / 0.4);
+  --shadow-lg:
+    0 20px 44px -16px rgb(0 0 0 / 0.6), 0 6px 14px -8px rgb(0 0 0 / 0.45);
+}
+
+:root[data-theme="dark"] .hh-stamp {
+  background-color: color-mix(in srgb, var(--color-accent-subtle) 75%, transparent);
 }
 
 /* Respect reduced-motion users everywhere. */
