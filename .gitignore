@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .lstack/
+
+# agent tooling — not part of the product
+.claude/
