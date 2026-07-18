@@ -251,6 +251,8 @@ export const en = {
     errBody: "Please describe what happened (at least 40 characters).",
     errGeneric: "Something went wrong. Please try again.",
     errNetwork: "Network error. Please try again.",
+    errCaptcha: "Please complete the anti-robot check, then try again.",
+    errRateLimited: "You're submitting too often. Please wait a bit and try again.",
     successBody: "Your review has been received and is pending verification.",
     successHeading: "Thank you",
     successNote:
@@ -609,6 +611,10 @@ export const en = {
     errAuth: "Please log in to post.",
     errGeneric: "Something went wrong. Please try again.",
     errNetwork: "Network error. Please try again.",
+    errCaptcha: "Please complete the anti-robot check, then try again.",
+    errRateLimited: "You're posting too often. Please wait a bit and try again.",
+    errConfirmEmail:
+      "Please confirm your email before posting. Check your inbox for the confirmation link.",
 
     // Relative time (unit words; the number is prepended by the formatter)
     justNow: "just now",
@@ -663,6 +669,41 @@ export const en = {
     errEmailInUse: "That email already has an account. Try logging in.",
     errGeneric: "Something went wrong. Please try again.",
     errNetwork: "Network error. Please try again.",
+    errCaptcha: "Please complete the anti-robot check, then try again.",
+    errDisposableEmail:
+      "Please use a permanent email address. Temporary or disposable email services aren't allowed.",
+    errRateLimited: "You're doing that too often. Please wait a bit and try again.",
+    errResetLinkInvalid:
+      "This reset link is invalid or has expired. Please request a new one.",
+
+    // Password reset — request a link
+    forgotPasswordLink: "Forgot your password?",
+    resetMetaTitle: "Reset your password",
+    resetTitle: "Reset your password",
+    resetSubtitle:
+      "Enter your email and we'll send you a link to set a new password.",
+    resetSubmit: "Send reset link",
+    resetSubmitting: "Sending…",
+    resetSentHeading: "Check your email",
+    resetSentBody:
+      "If an account exists for that email, we've sent a link to reset your password. It expires in an hour.",
+    resetBackToLogin: "Back to log in",
+
+    // Password reset — set a new password
+    newPasswordMetaTitle: "Set a new password",
+    newPasswordTitle: "Set a new password",
+    newPasswordSubtitle: "Choose a new password for your account.",
+    newPasswordLabel: "New password",
+    newPasswordSubmit: "Update password",
+    newPasswordSubmitting: "Updating…",
+    newPasswordSuccessHeading: "Password updated",
+    newPasswordSuccessBody:
+      "Your password has been changed. You can now use it to log in.",
+
+    // Confirmation / reset link error page
+    confirmErrorTitle: "This link didn't work",
+    confirmErrorBody:
+      "The confirmation or reset link is invalid or has expired. Try logging in, or request a new link below.",
   },
 
   // ── Account page ────────────────────────────────────────────────────────────
