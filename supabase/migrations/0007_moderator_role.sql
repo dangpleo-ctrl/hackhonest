@@ -1,6 +1,6 @@
 -- HackHonest — two-tier staff: admin (full) + moderator (limited)
 --
--- Before this migration there was ONE tier: an "admin" (the owner email, or any
+-- Before this migration there was ONE tier: an "admin" (any
 -- row in public.admins) who could read + moderate every queue. This adds a second,
 -- deliberately weaker tier so the owner can delegate day-to-day moderation without
 -- handing over the keys.
@@ -26,7 +26,7 @@ alter table public.admins
   add column if not exists role text not null default 'admin'
   check (role in ('admin', 'moderator'));
 
--- ── is_admin(): owner email OR a staff row with role='admin' ───────────────────
+-- ── is_admin(): a staff row with role='admin' ───────────────────
 -- Narrowed from "any admins row" to "an admins row whose role is admin", so a
 -- moderator row does NOT grant admin. security definer so it can read admins
 -- regardless of RLS and be called from other tables' policies.
