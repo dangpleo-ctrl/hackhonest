@@ -6,6 +6,7 @@ import { useT } from "@/lib/i18n/locale-provider";
 import { Input } from "@/components/ui/input";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/components/ui/cn";
+import { Turnstile } from "@/components/turnstile";
 
 const INITIAL: AuthState = {};
 
@@ -85,6 +86,8 @@ export function SignupForm({ next }: { next: string }) {
           {state.error}
         </p>
       )}
+
+      <Turnstile action="signup" />
 
       <button
         type="submit"
