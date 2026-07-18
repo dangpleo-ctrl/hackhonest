@@ -7,6 +7,12 @@ export interface SessionUser {
   handle: string;
   /** Profile creation timestamp (ISO), or null if the profile row is missing. */
   createdAt: string | null;
+  /**
+   * Whether the account's email has been confirmed. Gated actions (posting to
+   * the forum) require this to be true, enforced in code regardless of the
+   * Supabase "Confirm email" dashboard setting.
+   */
+  emailConfirmed: boolean;
 }
 
 /**
@@ -31,6 +37,7 @@ export async function getSessionUser(): Promise<SessionUser | null> {
     id: user.id,
     handle: profile?.handle ?? "user",
     createdAt: profile?.created_at ?? null,
+    emailConfirmed: Boolean(user.email_confirmed_at ?? user.confirmed_at),
   };
 }
 
