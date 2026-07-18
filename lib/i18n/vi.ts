@@ -253,6 +253,9 @@ export const vi = {
     errBody: "Vui lòng mô tả những gì đã xảy ra (ít nhất 40 ký tự).",
     errGeneric: "Có lỗi xảy ra. Vui lòng thử lại.",
     errNetwork: "Lỗi kết nối mạng. Vui lòng thử lại.",
+    errCaptcha: "Vui lòng hoàn thành bước kiểm tra chống robot, rồi thử lại.",
+    errRateLimited:
+      "Bạn đang gửi quá thường xuyên. Vui lòng đợi một chút rồi thử lại.",
     successBody: "Đánh giá của bạn đã được gửi và đang chờ xác minh.",
     successHeading: "Cảm ơn bạn",
     successNote:
@@ -606,6 +609,11 @@ export const vi = {
     errAuth: "Vui lòng đăng nhập để gửi bài.",
     errGeneric: "Đã xảy ra sự cố. Vui lòng thử lại.",
     errNetwork: "Lỗi mạng. Vui lòng thử lại.",
+    errCaptcha: "Vui lòng hoàn thành bước kiểm tra chống robot, rồi thử lại.",
+    errRateLimited:
+      "Bạn đang đăng quá thường xuyên. Vui lòng đợi một chút rồi thử lại.",
+    errConfirmEmail:
+      "Vui lòng xác nhận email trước khi đăng bài. Kiểm tra hộp thư để tìm liên kết xác nhận.",
 
     justNow: "vừa xong",
   },
@@ -654,6 +662,42 @@ export const vi = {
     errEmailInUse: "Email này đã có tài khoản. Hãy thử đăng nhập.",
     errGeneric: "Đã xảy ra sự cố. Vui lòng thử lại.",
     errNetwork: "Lỗi mạng. Vui lòng thử lại.",
+    errCaptcha: "Vui lòng hoàn thành bước kiểm tra chống robot, rồi thử lại.",
+    errDisposableEmail:
+      "Vui lòng dùng địa chỉ email lâu dài. Không chấp nhận email tạm thời hoặc dùng một lần.",
+    errRateLimited:
+      "Bạn đang thao tác quá thường xuyên. Vui lòng đợi một chút rồi thử lại.",
+    errResetLinkInvalid:
+      "Liên kết đặt lại này không hợp lệ hoặc đã hết hạn. Vui lòng yêu cầu liên kết mới.",
+
+    // Đặt lại mật khẩu — yêu cầu liên kết
+    forgotPasswordLink: "Quên mật khẩu?",
+    resetMetaTitle: "Đặt lại mật khẩu",
+    resetTitle: "Đặt lại mật khẩu",
+    resetSubtitle:
+      "Nhập email của bạn và chúng tôi sẽ gửi liên kết để đặt mật khẩu mới.",
+    resetSubmit: "Gửi liên kết đặt lại",
+    resetSubmitting: "Đang gửi…",
+    resetSentHeading: "Kiểm tra email của bạn",
+    resetSentBody:
+      "Nếu tồn tại tài khoản cho email đó, chúng tôi đã gửi liên kết để đặt lại mật khẩu. Liên kết hết hạn sau một giờ.",
+    resetBackToLogin: "Quay lại đăng nhập",
+
+    // Đặt lại mật khẩu — đặt mật khẩu mới
+    newPasswordMetaTitle: "Đặt mật khẩu mới",
+    newPasswordTitle: "Đặt mật khẩu mới",
+    newPasswordSubtitle: "Chọn mật khẩu mới cho tài khoản của bạn.",
+    newPasswordLabel: "Mật khẩu mới",
+    newPasswordSubmit: "Cập nhật mật khẩu",
+    newPasswordSubmitting: "Đang cập nhật…",
+    newPasswordSuccessHeading: "Đã cập nhật mật khẩu",
+    newPasswordSuccessBody:
+      "Mật khẩu của bạn đã được thay đổi. Bây giờ bạn có thể dùng nó để đăng nhập.",
+
+    // Trang lỗi liên kết xác nhận / đặt lại
+    confirmErrorTitle: "Liên kết này không hoạt động",
+    confirmErrorBody:
+      "Liên kết xác nhận hoặc đặt lại không hợp lệ hoặc đã hết hạn. Hãy thử đăng nhập, hoặc yêu cầu liên kết mới bên dưới.",
   },
 
   // ── Trang tài khoản ─────────────────────────────────────────────────────────
