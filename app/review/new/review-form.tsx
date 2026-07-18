@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
+import { Turnstile } from "@/components/turnstile";
 
 export type TargetOption = { value: string; label: string; group: "Organizers" | "Events" };
 
@@ -26,6 +27,8 @@ export function ReviewForm({ options }: { options: TargetOption[] }) {
   const [author, setAuthor] = useState("");
   const [contact, setContact] = useState("");
   const [website, setWebsite] = useState(""); // honeypot — real people leave it empty
+  const [captchaToken, setCaptchaToken] = useState("");
+  const [captchaResetKey, setCaptchaResetKey] = useState(0);
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
 
@@ -52,6 +55,7 @@ export function ReviewForm({ options }: { options: TargetOption[] }) {
       author: author.trim(),
       contact: contact.trim(),
       website,
+      captchaToken,
     };
     try {
       const res = await fetch("/api/review", {
@@ -59,12 +63,18 @@ export function ReviewForm({ options }: { options: TargetOption[] }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = (await res.json()) as { ok: boolean };
+      const data = (await res.json()) as { ok: boolean; code?: string };
       if (res.ok && data.ok) {
         setStatus("success");
         setMessage("");
       } else {
-        setError(t.reviewForm.errGeneric);
+        // The Turnstile token is single-use and was spent on this attempt —
+        // re-challenge so a retry gets a fresh one.
+        setCaptchaToken("");
+        setCaptchaResetKey((k) => k + 1);
+        if (data.code === "captcha") setError(t.reviewForm.errCaptcha);
+        else if (data.code === "rate_limited") setError(t.reviewForm.errRateLimited);
+        else setError(t.reviewForm.errGeneric);
       }
     } catch {
       setError(t.reviewForm.errNetwork);
@@ -162,6 +172,8 @@ export function ReviewForm({ options }: { options: TargetOption[] }) {
       {status === "error" && (
         <p className="rounded-lg border border-danger/30 bg-danger/5 px-4 py-3 text-sm text-danger">{message}</p>
       )}
+
+      <Turnstile action="review" onToken={setCaptchaToken} resetKey={captchaResetKey} />
 
       <div className="flex items-center gap-4">
         <Button type="submit" size="lg" disabled={status === "submitting"}>

@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { REVIEW_DIMENSIONS } from "@/lib/types";
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from "@/lib/supabase/config";
+import { verifyTurnstile } from "@/lib/turnstile";
+import { isRateLimited, clientIp } from "@/lib/rate-limit";
 
 // Review submission endpoint. Submissions land in a Supabase table (`review_submissions`)
 // as a MODERATION QUEUE — every row is `status: 'pending'` until a human verifies the
@@ -9,6 +11,13 @@ import { SUPABASE_URL, SUPABASE_ANON_KEY } from "@/lib/supabase/config";
 // with an anon-INSERT-only policy, so the public can submit but nobody can read submissions
 // back except via the dashboard. If SUPABASE_URL / SUPABASE_ANON_KEY aren't set the route
 // still validates and accepts (logged), so the flow works end-to-end on a fresh deploy.
+//
+// Anti-spam layers, in order (cheapest first so bots pay before we do):
+//   1. Honeypot (`website` must be empty) — free, catches dumb bots.
+//   2. Field validation — free.
+//   3. Cloudflare Turnstile — one siteverify round-trip; rejects when the token is
+//      missing/invalid (skipped only when TURNSTILE_SECRET_KEY isn't configured).
+//   4. Per-IP rate limit — one RPC; fails OPEN if the store is unavailable.
 
 interface Submission {
   actorSlug?: string;
@@ -57,17 +66,21 @@ function validate(input: unknown): { ok: true; value: Submission } | { ok: false
   };
 }
 
-async function persist(sub: Submission): Promise<{ queued: boolean }> {
-  // Shared config resolves NEXT_PUBLIC_* first with SUPABASE_* fallback — the
-  // forum and this route must never disagree on which env names are live
-  // (a split would keep the forum working while submissions silently drop).
-  const url = SUPABASE_URL;
-  const key = SUPABASE_ANON_KEY; // publishable/anon key — RLS restricts it to INSERT only
-  if (!url || !key) {
+/**
+ * The anon Supabase client (publishable key — RLS restricts it to INSERT on
+ * review_submissions and EXECUTE on the rate-limit function). Null when the env
+ * isn't configured, so callers degrade gracefully instead of throwing.
+ */
+function getServiceClient(): SupabaseClient | null {
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) return null;
+  return createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: false } });
+}
+
+async function persist(supabase: SupabaseClient | null, sub: Submission): Promise<{ queued: boolean }> {
+  if (!supabase) {
     console.log("[review] received (no store configured):", JSON.stringify({ ...sub, contact: sub.contact ? "[redacted]" : undefined }));
     return { queued: false };
   }
-  const supabase = createClient(url, key, { auth: { persistSession: false } });
   const { error } = await supabase.from("review_submissions").insert({
     actor_slug: sub.actorSlug ?? null,
     event_slug: sub.eventSlug ?? null,
@@ -96,8 +109,36 @@ export async function POST(req: Request): Promise<Response> {
   }
   const v = validate(json);
   if (!v.ok) return NextResponse.json({ ok: false, error: v.error }, { status: 400 });
+
+  const ip = clientIp(req.headers);
+
+  // Anti-bot: reject when the Turnstile token doesn't verify. The `code` lets the
+  // client show a localized "please complete the anti-robot check" message.
+  const captchaToken =
+    typeof (json as Record<string, unknown>).captchaToken === "string"
+      ? ((json as Record<string, unknown>).captchaToken as string)
+      : "";
+  const captcha = await verifyTurnstile(captchaToken, ip);
+  if (!captcha.success) {
+    return NextResponse.json(
+      { ok: false, code: "captcha", error: "Please complete the anti-robot check, then try again." },
+      { status: 400 },
+    );
+  }
+
+  const supabase = getServiceClient();
+
+  // Per-IP throttle (reviews are anonymous, so there's no account to key on).
+  // Fails open if the store is unavailable — availability wins for this layer.
+  if (supabase && (await isRateLimited(supabase, "review", { ip, accountId: null }))) {
+    return NextResponse.json(
+      { ok: false, code: "rate_limited", error: "You're submitting too often. Please wait a bit and try again." },
+      { status: 429 },
+    );
+  }
+
   try {
-    const { queued } = await persist(v.value);
+    const { queued } = await persist(supabase, v.value);
     return NextResponse.json({
       ok: true,
       queued,
