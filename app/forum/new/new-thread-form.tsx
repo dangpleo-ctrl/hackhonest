@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/components/ui/cn";
+import { Turnstile } from "@/components/turnstile";
 
 interface Entry {
   slug: string;
@@ -122,6 +123,8 @@ export function NewThreadForm({
           {state.error}
         </p>
       )}
+
+      <Turnstile action="forum_thread" />
 
       <button
         type="submit"

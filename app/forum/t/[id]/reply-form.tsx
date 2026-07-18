@@ -5,6 +5,7 @@ import { createPostAction, type PostFormState } from "@/lib/actions/forum";
 import { useT } from "@/lib/i18n/locale-provider";
 import { Textarea } from "@/components/ui/textarea";
 import { buttonVariants } from "@/components/ui/button";
+import { Turnstile } from "@/components/turnstile";
 
 const INITIAL: PostFormState = {};
 
@@ -52,6 +53,7 @@ export function ReplyForm({
         </p>
       )}
       <div className="mt-3">
+        <Turnstile action="forum_reply" className="mb-3" />
         <button
           type="submit"
           disabled={isPending}
