@@ -43,3 +43,8 @@ next-env.d.ts
 
 # agent tooling — not part of the product
 .claude/
+
+# dev/process files — not part of the public product
+AGENTS.md
+CLAUDE.md
+BUILD-PROGRESS.md

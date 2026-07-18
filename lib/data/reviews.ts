@@ -5,17 +5,13 @@ import type { Review } from "@/lib/types";
 //
 // In production, HackHonest hosts ONLY real, first-hand, verified reviews — no fabricated
 // content (that would break both the trust model and the law). The set below is illustrative
-// sample data for the PRIVATE PREVIEW / live demo: it shows the full range the platform
+// sample data for the live demo: it shows the full range the platform
 // captures (well-run events and badly-run ones alike), how verification and right-of-reply
 // render, and how the neutral aggregate reads.
 //
 // The flagship "on the record" case is the Zenith Agent Grand Prix 2026 (organizer Zenith AI
-// Ventures). A real, named, first-hand attendee account is preserved OUT of the rendered site in
-// `reviews-pending-counsel.ts` (never imported); it is held until a public named launch is
-// approved by the owner and a Vietnam / Southeast Asia counsel read clears it.
-//
-// Before any public launch: clear the demo entries below and keep only genuine, verified
-// submissions.
+// Ventures) — a fictional example that shows how the record renders. All entries below are
+// illustrative demo data, not real reviews.
 // ─────────────────────────────────────────────────────────────────────────────
 export const reviews: Review[] = [
   // ══ Zenith Agent Grand Prix 2026 (organizer Zenith AI Ventures) — the flagship case ══════════

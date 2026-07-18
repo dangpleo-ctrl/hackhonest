@@ -2,7 +2,7 @@ import "server-only";
 import { createClient } from "./supabase/server";
 import { actors, events } from "./data";
 
-/** Is the current user an admin? (owner email or an admin staff row — checked in the DB) */
+/** Is the current user an admin? (an admin staff row — checked in the DB) */
 export async function isAdmin(): Promise<boolean> {
   const supabase = await createClient();
   const { data } = await supabase.rpc("is_admin");
@@ -33,8 +33,7 @@ export interface StaffMember {
 /**
  * The current team (admins + moderators), newest first. Readable only by an
  * admin (RLS on public.admins); a moderator calling this gets an empty list.
- * The owner (redacted@example.com) is an admin whether or not they have a row, so
- * they may not appear here — that's expected.
+ * Admins are exactly the rows in public.admins.
  */
 export async function getStaff(): Promise<StaffMember[]> {
   const supabase = await createClient();

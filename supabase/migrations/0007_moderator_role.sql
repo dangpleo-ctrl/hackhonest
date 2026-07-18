@@ -1,13 +1,13 @@
 -- HackHonest — two-tier staff: admin (full) + moderator (limited)
 --
--- Before this migration there was ONE tier: an "admin" (the owner email, or any
+-- Before this migration there was ONE tier: an "admin" (any
 -- row in public.admins) who could read + moderate every queue. This adds a second,
 -- deliberately weaker tier so the owner can delegate day-to-day moderation without
 -- handing over the keys.
 --
 --   admin      — full power: moderate ANY item at ANY status, and manage the team
---                (appoint/remove admins + moderators). The owner (redacted@example.com)
---                is always an admin, table row or not.
+--                (appoint/remove admins + moderators). Admins are exactly the rows
+--                in public.admins with role = 'admin'.
 --   moderator  — can approve/reject items that are still PENDING, and nothing else.
 --                A moderator can NEVER: un-approve or re-open an already-decided item,
 --                DELETE any row, touch any other table, or manage the team.
@@ -26,7 +26,7 @@ alter table public.admins
   add column if not exists role text not null default 'admin'
   check (role in ('admin', 'moderator'));
 
--- ── is_admin(): owner email OR a staff row with role='admin' ───────────────────
+-- ── is_admin(): a staff row with role='admin' ───────────────────
 -- Narrowed from "any admins row" to "an admins row whose role is admin", so a
 -- moderator row does NOT grant admin. security definer so it can read admins
 -- regardless of RLS and be called from other tables' policies.
@@ -38,11 +38,10 @@ security definer
 set search_path = public
 as $$
   select coalesce(
-    lower(auth.jwt() ->> 'email') = 'redacted@example.com'
-      or exists (
-        select 1 from public.admins a
-        where a.user_id = auth.uid() and a.role = 'admin'
-      ),
+    exists (
+      select 1 from public.admins a
+      where a.user_id = auth.uid() and a.role = 'admin'
+    ),
     false
   );
 $$;
