@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 import { signInAction, type AuthState } from "@/lib/actions/auth";
 import { useT } from "@/lib/i18n/locale-provider";
@@ -45,6 +46,12 @@ export function LoginForm({ next }: { next: string }) {
           placeholder={t.auth.passwordPlaceholder}
           invalid={!!state.error}
         />
+        <Link
+          href="/auth/reset"
+          className="self-start text-xs font-medium text-accent-strong hover:underline"
+        >
+          {t.auth.forgotPasswordLink}
+        </Link>
       </div>
 
       {state.error && (
