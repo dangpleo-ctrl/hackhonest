@@ -14,8 +14,8 @@ create table if not exists public.admins (
 );
 alter table public.admins enable row level security;
 
--- is_admin(): true if the current user is the owner (by VERIFIED account email)
--- or listed in admins. security definer so it can read admins regardless of RLS,
+-- is_admin(): true if the current user is listed in the admins table. security
+-- definer so it can read admins regardless of RLS,
 -- and so RLS policies on other tables can call it.
 create or replace function public.is_admin()
 returns boolean
@@ -25,8 +25,7 @@ security definer
 set search_path = public
 as $$
   select coalesce(
-    lower(auth.jwt() ->> 'email') = 'dangpleo@gmail.com'
-      or exists (select 1 from public.admins a where a.user_id = auth.uid()),
+    exists (select 1 from public.admins a where a.user_id = auth.uid()),
     false
   );
 $$;

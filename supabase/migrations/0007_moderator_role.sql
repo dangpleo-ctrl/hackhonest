@@ -6,8 +6,8 @@
 -- handing over the keys.
 --
 --   admin      — full power: moderate ANY item at ANY status, and manage the team
---                (appoint/remove admins + moderators). The owner (dangpleo@gmail.com)
---                is always an admin, table row or not.
+--                (appoint/remove admins + moderators). Admins are exactly the rows
+--                in public.admins with role = 'admin'.
 --   moderator  — can approve/reject items that are still PENDING, and nothing else.
 --                A moderator can NEVER: un-approve or re-open an already-decided item,
 --                DELETE any row, touch any other table, or manage the team.
@@ -38,11 +38,10 @@ security definer
 set search_path = public
 as $$
   select coalesce(
-    lower(auth.jwt() ->> 'email') = 'dangpleo@gmail.com'
-      or exists (
-        select 1 from public.admins a
-        where a.user_id = auth.uid() and a.role = 'admin'
-      ),
+    exists (
+      select 1 from public.admins a
+      where a.user_id = auth.uid() and a.role = 'admin'
+    ),
     false
   );
 $$;

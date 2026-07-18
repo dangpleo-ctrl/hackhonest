@@ -5,7 +5,7 @@ import type { Review } from "@/lib/types";
 //
 // In production, HackHonest hosts ONLY real, first-hand, verified reviews — no fabricated
 // content (that would break both the trust model and the law). The set below is illustrative
-// sample data for the PRIVATE PREVIEW / live demo: it shows the full range the platform
+// sample data for the live demo: it shows the full range the platform
 // captures (well-run events and badly-run ones alike), how verification and right-of-reply
 // render, and how the neutral aggregate reads.
 //
